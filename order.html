@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script defer src="https://unpkg.com/feather-icons"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script defer src="js/script.js"></script>
+    <script defer type="module" src="js/script.js"></script>
     <title>Solicitação - Derby Commercy</title>
 </head>
 
@@ -26,25 +26,26 @@
             </div>
 
         </div>
-        <div class="heading main-container">
+        <div class="heading logo-heading main-container">
             <h1 class="main-logo">Derby<span>.</span></h1>
             <div class="search-input-div">
                 <i data-feather="search"></i>
                 <input type="text" placeholder="Procurar producto" class="search-input">
             </div>
-            <div> <i data-feather="shopping-cart"></i></div>
+            <div class="cart-btn"> <i data-feather="shopping-cart"></i></div>
         </div>
     </header>
     <menu class="main-menu">
         <div class="main-container">
 
             <ul class="main-menu-list">
-                <li><a href="index.html" class="main-nav-link">Home</a></li>
+                <li><a href="" class="main-nav-link">Home</a></li>
                 <li><a href="products.html" class="main-nav-link">Productos</a></li>
                 <li><a href="detail.html" class="main-nav-link">Detalhe</a></li>
-                <li><a href="order.html" class="main-nav-link">Pedido</a></li>
+                <li><a href="order.html" class="main-nav-link">Checkout</a></li>
             </ul>
         </div>
+        <button class="btn-toggle-menu"><i data-feather="menu"></i></button>
     </menu>
     <div class="section-heading">
         <div class="main-container">

@@ -306,7 +306,7 @@
     }
 
     .main-menu {
-        justify-content: right;
+        justify-content: left !important;
         position: relative;
         height: 4rem;
 
@@ -314,15 +314,17 @@
 
     .btn-toggle-menu {
         display: block !important;
-        padding: 0 2rem;
+        padding: 0;
         background: none;
+        margin-right: 100%;
     }
 
     .main-menu-list {
         position: absolute;
         top: 4rem;
         left: 0;
-        background-color: rgba(255, 255, 255, 0.918);
+        background-color: rgba(255, 255, 255, 0.863);
+        backdrop-filter: blur(5rem);
         padding: 0rem 2rem;
 
         flex-direction: column;
@@ -332,8 +334,7 @@
         max-height: 0rem;
         overflow: hidden;
         display: none;
-        backdrop-filter: blur(50px);
-        transition: all 0.5s ease-in;
+        transition: all 0.3s ease-in;
     }
 
     .show-menu .main-menu-list {

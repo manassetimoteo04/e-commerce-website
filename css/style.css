@@ -24,7 +24,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-size: 'Roboto', arial;
+    font-family: 'Roboto', arial;
 }
 
 html {
@@ -123,6 +123,13 @@ header {
     outline: none;
 }
 
+.sticky .cart-btn {
+    position: fixed;
+    top: 1.5rem;
+    right: 4rem;
+    color: var(--Dark-2);
+    z-index: 999999;
+}
 
 /* MENU */
 .main-menu {
@@ -131,6 +138,17 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 6rem;
+}
+
+.sticky .main-menu {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.863);
+    backdrop-filter: blur(5rem);
 }
 
 .btn-toggle-menu {
@@ -171,8 +189,13 @@ header {
 
 }
 
+.sticky .logo-heading {
+    margin-bottom: 6rem;
+}
 
 /* CONTAINER DE COLEÇÃO */
+
+
 .grid-3-columns {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
