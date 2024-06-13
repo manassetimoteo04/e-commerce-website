@@ -1,0 +1,121 @@
+:root {
+    --Body-color: #333;
+    --Headers-color: #2B2D42;
+    --Primary-color: #D10024;
+    --Dark-color: #15161D;
+    --Dark-2: #1E1F29;
+    --Grey: #E4E7ED;
+    --Grey-2: #FBFBFC;
+    --Grey-3: #8D99AE;
+    /* --Grey-4: #B9BABC; */
+    --Grey-4: #f5f5f5;
+
+}
+
+.order-product-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    margin-bottom: 8rem;
+    gap: 3rem;
+}
+
+.order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+
+}
+
+.order-form input,
+.order-form textarea {
+    padding: 1.4rem;
+    border: 1px solid var(--Grey);
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.order-form input:focus,
+.order-form textarea:focus {
+    outline: none;
+}
+
+.confirm-order {
+    padding: 1.4rem;
+    background: var(--Primary-color);
+    font-weight: 600;
+    font-size: inherit;
+    color: var(--Grey-2);
+    font-family: inherit;
+    border-radius: 5rem;
+    border: 2px solid var(--Primary-color);
+}
+
+.confirm-order:hover {
+    background: none;
+    color: var(--Primary-color);
+}
+
+.order-detail {
+    padding: 2rem;
+
+}
+
+.order-detail h2 {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.order-subheader {
+    font-weight: 600;
+    color: var(--Headers-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-product-list {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.product,
+.shipp-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shipping-type {
+    font-weight: 600;
+    color: var(--Headers-color);
+}
+
+.total-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: var(--Headers-color);
+}
+
+.order-total-amount {
+    font-size: 2.8rem;
+    color: var(--Primary-color);
+}
+
+.obs-header {
+    color: var(--Primary-color);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.obs-text {
+    line-height: 1.6;
+}

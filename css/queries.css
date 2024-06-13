@@ -1,0 +1,276 @@
+/* MAX-WIDTH 999PX */
+@media (max-width: 62.4375em) {
+    .week {
+
+        padding: 4rem 0;
+    }
+
+    .top-selling-products-grid {
+        gap: 2rem;
+        row-gap: 3REM;
+    }
+
+    .top-sell-product-content .product-name {
+        font-size: 1.4rem;
+    }
+
+    .comment-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 3rem;
+
+    }
+
+    .product-comment {
+        grid-row: 1;
+        grid-column: 1/-1;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+
+    }
+
+    .product-images-div {
+        justify-self: center;
+    }
+
+
+}
+
+/* MAX-WIDTH 863PX */
+@media (max-width: 53.9375em) {
+
+    .product-categories {
+
+        grid-template-columns: 1fr 2fr !important;
+
+    }
+
+    .grid-3-columns {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .grid-4-columns {
+
+        grid-template-columns: repeat(2, 1fr) !important;
+
+    }
+
+    .top-selling-products-grid {
+
+        grid-template-columns: repeat(2, 1fr) !important;
+
+    }
+
+    .footer-grid {
+
+        grid-template-columns: 2fr 1fr 1fr !important;
+
+
+    }
+
+}
+
+/* MAX-WIDTH 718PX */
+@media (max-width: 44.875em) {
+    .products-most-selled .most-selled-product-list {
+        grid-template-columns: 1fr !important;
+    }
+
+    .product-categories {
+
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .product-grid-3-cl {
+
+        grid-template-columns: repeat(2, 1fr) !important;
+
+    }
+
+    .search-input-div {
+
+        width: 30rem !important;
+
+    }
+
+    .week-deal {
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr !important;
+        align-items: center;
+        gap: 4rem;
+    }
+
+    .time-boxes {
+        background-color: var(--Primary-color);
+        width: 5rem !important;
+        height: 5rem !important;
+
+    }
+
+    .num {
+        display: block;
+        font-weight: 600;
+        font-size: 1.4rem !important;
+    }
+
+    .cont {
+        font-size: 1rem !important;
+
+    }
+
+    .deal-title {
+        font-size: 1.8rem !important;
+
+    }
+
+    .deal-sentence {
+        font-size: 1.4rem !important;
+        text-align: center;
+    }
+
+    .top-sell-product-box {
+
+        gap: 0.4rem !important;
+
+    }
+
+    .top-sell-product-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+
+    .top-selling-products-grid {
+        row-gap: 3rem !important;
+    }
+
+    .related-product-grid {
+        grid-template-columns: 1fr 1fr !important;
+
+    }
+
+    .comment-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .order-product-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        margin-bottom: 8rem;
+        gap: 3rem;
+    }
+
+    .order-form,
+    .order-detail {
+        padding: 0 !important;
+    }
+
+}
+
+/* MAX-WIDTH 572PX */
+@media (max-width: 35.75em) {
+    .contact-header-box div div:nth-child(1) {
+        display: none !important;
+    }
+
+    .contact-header-box .main-container {
+        justify-content: right !important;
+    }
+
+    .week-deal {
+        justify-content: center !important;
+        grid-template-columns: 1fr !important;
+        text-align: center;
+        gap: 1rem !important;
+
+    }
+
+    .week-deal img {
+        width: 50% !important;
+
+    }
+
+    .related-product-grid {
+        grid-template-columns: 1fr !important;
+
+    }
+
+}
+
+/* MAX-WIDTH 514PX */
+@media (max-width: 32.125em) {
+    .heading {
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .search-input-div {
+
+        width: 20rem !important;
+
+    }
+
+    .top-selling-products-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .top-sell-product-box:not(:last-child) {
+        border-bottom: 1px solid var(--Grey);
+
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .footer-grid .about-us {
+        grid-column: 1/-1;
+        margin-bottom: 2rem;
+    }
+
+    .grid-3-columns {
+        grid-template-columns: 1fr !important;
+    }
+
+    .grid-4-columns {
+        grid-template-columns: 1fr !important;
+    }
+
+    .product-categories {
+
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .product-grid-3-cl {
+
+        grid-template-columns: repeat(1, 1fr) !important;
+
+    }
+}
+
+
+/* MAX-WIDTH 454PX */
+@media (max-width: 28.255em) {
+    .heading {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .search-input-div {
+        grid-row: 1;
+        grid-column: 1/-1;
+        width: 100% !important;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
