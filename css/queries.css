@@ -71,6 +71,11 @@
 
     }
 
+    .admin-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+
 }
 
 /* MAX-WIDTH 718PX */
@@ -199,6 +204,10 @@
 
     }
 
+    .admin-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
 }
 
 /* MAX-WIDTH 514PX */
@@ -252,6 +261,16 @@
         grid-template-columns: repeat(1, 1fr) !important;
 
     }
+
+    .product-admin-detail .grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .btn-close-product-detail {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
 }
 
 
@@ -259,9 +278,10 @@
 @media (max-width: 28.255em) {
     .heading {
         display: grid !important;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
         gap: 2rem;
+        justify-content: space-between;
     }
 
     .search-input-div {
@@ -272,5 +292,63 @@
 
     .footer-grid {
         grid-template-columns: 1fr !important;
+    }
+
+    .admin-grid {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+
+    .heading h1 {}
+
+    .cart-btn {
+        display: flex;
+        justify-content: right;
+    }
+
+    .main-menu {
+        justify-content: right;
+        position: relative;
+        height: 4rem;
+
+    }
+
+    .btn-toggle-menu {
+        display: block !important;
+        padding: 0 2rem;
+        background: none;
+    }
+
+    .main-menu-list {
+        position: absolute;
+        top: 4rem;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.918);
+        padding: 0rem 2rem;
+
+        flex-direction: column;
+        z-index: 999;
+        width: 100%;
+        align-items: flex-start !important;
+        max-height: 0rem;
+        overflow: hidden;
+        display: none;
+        backdrop-filter: blur(50px);
+        transition: all 0.5s ease-in;
+    }
+
+    .show-menu .main-menu-list {
+        max-height: 30rem;
+    }
+
+    .main-menu-list li:first-child {
+        margin-top: 2rem;
+    }
+
+    .main-menu-list li {
+        width: 100%;
+    }
+
+    .main-menu-list li:last-child {
+        margin-bottom: 2rem;
     }
 }

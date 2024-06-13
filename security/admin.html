@@ -26,12 +26,9 @@
             </div>
 
         </div>
-        <div class="heading main-container">
+        <div class="heading-admin main-container">
             <h1 class="main-logo">Derby<span>.</span></h1>
-            <div class="search-input-div">
-                <i data-feather="search"></i>
-                <input type="text" placeholder="Procurar producto" class="search-input">
-            </div>
+
             <div class="all-orders"> <i data-feather="folder"></i>
                 Pedidos
             </div>
@@ -62,10 +59,15 @@
         <div class="admin-section">
             <div class="admin-header">
 
-                <button class="register-new-product"> <i data-feather="plus"></i>Cadastrar Producto</button>
+                <button class="register-new-product"> <i data-feather="plus"></i>Producto</button>
 
-                <button class="create-category"> <i data-feather="plus"></i>Criar Categoria</button>
+                <button class="create-category"> <i data-feather="plus"></i>Categoria</button>
             </div>
+
+        </div>
+        <div class="search-input-div-admin">
+            <i data-feather="search"></i>
+            <input type="text" placeholder="Procurar producto" class="search-input">
         </div>
         <div class="admin-grid">
             <div class="product-box-admin">
@@ -185,7 +187,7 @@
         <button class="btn-prev-page"> <i data-feather="chevron-right"></i></button>
     </div>
 
-    <div class="add-new-product-container">
+    <div class="add-new-product-container hidden ">
         <div class="new-product-form-overlay"></div>
         <form action="" class="add-new-product-form">
             <h4 class="heading-h4">Cadastrar Producto <span class="close-form"><i data-feather="x"></i></span></h4>
@@ -228,6 +230,48 @@
 
         </form>
     </div>
+    <div class="product-detail-admin-container hidden">
+        <div class="overlay-product-detail"></div>
+        <div class="product-admin-detail">
+
+
+            <div class="grid">
+
+                <div class="product-img-box">
+
+                    <button class="btn-prev-product-img"><i data-feather="chevron-left"></i></button>
+                    <button class="btn-next-product-img"><i data-feather="chevron-right"></i></button>
+                    <img src="../img/product02.png" alt="">
+
+                </div>
+                <div class="product-detail-container">
+                    <span class="product-admin-name">MacBook Pro 2017 <span class="btn-close-product-detail"><i
+                                data-feather="x"></i></span></span>
+                    <div class="product-rating">
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    <div class="product-price-admin">
+
+                        <span class="product-admin-price">$34539</span>
+                        <span class="last-product-price">$74094</span>
+                    </div>
+
+                    <span class="product-description-admin">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur exercitationem aspernatur
+                        hic
+                        voluptatibus
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
     <footer>
         <div class="main-container">
