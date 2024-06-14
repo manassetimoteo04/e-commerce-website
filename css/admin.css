@@ -114,8 +114,6 @@ body {
     gap: 0.5rem;
 }
 
-
-
 .product-admin-name {
     text-transform: uppercase;
     color: grey;
@@ -344,13 +342,33 @@ body {
 .product-img-box {
     display: grid;
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    overflow-x: hidden;
+    height: 30rem;
+
 }
+
+.admin-slide-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* position: relative; */
+    padding: 2rem;
+    width: 100%;
+}
+
+/* width: 100%;
+    background-color: #D10024;
+    position: relative;
+} */
 
 .product-img-box button {
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
     position: absolute;
+    z-index: 9999;
     top: 50%;
     transform: translateY(-50%);
 }

@@ -78,6 +78,7 @@ class endpointsApp {
           id: doc.id,
           data: doc.data(),
         };
+        console.log(doc.data());
         list.push(value);
       });
       feather.replace();
@@ -132,9 +133,9 @@ class endpointsApp {
         await Promise.all(deletePromises);
 
         await deleteDoc(doc(this.db, "productos", productId));
-        if (!storageRef) {
-          await deleteDoc(doc(this.db, "productos", productId));
-        }
+        // if (!storageRef) {
+        //   await deleteDoc(doc(this.db, "productos", productId));
+        // }
         console.log("Produto e imagens excluídos com sucesso");
         this.getProducts();
       } else {

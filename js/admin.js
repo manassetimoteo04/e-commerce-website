@@ -240,3 +240,34 @@ class adminClass {
 
 const admin = new adminClass();
 export { admin };
+
+const next = document.querySelector(".btn-next-product-img");
+const previous = document.querySelector(".btn-prev-product-img");
+const imgsSlide = document.querySelectorAll(".admin-slide-img");
+let currSlide = 0;
+
+// imgsSlide.forEach((img, i) => {
+//   img.style.transform = `translateX(${i * 100}%)`;
+// });
+
+const goToSlide = function (slide) {
+  imgsSlide.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+goToSlide(0);
+const maxSlide = imgsSlide.length - 1;
+
+const nextSlide = function () {
+  currSlide === maxSlide ? (currSlide = 0) : currSlide++;
+  goToSlide(currSlide);
+};
+
+const prevSlide = function () {
+  currSlide === 0 ? (currSlide = maxSlide) : currSlide--;
+  goToSlide(currSlide);
+  //   alert("");
+};
+
+next?.addEventListener("click", nextSlide);
+previous?.addEventListener("click", prevSlide);
