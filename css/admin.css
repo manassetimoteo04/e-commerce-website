@@ -182,7 +182,8 @@ body {
     z-index: -2;
 }
 
-.add-new-product-form {
+.add-new-product-form,
+.update-product-form {
     background-color: var(--Grey-2);
     padding: 2rem;
     max-width: 50rem;
@@ -199,7 +200,8 @@ body {
     justify-content: space-between;
 }
 
-.add-new-product-form div {
+.add-new-product-form div,
+.update-product-form div {
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -207,7 +209,9 @@ body {
 }
 
 .add-new-product-form input,
-.add-new-product-form textarea {
+.add-new-product-form textarea,
+.update-product-form input,
+.update-product-form textarea {
     padding: 1rem;
     border: 1px solid var(--Grey);
     font-size: inherit;
@@ -215,7 +219,9 @@ body {
 }
 
 .add-new-product-form input:focus,
-.add-new-product-form textarea:focus {
+.add-new-product-form textarea:focus,
+.update-product-form input:focus,
+.update-product-form textarea:focus {
     outline: none;
 }
 
@@ -262,13 +268,18 @@ body {
     opacity: 0;
 }
 
-.btn-confirm-add-product {
+.btn-confirm-add-product,
+.btn-update-product {
     padding: 1.4rem;
     font-size: inherit;
     font-weight: 600;
     color: var(--Grey-2);
     background-color: var(--Primary-color);
     border-radius: 5rem;
+}
+
+.btn-update-product {
+    margin-top: 3rem;
 }
 
 .hidden {

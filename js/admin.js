@@ -1,5 +1,6 @@
 import { endpoint } from "./data/endpoints.js";
 class adminClass {
+  currentProductId;
   constructor() {
     this.btnShowNewProductForm = document.querySelector(
       ".register-new-product"
@@ -14,7 +15,9 @@ class adminClass {
     this.btnConfirmAddNewProduct = document.querySelector(
       ".btn-confirm-add-product"
     );
-
+    this.newProductForm = document.querySelector(".add-new-product-form");
+    this.updateProductForm = document.querySelector(".update-product-form");
+    this.btnUpdateProduct = document.querySelector(".btn-update-product");
     //EVENT LISTENERS
     this.btnShowNewProductForm?.addEventListener(
       "click",
@@ -36,7 +39,10 @@ class adminClass {
       "click",
       this._addNewProduct.bind(this)
     );
-
+    this.btnUpdateProduct?.addEventListener(
+      "click",
+      this._updateProductById.bind(this)
+    );
     //
     endpoint.getProducts().then((pt) => {
       this._renderAdminProduct(pt);
@@ -47,6 +53,8 @@ class adminClass {
   //MOSTRANDO O FORMULÁRIO PARA ADICIONAR NOVO PRODUCTO
   _showNewProductForm() {
     this.newProductFormContainer.classList.remove("hidden");
+    this.newProductForm.classList.remove("hidden");
+    this.updateProductForm.classList.add("hidden");
   }
 
   //ADICIONAR NOVO PRODUCTO
@@ -85,6 +93,9 @@ class adminClass {
     const id = element.dataset.id;
     console.log(id);
     endpoint.deleteProduct(id);
+    await endpoint.getProducts().then((pt) => {
+      this._renderAdminProduct(pt);
+    });
   }
   //FECHAR O FORM PARA ADICIONAR NOVO PRODUCTO
   _closeNewProductForm(e) {
@@ -103,6 +114,9 @@ class adminClass {
     }
     if (target.closest(".edit-product")) {
       this._showNewProductForm();
+      this.newProductForm.classList.add("hidden");
+      this.updateProductForm.classList.remove("hidden");
+      this._updateProduct(target);
     }
     if (target.closest(".delete-product")) {
       this._deleteProduct(target);
@@ -146,14 +160,57 @@ class adminClass {
     const productDescription = document.querySelector(
       ".product-description-admin"
     );
+    console.log(productName, productPrice);
     const productImg = document.querySelector(".product-img-box img");
+    let datat;
     endpoint.getProductById(targetId).then((data) => {
-      console.log(data);
-      productName.textContent = data.name;
+      datat = data;
       productImg.src = data.images[0];
       productPrice.textContent = data.price;
+      productName.textContent = data.name;
       productDescription.textContent = data.description;
     });
+  }
+  _updateProduct(target) {
+    const targetId = target.closest(".product-box-admin").dataset.id;
+    this.currentProductId = targetId;
+    const productName = document.querySelector(".input-update-name");
+    const productCategory = document.querySelector(".input-update-category");
+    const productDescription = document.querySelector(
+      ".input-update-description"
+    );
+    const productPrice = document.querySelector(".input-update-price");
+    endpoint.getProductById(targetId).then((data) => {
+      productName.value = data.name;
+      productCategory.value = data.category;
+      productDescription.value = data.description;
+      productPrice.value = data.price;
+    });
+  }
+  async _updateProductById(e) {
+    e.preventDefault();
+    const productName = document.querySelector(".input-update-name").value;
+    const productCategory = document.querySelector(
+      ".input-update-category"
+    ).value;
+    const productDescription = document.querySelector(
+      ".input-update-description"
+    ).value;
+    const productPrice = document.querySelector(".input-update-price").value;
+
+    const data = {
+      name: productName,
+      description: productDescription,
+      price: productPrice,
+      category: productCategory,
+    };
+    console.log(data, this.targetId);
+
+    await endpoint.updateProduct(this.currentProductId, data);
+    await endpoint.getProducts().then((pt) => {
+      this._renderAdminProduct(pt);
+    });
+    this.newProductFormContainer.classList.add("hidden");
   }
   _renderAdminProduct(list) {
     const producList = document.querySelector(".admin-grid");
