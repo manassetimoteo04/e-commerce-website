@@ -194,7 +194,9 @@ header {
 }
 
 /* CONTAINER DE COLEÇÃO */
-
+.sticky .grid-3-columns {
+    margin-top: 12rem;
+}
 
 .grid-3-columns {
     display: grid;

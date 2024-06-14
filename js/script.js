@@ -1,4 +1,5 @@
 import { admin } from "./admin.js";
+import { endpoint } from "./data/endpoints.js";
 feather.replace();
 
 class mainApp {
