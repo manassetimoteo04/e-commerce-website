@@ -35,7 +35,7 @@ class endpointsApp {
     this.db = getFirestore(this.app);
     this.storage = getStorage(this.app);
     // this.addProduct("Produto 1", "Descrição do Produto 1", 100.0);
-    this.deleteProduct("H3CZ0DLOcv1QSXRUA3Rg");
+    this.getProductById("pYrvCxSeOfVqyrnZ7QSj");
     // this.getProducts();
   }
 
@@ -80,6 +80,8 @@ class endpointsApp {
         };
         list.push(value);
       });
+      feather.replace();
+
       //   console.log(`${doc.id} =>`, doc.data());
       return list;
     } catch (e) {
@@ -87,6 +89,24 @@ class endpointsApp {
     }
   }
 
+  // Função para pegar o producto pelo ID
+  async getProductById(productId) {
+    try {
+      const productRef = doc(this.db, "productos", productId);
+      const productDoc = await getDoc(productRef);
+
+      if (productDoc.exists()) {
+        console.log("Produto encontrado:", productDoc.data());
+
+        return productDoc.data();
+      } else {
+        console.log("Nenhum produto encontrado com o ID fornecido.");
+        return null;
+      }
+    } catch (e) {
+      console.error("Erro ao obter produtos: ", e);
+    }
+  }
   // Função para atualizar um produto
   async updateProduct(productId, updatedData) {
     try {
@@ -103,16 +123,18 @@ class endpointsApp {
     try {
       const productDoc = await getDoc(doc(this.db, "productos", productId));
       const productData = productDoc.data();
-
+      let storageRef;
       if (productData && productData.images) {
         const deletePromises = productData.images.map(async (url) => {
-          const storageRef = ref(this.storage, url);
+          storageRef = ref(this.storage, url);
           await deleteObject(storageRef);
         });
         await Promise.all(deletePromises);
 
         await deleteDoc(doc(this.db, "productos", productId));
-
+        if (!storageRef) {
+          await deleteDoc(doc(this.db, "productos", productId));
+        }
         console.log("Produto e imagens excluídos com sucesso");
         this.getProducts();
       } else {
@@ -123,15 +145,6 @@ class endpointsApp {
     }
   }
 }
-
-// // Exemplos de uso das funções CRUD
-// (async call () {
-//   await addProduct("Produto 1", "Descrição do Produto 1", 100.0);
-//   await getProducts();
-//   // Use IDs de produtos válidos para as operações abaixo
-//   // await updateProduct('produto_id_1', { price: 120.00 });
-//   // await deleteProduct('produto_id_1');
-// })();
 
 const endpoint = new endpointsApp();
 export { endpoint };

@@ -73,7 +73,11 @@ class adminClass {
         productCategory,
         files
       );
+
       this.newProductFormContainer.classList.add("hidden");
+      await endpoint.getProducts().then((pt) => {
+        this._renderAdminProduct(pt);
+      });
     } else alert("preenche todos os campos");
   }
   async _deleteProduct(e) {
@@ -95,6 +99,7 @@ class adminClass {
     const target = e.target;
     if (target.closest(".see-product")) {
       this.productDetailContainer.classList.remove("hidden");
+      this._adminProductDetail(target);
     }
     if (target.closest(".edit-product")) {
       this._showNewProductForm();
@@ -112,6 +117,7 @@ class adminClass {
       this.productDetailContainer.classList.add("hidden");
     }
   }
+
   // MANIPULANDO O INPUT PARA UPLOAD DE IMAGENS
   uploadProductImgPreview() {
     const inputFile = document.querySelectorAll(".upload-img input");
@@ -133,9 +139,25 @@ class adminClass {
       })
     );
   }
-
+  _adminProductDetail(target) {
+    const targetId = target.closest(".product-box-admin").dataset.id;
+    const productName = document.querySelector(".product-admin-name");
+    const productPrice = document.querySelector(".product-admin-price");
+    const productDescription = document.querySelector(
+      ".product-description-admin"
+    );
+    const productImg = document.querySelector(".product-img-box img");
+    endpoint.getProductById(targetId).then((data) => {
+      console.log(data);
+      productName.textContent = data.name;
+      productImg.src = data.images[0];
+      productPrice.textContent = data.price;
+      productDescription.textContent = data.description;
+    });
+  }
   _renderAdminProduct(list) {
     const producList = document.querySelector(".admin-grid");
+    if (!producList) return;
     producList.innerHTML = "";
     list.forEach((item) => {
       console.log(item.data);
@@ -147,10 +169,10 @@ class adminClass {
         <span class="product-admin-price">${item.data.price}</span>
     </div>
     <div class="admin-product-action">
-        <button class="edit-product">edit<i data-feather="edit"></i></button>
-        <button class="copy-product">copy<i data-feather="copy"></i></button>
-        <button class="see-product">see<i data-feather="eye"></i></button>
-        <button class="delete-product">delete<i data-feather="trash-2"></i></button>
+        <button class="edit-product"><ion-icon name="create-outline"></ion-icon></button>
+        <button class="copy-product"><ion-icon name="copy-outline"></ion-icon></button>
+        <button class="see-product"><ion-icon name="eye-outline"></ion-icon></i></button>
+        <button class="delete-product"><ion-icon name="trash-outline"></ion-icon></button>
     </div>
     </div>
     `;
