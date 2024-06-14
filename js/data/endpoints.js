@@ -72,13 +72,11 @@ class endpointsApp {
     try {
       const querySnapshot = await getDocs(collection(this.db, "productos"));
       let list = [];
-      console.log(querySnapshot);
       querySnapshot.forEach((doc) => {
         const value = {
           id: doc.id,
           data: doc.data(),
         };
-        console.log(doc.data());
         list.push(value);
       });
       feather.replace();
@@ -97,8 +95,6 @@ class endpointsApp {
       const productDoc = await getDoc(productRef);
 
       if (productDoc.exists()) {
-        console.log("Produto encontrado:", productDoc.data());
-
         return productDoc.data();
       } else {
         console.log("Nenhum produto encontrado com o ID fornecido.");

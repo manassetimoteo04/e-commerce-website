@@ -1,4 +1,5 @@
 import { admin } from "./admin.js";
+import { detail } from "./detail.js";
 import { endpoint } from "./data/endpoints.js";
 feather.replace();
 
@@ -8,6 +9,7 @@ class mainApp {
     this.btnToggleMenu?.addEventListener("click", this._toggleMenu.bind(this));
     this.header = document.querySelector(".logo-heading");
     this.recentPRoductGrid = document.querySelector(".grid-4-columns");
+
     console.log(this.header);
     this._obserserAddSticky();
     endpoint.getProducts().then((pt) => {
@@ -17,6 +19,7 @@ class mainApp {
       this._renderMostSelledProduct(pt);
     });
   }
+
   _toggleMenu() {
     const body = document.querySelector("body");
     body.classList.toggle("show-menu");
@@ -39,6 +42,7 @@ class mainApp {
   }
   _renderRecentProduct(list) {
     console.log(list);
+    if (!this.recentPRoductGrid) return;
     this.recentPRoductGrid.innerHTML = "";
     list.forEach((item) => {
       const html = `
@@ -60,15 +64,15 @@ class mainApp {
               <i data-feather="star"></i>
           </div>
           <div class="see-product-details">
-              <button> <i data-feather="star"></i></button>
-              <button> <i data-feather="eye"></i></button>
+              <a href=""> <i data-feather="star"></i></a>
+              <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}"> <i data-feather="eye"></i></a>
 
           </div>
 
       </div>
       <div class="add-product-to-cart-div">
 
-          <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
+          <button class="add-to-cart">Adicionar<i data-feather="shopping-cart"></i></button>
       </div>
   </div>
         `;
@@ -101,32 +105,32 @@ class mainApp {
 }
 const app = new mainApp();
 
-const detailsImgs = document.querySelectorAll(".product-slide-img");
-const next = document.querySelector(".prev");
-const prev = document.querySelector(".next");
-let currSlide = 0;
+// const detailsImgs = document.querySelectorAll(".product-slide-img");
+// const next = document.querySelector(".prev");
+// const prev = document.querySelector(".next");
+// let currSlide = 0;
 
-const goSLide = function (slide) {
-  detailsImgs.forEach((d, i) => {
-    console.log(d);
-    d.style.transform = `translateY(${100 * (i - slide)}%)`;
-  });
-};
+// const goSLide = function (slide) {
+//   detailsImgs.forEach((d, i) => {
+//     console.log(d);
+//     d.style.transform = `translateY(${100 * (i - slide)}%)`;
+//   });
+// };
 
-goSLide(0);
-const maxSlide = detailsImgs.length - 1;
+// goSLide(0);
+// const maxSlide = detailsImgs.length - 1;
 
-const nextSlide = function () {
-  currSlide === maxSlide ? (currSlide = 0) : currSlide++;
-  goSLide(currSlide);
-};
+// const nextSlide = function () {
+//   currSlide === maxSlide ? (currSlide = 0) : currSlide++;
+//   goSLide(currSlide);
+// };
 
-const prevSlide = function () {
-  currSlide === 0 ? (currSlide = maxSlide) : currSlide--;
-  goSLide(currSlide);
+// const prevSlide = function () {
+//   currSlide === 0 ? (currSlide = maxSlide) : currSlide--;
+//   goSLide(currSlide);
 
-  //   alert("");
-};
+//   //   alert("");
+// };
 
-next?.addEventListener("click", nextSlide);
-prev?.addEventListener("click", prevSlide);
+// next?.addEventListener("click", nextSlide);
+// prev?.addEventListener("click", prevSlide);
