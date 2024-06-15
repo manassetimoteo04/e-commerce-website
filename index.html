@@ -32,7 +32,9 @@
                 <i data-feather="search"></i>
                 <input type="text" placeholder="Procurar producto" class="search-input">
             </div>
-            <div class="cart-btn"> <i data-feather="shopping-cart"></i>
+            <div class="cart-btn">
+                <span class="total-product-cart">2</span>
+                <i data-feather="shopping-cart"></i>
             </div>
         </div>
     </header>
@@ -45,7 +47,7 @@
             </div>
             <div class="cart-list">
 
-                <div class="product-cart"><img src="img/product01.png" alt="" class="product-img">
+                <!-- <div class="product-cart"><img src="img/product01.png" alt="" class="product-img">
                     <div class="product-cart-content">
                         <div class="cart-flex"><span class="product-cart-name">Computador</span>
                             <span class="product-cart-price">$ 5678</span>
@@ -74,7 +76,7 @@
                             <span class="total-amount-product">$45069</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="cart-actions">
                 <button class="continue-add">Continuar </button>
@@ -131,8 +133,12 @@
             <h2 class="heading-h2">Productos recentes</h2>
         </div>
         <div class="grid-4-columns">
-            <div class="new-product-box">
-                <img src="img/product01.png" alt="">
+
+
+            <div class="new-product-box home-recent-product">
+                <div class="img-box">
+                    <img src="img/product02.png" alt="">
+                </div>
                 <div class="new-product-content">
                     <span class="category-name">Laptop</span>
                     <span class="product-name">Macbook Pro 2017 Core I5</span>
@@ -156,70 +162,16 @@
 
                 </div>
                 <div class="add-product-to-cart-div">
-
+                    <div class="increase-quantity-box">
+                        <span class="decrease-quantity"><i data-feather="minus"></i></span>
+                        <span class="quantity-label">1</span>
+                        <span class="increase-quantity"><i data-feather="plus"></i></span>
+                    </div>
                     <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
                 </div>
             </div>
 
-            <div class="new-product-box">
-                <img src="img/product02.png" alt="">
-                <div class="new-product-content">
-                    <span class="category-name">Laptop</span>
-                    <span class="product-name">Macbook Pro 2017 Core I5</span>
-                    <div class="product-price-div">
-                        <span class="current-product-price">$ 967.00</span>
-                        <span class="last-product-price">$1290</span>
-                    </div>
 
-                    <div class="product-stars-div">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
-                    <div class="see-product-details">
-                        <button> <i data-feather="star"></i></button>
-                        <button> <i data-feather="eye"></i></button>
-
-                    </div>
-
-                </div>
-                <div class="add-product-to-cart-div">
-
-                    <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
-                </div>
-            </div>
-
-            <div class="new-product-box">
-                <img src="img/product03.png" alt="">
-                <div class="new-product-content">
-                    <span class="category-name">Laptop</span>
-                    <span class="product-name">Macbook Pro 2017 Core I5</span>
-                    <div class="product-price-div">
-                        <span class="current-product-price">$ 967.00</span>
-                        <span class="last-product-price">$1290</span>
-                    </div>
-
-                    <div class="product-stars-div">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
-                    <div class="see-product-details">
-                        <button> <i data-feather="star"></i></button>
-                        <button> <i data-feather="eye"></i></button>
-
-                    </div>
-
-                </div>
-                <div class="add-product-to-cart-div">
-
-                    <button class="add-to-cart">Comprar <i data-feather="shopping-cart"></i></button>
-                </div>
-            </div>
         </div>
     </div>
     <div class="week">

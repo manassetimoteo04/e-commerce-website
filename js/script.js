@@ -6,6 +6,8 @@ import { product } from "./product.js";
 feather.replace();
 
 class mainApp {
+  currentQty = 1;
+
   constructor() {
     this.cartContainer = document.querySelector(".cart-container");
     this.btnShowCart = document.querySelector(".cart-btn");
@@ -13,6 +15,8 @@ class mainApp {
     this.btnToggleMenu?.addEventListener("click", this._toggleMenu.bind(this));
     this.header = document.querySelector(".logo-heading");
     this.recentPRoductGrid = document.querySelector(".grid-4-columns");
+    this.cartList = document.querySelector(".cart-list");
+    this.cartList.addEventListener("click", this._updateQuantity.bind(this));
     this.btnShowCart?.addEventListener(
       "click",
       this._showCartContainer.bind(this)
@@ -28,9 +32,16 @@ class mainApp {
     endpoint.getProducts().then((pt) => {
       this._renderMostSelledProduct(pt);
     });
+
+    this.recentPRoductGrid?.addEventListener(
+      "click",
+      this._selectProductCart.bind(this)
+    );
   }
+
   _showCartContainer() {
     this.cartContainer.classList.remove("hidden");
+    this.currentQty = 1;
   }
   _hideCartForm(e) {
     const target = e.target;
@@ -65,8 +76,10 @@ class mainApp {
     list.forEach((item) => {
       const html = `
       <div class="new-product-box" data-id="${item.id}">
+      <div class="img-box">
       <img src="${item.data.images[0]}" alt="">
-      <div class="new-product-content">
+  </div>
+      <div class="new-product-content home-recent-product">
           <span class="category-name">${item.data.category}</span>
           <span class="product-name">${item.data.name}</span>
           <div class="product-price-div">
@@ -89,7 +102,11 @@ class mainApp {
 
       </div>
       <div class="add-product-to-cart-div">
-
+      <div class="increase-quantity-box">
+      <span class="decrease-quantity"><i data-feather="minus"></i></span>
+      <span class="quantity-label">1</span>
+      <span class="increase-quantity"><i data-feather="plus"></i></span>
+  </div>
           <button class="add-to-cart">Adicionar<i data-feather="shopping-cart"></i></button>
       </div>
   </div>
@@ -104,7 +121,7 @@ class mainApp {
     topSellingGri.innerHTML = "";
     list.forEach((item) => {
       const html = `
-      <div class="top-sell-product-box">
+      <div class="top-sell-product-box ">
       <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}" class="most-selled-link"></a>
       <img src="${item.data.images[0]}" alt="" >
       <div class="top-sell-product-content">
@@ -121,35 +138,77 @@ class mainApp {
       topSellingGri.insertAdjacentHTML("afterbegin", html);
     });
   }
+
+  _selectProductCart(e) {
+    const target = e.target;
+    if (target.closest(".decrease-quantity"))
+      this._decreaseQuantity(target.closest(".decrease-quantity"));
+    if (target.closest(".increase-quantity"))
+      this._increaseQuantity(target.closest(".increase-quantity"));
+    if (target.closest(".add-to-cart"))
+      this._addToCart(target.closest(".add-to-cart"));
+  }
+  _productQuantity() {}
+  _decreaseQuantity(e) {
+    this.currentQty === 1 ? (this.currentQty = 1) : this.currentQty--;
+    // e.nextElementSibling.textContent = this.currentQty;
+    const nextElement = e.nextElementSibling;
+    nextElement.textContent = this.currentQty;
+  }
+  _increaseQuantity(e) {
+    this.currentQty++;
+    const previousElement = e.previousElementSibling;
+    // e.previoustElementSibling.textContent = this.currentQty;
+    previousElement.textContent = this.currentQty;
+  }
+  _addToCart(e) {
+    const box = e.closest(".add-product-to-cart-div");
+    const productID = box.parentElement.dataset.id;
+    addToCart._addProduct(productID, this.currentQty);
+    this.currentQty = 1;
+    addToCart._settingTotalProduct();
+    addToCart._getCartFromFireBase();
+  }
+
+  _updateQuantity(e) {
+    const target = e.target;
+    const parent = target.closest(".product-cart");
+    const id = parent.dataset.id;
+    const totalLabel = parent.querySelector(".total-amount-product");
+    const price = parent.querySelector(".product-cart-price");
+    console.log(totalLabel);
+    if (target.closest(".decrease-quantity"))
+      this._downQuantity(
+        target.closest(".decrease-quantity"),
+        id,
+        totalLabel,
+        price
+      );
+    if (target.closest(".increase-quantity"))
+      this._upQuantity(
+        target.closest(".increase-quantity"),
+        id,
+        totalLabel,
+        price
+      );
+  }
+
+  _upQuantity(e, id, total, price) {
+    const previousElement = e.previousElementSibling;
+    this.currentQty = +previousElement.textContent;
+    this.currentQty++;
+    previousElement.textContent = this.currentQty;
+
+    total.textContent = this.currentQty * +price.textContent;
+    addToCart._addProduct(id, this.currentQty);
+  }
+  _downQuantity(e, id, total, price) {
+    const nextElement = e.nextElementSibling;
+    this.currentQty = +nextElement.textContent;
+    this.currentQty > 1 ? this.currentQty-- : (this.currentQty = 1);
+    nextElement.textContent = this.currentQty;
+    total.textContent = this.currentQty * +price;
+    addToCart._addProduct(id, this.currentQty);
+  }
 }
 const app = new mainApp();
-
-// const detailsImgs = document.querySelectorAll(".product-slide-img");
-// const next = document.querySelector(".prev");
-// const prev = document.querySelector(".next");
-// let currSlide = 0;
-
-// const goSLide = function (slide) {
-//   detailsImgs.forEach((d, i) => {
-//     console.log(d);
-//     d.style.transform = `translateY(${100 * (i - slide)}%)`;
-//   });
-// };
-
-// goSLide(0);
-// const maxSlide = detailsImgs.length - 1;
-
-// const nextSlide = function () {
-//   currSlide === maxSlide ? (currSlide = 0) : currSlide++;
-//   goSLide(currSlide);
-// };
-
-// const prevSlide = function () {
-//   currSlide === 0 ? (currSlide = maxSlide) : currSlide--;
-//   goSLide(currSlide);
-
-//   //   alert("");
-// };
-
-// next?.addEventListener("click", nextSlide);
-// prev?.addEventListener("click", prevSlide);
