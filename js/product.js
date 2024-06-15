@@ -15,8 +15,10 @@ class ProductApp {
     list.forEach((item) => {
       const html = `
       <div class="new-product-box" data-id="${item.id}">
+      <div class="img-box">
       <img src="${item.data.images[0]}" alt="">
-      <div class="new-product-content">
+  </div>
+      <div class="new-product-content home-recent-product">
           <span class="category-name">${item.data.category}</span>
           <span class="product-name">${item.data.name}</span>
           <div class="product-price-div">
@@ -32,14 +34,17 @@ class ProductApp {
               <i data-feather="star"></i>
           </div>
           <div class="see-product-details">
-              <a href=""> <i data-feather="star"></i></a>
               <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}"> <i data-feather="eye"></i></a>
 
           </div>
 
       </div>
       <div class="add-product-to-cart-div">
-
+      <div class="increase-quantity-box">
+      <span class="decrease-quantity"><i data-feather="minus"></i></span>
+      <span class="quantity-label">1</span>
+      <span class="increase-quantity"><i data-feather="plus"></i></span>
+  </div>
           <button class="add-to-cart">Adicionar<i data-feather="shopping-cart"></i></button>
       </div>
   </div>

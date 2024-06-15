@@ -9,6 +9,7 @@ class mainApp {
   currentQty = 1;
 
   constructor() {
+    this.allProductsContainer = document.querySelector(".main-product-list");
     this.cartContainer = document.querySelector(".cart-container");
     this.btnShowCart = document.querySelector(".cart-btn");
     this.btnToggleMenu = document.querySelector(".btn-toggle-menu");
@@ -33,7 +34,7 @@ class mainApp {
       this._renderMostSelledProduct(pt);
     });
 
-    this.recentPRoductGrid?.addEventListener(
+    this.allProductsContainer?.addEventListener(
       "click",
       this._selectProductCart.bind(this)
     );
@@ -95,7 +96,6 @@ class mainApp {
               <i data-feather="star"></i>
           </div>
           <div class="see-product-details">
-              <a href=""> <i data-feather="star"></i></a>
               <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}"> <i data-feather="eye"></i></a>
 
           </div>
