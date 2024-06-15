@@ -1,16 +1,26 @@
 import { admin } from "./admin.js";
 import { detail } from "./detail.js";
 import { endpoint } from "./data/endpoints.js";
+import { addToCart } from "./features/addToCart.js";
+import { product } from "./product.js";
 feather.replace();
 
 class mainApp {
   constructor() {
+    this.cartContainer = document.querySelector(".cart-container");
+    this.btnShowCart = document.querySelector(".cart-btn");
     this.btnToggleMenu = document.querySelector(".btn-toggle-menu");
     this.btnToggleMenu?.addEventListener("click", this._toggleMenu.bind(this));
     this.header = document.querySelector(".logo-heading");
     this.recentPRoductGrid = document.querySelector(".grid-4-columns");
-
-    console.log(this.header);
+    this.btnShowCart?.addEventListener(
+      "click",
+      this._showCartContainer.bind(this)
+    );
+    this.cartContainer?.addEventListener(
+      "click",
+      this._hideCartForm.bind(this)
+    );
     this._obserserAddSticky();
     endpoint.getProducts().then((pt) => {
       this._renderRecentProduct(pt);
@@ -19,7 +29,15 @@ class mainApp {
       this._renderMostSelledProduct(pt);
     });
   }
-
+  _showCartContainer() {
+    this.cartContainer.classList.remove("hidden");
+  }
+  _hideCartForm(e) {
+    const target = e.target;
+    if (target.closest(".overlay-cart") || target.closest(".continue-add")) {
+      this.cartContainer.classList.add("hidden");
+    }
+  }
   _toggleMenu() {
     const body = document.querySelector("body");
     body.classList.toggle("show-menu");
@@ -87,7 +105,8 @@ class mainApp {
     list.forEach((item) => {
       const html = `
       <div class="top-sell-product-box">
-      <img src="${item.data.images[0]}" alt="">
+      <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}" class="most-selled-link"></a>
+      <img src="${item.data.images[0]}" alt="" >
       <div class="top-sell-product-content">
           <span class="product-category">${item.data.category}</span>
           <span class="product-name">${item.data.name}</span>

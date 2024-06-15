@@ -298,6 +298,9 @@
 
 /* MAX-WIDTH 454PX */
 @media (max-width: 28.255em) {
+    .cart-actions {
+        flex-direction: column;
+    }
 
     .product-images-div {
         height: 30rem !important;

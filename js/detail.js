@@ -32,7 +32,9 @@ class DetailApp {
   _gettingCurrentProductID() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
+    if (!id) return;
     endpoint.getProductById(id).then((data) => {
+      document.title = `${data.name} - Derby commercy`;
       console.log(data);
       this._settingCurrentProductDetail(data);
     });
@@ -45,6 +47,7 @@ class DetailApp {
       ".product-description-detail"
     );
     const productCategory = document.querySelector(".product-category-detail");
+    if (!productName) return;
     allImages.forEach((img, i) => (img.src = data.images[i]));
     productName.textContent = data.name;
     productPrice.textContent = data.price;
