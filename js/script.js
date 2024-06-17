@@ -17,7 +17,7 @@ class mainApp {
     this.header = document.querySelector(".logo-heading");
     this.recentPRoductGrid = document.querySelector(".grid-4-columns");
     this.cartList = document.querySelector(".cart-list");
-    this.cartList.addEventListener("click", this._updateQuantity.bind(this));
+    this.cartList?.addEventListener("click", this._updateQuantity.bind(this));
     this.btnShowCart?.addEventListener(
       "click",
       this._showCartContainer.bind(this)

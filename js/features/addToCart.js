@@ -14,6 +14,7 @@ class Cart {
     this._settingTotalProduct();
   }
   _settingTotalProduct() {
+    if (!this.totalCartItem) return;
     this.totalCartItem.textContent = this.cartArray.length;
     this.cartArray.length > 0
       ? (this.totalCartItem.style.opacity = "1")
@@ -39,6 +40,7 @@ class Cart {
   }
 
   _getCartFromFireBase() {
+    if (!this.cartlistContainer) return;
     this.cartlistContainer.innerHTML = "";
     this.cartArray.forEach((element) => {
       endpoint.getProductById(element.id).then((data) => {
