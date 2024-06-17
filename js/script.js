@@ -207,7 +207,7 @@ class mainApp {
     this.currentQty = +nextElement.textContent;
     this.currentQty > 1 ? this.currentQty-- : (this.currentQty = 1);
     nextElement.textContent = this.currentQty;
-    total.textContent = this.currentQty * +price;
+    total.textContent = this.currentQty * +price.textContent;
     addToCart._addProduct(id, this.currentQty);
   }
 }
