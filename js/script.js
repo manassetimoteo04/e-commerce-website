@@ -1,6 +1,7 @@
 import { admin } from "./admin.js";
-import { detail } from "./detail.js";
 import { endpoint } from "./data/endpoints.js";
+import { newOrder } from "./features/order.js";
+import { detail } from "./detail.js";
 import { addToCart } from "./features/addToCart.js";
 import { product } from "./product.js";
 feather.replace();

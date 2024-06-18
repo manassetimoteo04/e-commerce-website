@@ -899,3 +899,41 @@ footer {
 .social-media-link:hover {
     color: var(--Grey-2);
 }
+
+/* SPINNER */
+
+
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    z-index: 1000;
+    z-index: 99999999999;
+}
+
+
+
+.spinner {
+    border: 6px solid var(--Primary-color);
+    border-top: 6px solid transparent;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

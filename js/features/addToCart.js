@@ -44,12 +44,12 @@ class Cart {
     this.cartlistContainer.innerHTML = "";
     this.cartArray.forEach((element) => {
       endpoint.getProductById(element.id).then((data) => {
-        console.log(data);
         this._renderCartList(data, element.id, element.quantity);
       });
     });
   }
   _renderCartList(item, id, qty) {
+    if (!item) return;
     const html = `
     <div class="product-cart" data-id="${id}"><img src="${
       item.images[0]

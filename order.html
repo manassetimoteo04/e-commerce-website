@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <div class="spinner-container" id="spinner">
+        <div class="spinner">
+        </div>
+    </div>
+
     <header>
         <div class="contact-header-box">
             <div class="main-container">
@@ -110,12 +115,11 @@
                 <input type="text" class="full-name-order-input" placeholder="Nome Completo">
                 <input type="email" class="email-order-input" placeholder="Seu e-mail">
                 <input type="text" class="phone-order-input" placeholder="Seu Telefone">
-                <input type="text" class="neigbhor-order-input" placeholder="Seu Bairro">
-                <input type="text" class="town-order-input" placeholder="Seu Município">
+                <input type="text" class="country-order-input" placeholder="Sua País">
                 <input type="text" class="province-order-input" placeholder="Sua Província">
-                <input type="text" class="country-order-input" placeholder="Seu País">
-                <textarea name="" id="" cols="30" rows="3" placeholder="Escvrever descrição"></textarea>
-                <button class="confirm-order">Enviar Pedido</button>
+                <input type="text" class="address-order-input" placeholder="Seu endereço">
+                <textarea name="" id="" cols="30" rows="3" placeholder="Escvrever descrição"
+                    class="order-description-input"></textarea>
             </form>
             <div class="order-detail">
                 <h2 class="heading-h2">Detalhes do Pedido</h2>
@@ -136,14 +140,14 @@
                         <span>2x Computador</span>
                         <span>$4560</span>
                     </div>
-                    <div class="shipp-div">
-                        <span>Entrega</span>
-                        <span class="shipping-type">Gratuíta</span>
-                    </div>
-                    <div class="total-box">
-                        <span>TOTAL</span>
-                        <span class="order-total-amount">$ 45606</span>
-                    </div>
+                </div>
+                <div class="shipp-div">
+                    <span>Entrega</span>
+                    <span class="shipping-type">Gratuíta</span>
+                </div>
+                <div class="total-box">
+                    <span>TOTAL</span>
+                    <span class="order-total-amount">$ 45606</span>
                 </div>
                 <div class="obs-order-container">
                     <span class="obs-header"><i data-feather="alert-circle"></i> Observação</span>
@@ -151,6 +155,8 @@
                         laboriosam nam? Magni iusto aliquam illo, natus perspiciatis delectus reiciendis pariatur
                         repellendus</span>
                 </div>
+                <button class="confirm-order">Finalizar Pedido</button>
+
             </div>
         </div>
     </div>

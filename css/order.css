@@ -48,7 +48,9 @@
     color: var(--Grey-2);
     font-family: inherit;
     border-radius: 5rem;
+    width: 100%;
     border: 2px solid var(--Primary-color);
+    margin-top: 3rem;
 }
 
 .confirm-order:hover {
@@ -100,6 +102,7 @@
     align-items: center;
     font-weight: 600;
     color: var(--Headers-color);
+    margin: 2rem 0;
 }
 
 .order-total-amount {

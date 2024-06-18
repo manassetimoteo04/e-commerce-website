@@ -1,0 +1,103 @@
+import { endpoint } from "../data/endpoints.js";
+import { addToCart } from "./addToCart.js";
+class Order {
+  cart = JSON.parse(localStorage.getItem("cartList"))
+    ? JSON.parse(localStorage.getItem("cartList"))
+    : [];
+  ARR = [2, 234, 34, 56, 56, 56, 5];
+  constructor() {
+    this.orderProductList = document.querySelector(".order-product-list");
+    this.btnFinalizeOrder = document.querySelector(".confirm-order");
+    this.btnFinalizeOrder?.addEventListener(
+      "click",
+      this._sendOrder.bind(this)
+    );
+    this.cart.forEach((product) => {
+      if (!this.orderProductList) return;
+      this.orderProductList.innerHTML = "";
+      console.log(product.id, product.quantity);
+      endpoint.getProductById(product.id).then((data) => {
+        if (!data) return;
+        this._renderCartProducts(data, product.quantity);
+      });
+    });
+    this._loadingAllCart();
+  }
+  _loadingAllCart() {
+    this.loadedCart = [];
+    this.cart.forEach((product) => {
+      endpoint.getProductById(product.id).then((data) => {
+        const push = {
+          data: data,
+          quantity: product.quantity,
+        };
+
+        this.loadedCart.push(push);
+      });
+    });
+  }
+  _renderCartProducts(data, quantity) {
+    if (!this.orderProductList) return;
+    const html = `
+          <div class="product">
+          <span>${quantity}x ${data.name}</span>
+          <span>${data.price * quantity}</span>
+         </div>
+            `;
+    this.orderProductList.insertAdjacentHTML("afterbegin", html);
+  }
+  _takingClientInformation() {
+    const clientNameInput = document.querySelector(".full-name-order-input");
+    const clientEmail = document.querySelector(".email-order-input");
+    const clientPhone = document.querySelector(".phone-order-input");
+    const clientCountry = document.querySelector(".country-order-input");
+    const clientProvince = document.querySelector(".province-order-input");
+    const clientAddress = document.querySelector(".address-order-input");
+    const clientDesciption = document.querySelector(".order-description-input");
+
+    const clientInformation = {
+      name: clientNameInput.value,
+      email: clientEmail.value,
+      phone: clientPhone.value,
+      country: clientCountry.value,
+      province: clientProvince.value,
+      clientAddress: clientAddress.value,
+      description: clientDesciption.value,
+    };
+    return clientInformation;
+  }
+  _buildingString() {
+    const userInfo = this._takingClientInformation();
+    let string = `INFORMAÇÕES DO CLIENTE\n\nCliente: *${userInfo.name}*\nEmail: *${userInfo.email}*\nTelefone: *${userInfo.phone}*\nPaís: *${userInfo.name}*\nProvíncia:* ${userInfo.province}*\nResidência: *${userInfo.clientAddress}*\n\nINFORMAÇÕES DO PEDIDO\n\n`;
+    this.loadedCart.forEach((product, i) => {
+      string += `${(1 + i).toString().padStart(2, 0)}) ${product.quantity}X *${
+        product.data.name
+      }*\nPreço: *${product.data.price}*\n\n`;
+    });
+    return encodeURIComponent(string);
+  }
+  _sendingOrderToFirebase() {
+    const order = {
+      ...this._takingClientInformation(),
+      products: this.cart,
+    };
+    console.log(order);
+    endpoint.newOrder(order);
+  }
+  _sendingOrderToWhatsapp() {
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=+244940407979&text=${this._buildingString()}`;
+    window.open(whatsappUrl, "_blank");
+  }
+  _removingCartToLocalStorage() {
+    localStorage.removeItem("cartList");
+  }
+  _sendOrder() {
+    const data = this._takingClientInformation();
+    this._sendingOrderToWhatsapp();
+    this._sendingOrderToFirebase();
+    this._removingCartToLocalStorage();
+  }
+}
+const newOrder = new Order();
+
+export { newOrder };

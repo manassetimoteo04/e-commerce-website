@@ -6,6 +6,7 @@ import {
   getDocs,
   updateDoc,
   deleteDoc,
+  runTransaction,
   doc,
   getDoc,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
@@ -30,6 +31,7 @@ class endpointsApp {
   };
   constructor() {
     // Inicializa o Firebase
+
     this.app = initializeApp(this.#firebaseConfig);
     // Inicializa o Firestore
     this.db = getFirestore(this.app);
@@ -53,6 +55,7 @@ class endpointsApp {
   // Função para adicionar um novo produto
   async addProduct(name, description, price, category, files) {
     try {
+      document.querySelector("#spinner").classList.remove("hidden");
       const imageUrls = await this.uploadImages(files);
       const docRef = await addDoc(collection(this.db, "productos"), {
         name: name,
@@ -61,7 +64,7 @@ class endpointsApp {
         category: category,
         images: imageUrls,
       });
-      console.log("Produto adicionado com ID:", docRef.id);
+      document.querySelector("#spinner").classList.add("hidden");
     } catch (error) {
       console.error("Erro ao adicionar produto: ", error);
     }
@@ -70,7 +73,9 @@ class endpointsApp {
   // Função para obter todos os produtos
   async getProducts() {
     try {
+      document.querySelector("#spinner").classList.remove("hidden");
       const querySnapshot = await getDocs(collection(this.db, "productos"));
+      document.querySelector("#spinner").classList.add("hidden");
       let list = [];
       querySnapshot.forEach((doc) => {
         const value = {
@@ -91,13 +96,13 @@ class endpointsApp {
   // Função para pegar o producto pelo ID
   async getProductById(productId) {
     try {
+      document.querySelector("#spinner").classList.remove("hidden");
       const productRef = doc(this.db, "productos", productId);
       const productDoc = await getDoc(productRef);
-
+      document.querySelector("#spinner").classList.add("hidden");
       if (productDoc.exists()) {
         return productDoc.data();
       } else {
-        console.log("Nenhum produto encontrado com o ID fornecido.");
         return null;
       }
     } catch (e) {
@@ -107,9 +112,10 @@ class endpointsApp {
   // Função para atualizar um produto
   async updateProduct(productId, updatedData) {
     try {
+      document.querySelector("#spinner").classList.remove("hidden");
       const productRef = doc(this.db, "productos", productId);
       await updateDoc(productRef, updatedData);
-      console.log("Produto atualizado com sucesso!");
+      document.querySelector("#spinner").classList.add("hidden");
     } catch (e) {
       console.error("Erro ao atualizar produto: ", e);
     }
@@ -118,27 +124,41 @@ class endpointsApp {
   // Função para excluir um produto
   async deleteProduct(productId) {
     try {
-      const productDoc = await getDoc(doc(this.db, "productos", productId));
-      const productData = productDoc.data();
-      let storageRef;
-      if (productData && productData.images) {
-        const deletePromises = productData.images.map(async (url) => {
-          storageRef = ref(this.storage, url);
-          await deleteObject(storageRef);
-        });
-        await Promise.all(deletePromises);
+      await runTransaction(this.db, async (transaction) => {
+        const productRef = doc(this.db, "productos", productId);
+        const productDoc = await getDoc(productRef, { transaction });
 
-        await deleteDoc(doc(this.db, "productos", productId));
-        // if (!storageRef) {
-        //   await deleteDoc(doc(this.db, "productos", productId));
+        if (!productDoc.exists()) {
+          console.error("Produto não encontrado.");
+          return;
+        }
+
+        const images = productDoc.data().images || [];
+
+        transaction.delete(productRef);
+        // if (images.length > 0) {
+        //   const deletePromises = images.map(async (url) => {
+        //     const storageRef = ref(this.storage, url);
+        //     await deleteObject(storageRef);
+        //     console.log(storageRef);
+        //     console.log(`Imagem ${url} excluída.`);
+        //   });
+        //   await Promise.all(deletePromises);
         // }
-        console.log("Produto e imagens excluídos com sucesso");
-        this.getProducts();
-      } else {
-        console.error("Imagens não encontradas no produto");
-      }
-    } catch (e) {
-      console.error("Erro ao excluir produto: ", e);
+        // if (images.length === 0) return;
+      });
+    } catch (error) {
+      console.error("Erro ao excluir produto e imagens:", error);
+    }
+  }
+  async newOrder(data) {
+    try {
+      document.querySelector("#spinner").classList.remove("hidden");
+      const docRef = await addDoc(collection(this.db, "orders"), data);
+      document.querySelector("#spinner").classList.add("hidden");
+      console.log("Produto Enviado com ID:", docRef.id);
+    } catch (error) {
+      console.error("Erro ao adicionar produto: ", error);
     }
   }
 }
