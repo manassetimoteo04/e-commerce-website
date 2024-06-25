@@ -1,5 +1,6 @@
-import { endpoint } from "../data/endpoints.js";
+import { FIREBASE } from "../../model/firebase.js";
 import { addToCart } from "./addToCart.js";
+import { FORMAT_NUMBERS } from "./formatting.js";
 class Order {
   cart = JSON.parse(localStorage.getItem("cartList"))
     ? JSON.parse(localStorage.getItem("cartList"))
@@ -16,7 +17,7 @@ class Order {
       if (!this.orderProductList) return;
       this.orderProductList.innerHTML = "";
       console.log(product.id, product.quantity);
-      endpoint.getProductById(product.id).then((data) => {
+      FIREBASE.getProductById(product.id).then((data) => {
         if (!data) return;
         this._renderCartProducts(data, product.quantity);
       });
@@ -26,7 +27,7 @@ class Order {
   _loadingAllCart() {
     this.loadedCart = [];
     this.cart.forEach((product) => {
-      endpoint.getProductById(product.id).then((data) => {
+      FIREBASE.getProductById(product.id).then((data) => {
         const push = {
           data: data,
           quantity: product.quantity,
@@ -41,7 +42,7 @@ class Order {
     const html = `
           <div class="product">
           <span>${quantity}x ${data.name}</span>
-          <span>${data.price * quantity}</span>
+          <span>${FORMAT_NUMBERS.formatCurrency(data.price * quantity)}</span>
          </div>
             `;
     this.orderProductList.insertAdjacentHTML("afterbegin", html);

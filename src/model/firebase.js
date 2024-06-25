@@ -17,7 +17,6 @@ import {
   getDownloadURL,
   deleteObject,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
-import { admin } from "../admin.js";
 
 class endpointsApp {
   #firebaseConfig = {
@@ -63,6 +62,8 @@ class endpointsApp {
         price: price,
         category: category,
         images: imageUrls,
+        date: new Date().toISOString(),
+        rating: 0,
       });
       document.querySelector("#spinner").classList.add("hidden");
     } catch (error) {
@@ -124,9 +125,12 @@ class endpointsApp {
   // Função para excluir um produto
   async deleteProduct(productId) {
     try {
+      document.querySelector("#spinner").classList.remove("hidden");
+
       await runTransaction(this.db, async (transaction) => {
         const productRef = doc(this.db, "productos", productId);
         const productDoc = await getDoc(productRef, { transaction });
+        document.querySelector("#spinner").classList.add("hidden");
 
         if (!productDoc.exists()) {
           console.error("Produto não encontrado.");
@@ -163,5 +167,5 @@ class endpointsApp {
   }
 }
 
-const endpoint = new endpointsApp();
-export { endpoint };
+const FIREBASE = new endpointsApp();
+export { FIREBASE };

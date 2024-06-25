@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.controller.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script defer src="https://unpkg.com/feather-icons"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script defer type="module" src="../js/script.js"></script>
+    <script defer type="module" src="../controller/controller.js"></script>
     <title>Administrador - Derby Commercy</title>
 </head>
 
@@ -44,10 +44,10 @@
         <div class="main-container">
 
             <ul class="main-menu-list">
-                <li><a href="../index.html" class="main-nav-link">Home</a></li>
-                <li><a href="../products.html" class="main-nav-link">Productos</a></li>
-                <li><a href="../detail.html" class="main-nav-link">Detalhe</a></li>
-                <li><a href="../order.html" class="main-nav-link">Checkout</a></li>
+                <li><a href="../../index.html" class="main-nav-link">Home</a></li>
+                <li><a href="../../products.html" class="main-nav-link">Productos</a></li>
+                <li><a href="../../detail.html" class="main-nav-link">Detalhe</a></li>
+                <li><a href="../../order.html" class="main-nav-link">Checkout</a></li>
             </ul>
         </div>
         <button class="btn-toggle-menu"><i data-feather="menu"></i></button>
@@ -58,9 +58,6 @@
             <span class="heading-sec-tag">Área do Administrador</span>
         </div>
     </div>
-
-
-
 
     <div class="main-container">
         <div class="admin-section">
@@ -325,7 +322,86 @@
         </div>
     </div>
 
+    <div class="orders-container hidden">
+        <div class="order-overlay"></div>
+        <div class="order-grid">
+            <div class="order-list-box">
+                <span class="order-heading">Todos os Pedidos</span>
+                <div class="order-filter">
+                    <input type="text" class="search-order" placeholder="Procurar Pedido">
+                </div>
+                <div class="order-list">
+                    <div class="order-box">
+                        <span class="client-initial">M</span>
+                        <div class="order-content-box">
+                            <div class="header-box">
+                                <span class="client-name">Manasse Timóteo</span>
+                                <span class="order-date">Agora Mesmo</span>
+                            </div>
+                            <div class="header-box">
+                                <span class="total-articles">Artigos <span>(04)</span></span>
 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-box">
+                        <span class="client-initial">M</span>
+                        <div class="order-content-box">
+                            <div class="header-box">
+                                <span class="client-name">Manasse Timóteo</span>
+                                <span class="order-date">10/07/2024</span>
+                            </div>
+                            <div class="header-box">
+                                <span class="total-articles">Artigos <span>(04)</span></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="order-detail-box">
+                <span class="order-heading">Detalhes do Producto</span>
+                <div class="detail-container">
+                    <div class="detail-group">
+                        <span class="group-heading">Informações do Cliente</span>
+                        <span>Nome: <span class="cliente-name">Manasse Timóteo</span></span>
+                        <span>Email: <span class="cliente-email">manassetimoteo4@gmail.com</span></span>
+                        <span>Nome: <span class="cliente-phone">+244 94 407 979</span></span>
+                        <span>Endereço: <span class="cliente-address">Angola, Mabor Combustíveis</span></span>
+                    </div>
+
+                    <div class="detail-group">
+                        <span class="group-heading">Detalhes do Pedido</span>
+                        <div class="order-products-list">
+                            <div class="order-product">
+                                <img src="../img/product01.png" alt="" class="order-product-img">
+                                <div class="order-product-content">
+                                    <div><span class="product-name">Computador</span> <span
+                                            class="product-price">$5697</span></div>
+                                    <div>
+                                        <span class="product-qty">Quantidade <span>(23)</span></span>
+                                        <span class="total-amount-product">$56756</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="order-total-box">
+                        <span>Productos <span class="total-product">(234)</span></span>
+                        <span>Total a Pagar <span class="total-product-amount">$2340</span></span>
+                    </div>
+                    <div class="detail-order-action">
+                        <button>Concluir</button>
+                        <button>Eliminar</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
     <footer>
         <div class="main-container">
             <div class="footer-grid">

@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="src/css/style.controller.css">
     <script defer src="https://unpkg.com/feather-icons"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script defer type="module" src="js/script.js"></script>
+    <script defer type="module" src="src/controller/controller.js"></script>
     <title>Detalhes - Derby Commercy</title>
 </head>
 
@@ -172,52 +172,25 @@
                 </div>
             </div>
             <div class="product-comment">
-                <div class="comment-box">
-                    <div>
-                        <span class="user-name">Timóteo</span>
-                        <span class="commented-date">08 ABR 2024</span>
-                        <div class="user-rate">
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
+                <div class="product-comment-list">
+                    <div class="comment-box">
+                        <div>
+                            <span class="user-name">Timóteo</span>
+                            <span class="commented-date">08 ABR 2024</span>
+                            <div class="user-rate">
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                            </div>
                         </div>
+                        <p class="comment-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae
+                            porro
+                            voluptates quia, in quidem fugit corrupti esse vel voluptate</p>
                     </div>
-                    <p class="comment-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae porro
-                        voluptates quia, in quidem fugit corrupti esse vel voluptate</p>
-                </div>
-                <div class="comment-box">
-                    <div>
-                        <span class="user-name">Timóteo</span>
-                        <span class="commented-date">08 ABR 2024</span>
-                        <div class="user-rate">
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                        </div>
-                    </div>
-                    <p class="comment-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae porro
-                        voluptates quia, in quidem fugit corrupti esse vel voluptate</p>
                 </div>
 
-                <div class="comment-box">
-                    <div>
-                        <span class="user-name">Timóteo</span>
-                        <span class="commented-date">08 ABR 2024</span>
-                        <div class="user-rate">
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                            <i data-feather="star"></i>
-                        </div>
-                    </div>
-                    <p class="comment-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae porro
-                        voluptates quia, in quidem fugit corrupti esse vel voluptate</p>
-                </div>
                 <div class="comment-pagination">
                     <button><i data-feather="chevron-left"></i></button>
                     <span class="current-comment-page">1</span>
@@ -225,18 +198,20 @@
                 </div>
             </div>
             <form action="" class="new-comment-form">
-                <input type="text" class="input-your-name" placeholder="Seu nome">
-                <input type="text" class="input-your-name" placeholder="Seu nome">
-                <textarea name="" id="" cols="30" rows="3" placeholder="Teu comentário"></textarea>
+                <input type="text" class="input-comment-name" placeholder="Seu nome">
+                <input type="email" class="input-comment-email" placeholder="Seu nome">
+                <textarea name="" id="" cols="30" rows="3" placeholder="Teu comentário"
+                    class="input-comment"></textarea>
 
                 <div class="your-rate">
                     <span>Sua classificação</span>
-                    <div class="">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
+                    <div class="select-rating">
+                        <button>1<i data-feather="star"></i></button>
+                        <button>2<i data-feather="star"></i></button>
+                        <button>3<i data-feather="star"></i></button>
+                        <button>4<i data-feather="star"></i></button>
+                        <button>5<i data-feather="star"></i></button>
+
                     </div>
                 </div>
                 <button class="btn-send-comment">Enviar</button>

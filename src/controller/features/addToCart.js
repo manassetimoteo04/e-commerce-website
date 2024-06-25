@@ -1,10 +1,10 @@
-import { endpoint } from "../data/endpoints.js";
+import { FIREBASE } from "../../model/firebase.js";
+import { view } from "../../view/view.js";
 feather.replace();
 
 class Cart {
   constructor() {
     this.cartlistContainer = document.querySelector(".cart-list");
-
     this.cartArray = JSON.parse(localStorage.getItem("cartList"))
       ? JSON.parse(localStorage.getItem("cartList"))
       : [];
@@ -43,35 +43,10 @@ class Cart {
     if (!this.cartlistContainer) return;
     this.cartlistContainer.innerHTML = "";
     this.cartArray.forEach((element) => {
-      endpoint.getProductById(element.id).then((data) => {
-        this._renderCartList(data, element.id, element.quantity);
+      FIREBASE.getProductById(element.id).then((data) => {
+        view._renderCartList(data, element.id, element.quantity);
       });
     });
-  }
-  _renderCartList(item, id, qty) {
-    if (!item) return;
-    const html = `
-    <div class="product-cart" data-id="${id}"><img src="${
-      item.images[0]
-    }" alt="" class="product-img">
-    <div class="product-cart-content">
-        <div class="cart-flex"><span class="product-cart-name">${
-          item.name
-        }</span>
-            <span class="product-cart-price">${item.price}</span>
-        </div>
-        <div class="cart-flex">
-            <div class="increase-quantity-box">
-                <span class="decrease-quantity">-</span>
-                <span class="quantity-label">${qty}</span>
-                <span class="increase-quantity">+</span>
-            </div>
-            <span class="total-amount-product">${qty * item.price}</span>
-        </div>
-    </div>
-</div>
-    `;
-    this.cartlistContainer.insertAdjacentHTML("afterbegin", html);
   }
 }
 

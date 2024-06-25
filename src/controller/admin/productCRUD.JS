@@ -1,23 +1,144 @@
-import { endpoint } from "./data/endpoints.js";
-class adminClass {
-  currentProductId;
+import { FIREBASE } from "../../model/firebase.js";
+import { admin } from "../../view/admin.js";
+class PRODUCT_CRUD {
   constructor() {
-    this.btnShowNewProductForm = document.querySelector(
-      ".register-new-product"
+    this.btnConfirmAddNewProduct = document.querySelector(
+      ".btn-confirm-add-product"
     );
     this.newProductFormContainer = document.querySelector(
       ".add-new-product-container"
     );
+    this.newProductForm = document.querySelector(".add-new-product-form");
+    this.updateProductForm = document.querySelector(".update-product-form");
+    this.btnUpdateProduct = document.querySelector(".btn-update-product");
+    this._bindEventListeners();
+  }
+  _bindEventListeners() {
+    this.btnConfirmAddNewProduct?.addEventListener(
+      "click",
+      this._addNewProduct.bind(this)
+    );
+    this.btnUpdateProduct?.addEventListener(
+      "click",
+      this._updateProductById.bind(this)
+    );
+  }
+  //ADICIONAR NOVO PRODUCTO
+  _addNewProduct(e) {
+    e.preventDefault();
+    const productName = document.querySelector(".input-product-name").value;
+    const productCategory = document.querySelector(
+      ".input-product-category"
+    ).value;
+    const productPrice = document.querySelector(".input-product-price").value;
+    const productDescription = document.querySelector(
+      ".input-product-description"
+    ).value;
+
+    const img1 = document.querySelector(".img-1");
+    const img2 = document.querySelector(".img-2");
+    const img3 = document.querySelector(".img-3");
+
+    const files = [img1.files[0], img2.files[0], img3.files[0]];
+    if (productName && productCategory && productPrice && productDescription) {
+      FIREBASE.addProduct(
+        productName,
+        productDescription,
+        +productPrice,
+        productCategory,
+        files
+      );
+      this.newProductFormContainer.classList.add("hidden");
+      FIREBASE.getProducts().then((data) => {
+        admin._renderAdminProduct(data);
+      });
+    } else alert("preenche todos os campos");
+  }
+  _deleteProduct(e) {
+    const element = e.closest(".product-box-admin");
+    const id = element.dataset.id;
+    console.log(id);
+    FIREBASE.deleteProduct(id);
+    FIREBASE.getProducts().then((pt) => {
+      admin._renderAdminProduct(pt);
+    });
+  }
+
+  // MANIPULANDO O INPUT PARA UPLOAD DE IMAGENS
+  uploadProductImgPreview() {
+    const inputFile = document.querySelectorAll(".upload-img input");
+    inputFile.forEach((inpt) =>
+      inpt.addEventListener("change", function (e) {
+        const files = e.target.files;
+        if (files.length > 0) {
+          const file = files[0];
+          const reader = new FileReader();
+
+          reader.onload = function (event) {
+            const imgElement = e.target.previousElementSibling;
+            imgElement.src = event.target.result;
+            imgElement.style.opacity = 1;
+          };
+
+          reader.readAsDataURL(file);
+        }
+      })
+    );
+  }
+
+  _updateProductById(e) {
+    e.preventDefault();
+
+    const productName = document.querySelector(".input-update-name").value;
+    const productCategory = document.querySelector(
+      ".input-update-category"
+    ).value;
+    const productDescription = document.querySelector(
+      ".input-update-description"
+    ).value;
+    const productPrice = document.querySelector(".input-update-price").value;
+
+    const data = {
+      name: productName,
+      description: productDescription,
+      price: productPrice,
+      category: productCategory,
+    };
+
+    FIREBASE.updateProduct(this.currentProductId, data);
+    FIREBASE.getProducts().then((data) => {
+      admin._renderAdminProduct(data);
+    });
+    this.newProductFormContainer.classList.add("hidden");
+  }
+}
+
+class AdminController extends PRODUCT_CRUD {
+  currentProductId;
+  constructor() {
+    super();
+    this.btnShowNewProductForm = document.querySelector(
+      ".register-new-product"
+    );
+
     this.adminProductListContainer = document.querySelector(".admin-grid");
     this.productDetailContainer = document.querySelector(
       ".product-detail-admin-container"
     );
-    this.btnConfirmAddNewProduct = document.querySelector(
-      ".btn-confirm-add-product"
-    );
+
     this.newProductForm = document.querySelector(".add-new-product-form");
     this.updateProductForm = document.querySelector(".update-product-form");
     this.btnUpdateProduct = document.querySelector(".btn-update-product");
+
+    FIREBASE.getProducts().then((pt) => {
+      //   this._gettingRecentProducts(pt);
+      //   this._gettingMostSelledProducts(pt);
+      admin._renderAdminProduct(pt);
+    });
+    this.uploadProductImgPreview();
+    this._bindEventListeners();
+  }
+  _bindEventListeners() {
     //EVENT LISTENERS
     this.btnShowNewProductForm?.addEventListener(
       "click",
@@ -35,21 +156,7 @@ class adminClass {
       "click",
       this._closeProductDetail.bind(this)
     );
-    this.btnConfirmAddNewProduct?.addEventListener(
-      "click",
-      this._addNewProduct.bind(this)
-    );
-    this.btnUpdateProduct?.addEventListener(
-      "click",
-      this._updateProductById.bind(this)
-    );
-    //
-    endpoint.getProducts().then((pt) => {
-      this._renderAdminProduct(pt);
-    });
-    this.uploadProductImgPreview();
   }
-
   //MOSTRANDO O FORMULÁRIO PARA ADICIONAR NOVO PRODUCTO
   _showNewProductForm() {
     this.newProductFormContainer.classList.remove("hidden");
@@ -57,46 +164,6 @@ class adminClass {
     this.updateProductForm.classList.add("hidden");
   }
 
-  //ADICIONAR NOVO PRODUCTO
-  async _addNewProduct(e) {
-    e.preventDefault();
-    const productName = document.querySelector(".input-product-name").value;
-    const productCategory = document.querySelector(
-      ".input-product-category"
-    ).value;
-    const productPrice = document.querySelector(".input-product-price").value;
-    const productDescription = document.querySelector(
-      ".input-product-description"
-    ).value;
-    const img1 = document.querySelector(".img-1");
-    const img2 = document.querySelector(".img-2");
-    const img3 = document.querySelector(".img-3");
-
-    const files = [img1.files[0], img2.files[0], img3.files[0]];
-    if (productName && productCategory && productPrice && productDescription) {
-      await endpoint.addProduct(
-        productName,
-        productDescription,
-        +productPrice,
-        productCategory,
-        files
-      );
-
-      this.newProductFormContainer.classList.add("hidden");
-      await endpoint.getProducts().then((pt) => {
-        this._renderAdminProduct(pt);
-      });
-    } else alert("preenche todos os campos");
-  }
-  async _deleteProduct(e) {
-    const element = e.closest(".product-box-admin");
-    const id = element.dataset.id;
-    console.log(id);
-    endpoint.deleteProduct(id);
-    await endpoint.getProducts().then((pt) => {
-      this._renderAdminProduct(pt);
-    });
-  }
   //FECHAR O FORM PARA ADICIONAR NOVO PRODUCTO
   _closeNewProductForm(e) {
     const target = e.target;
@@ -163,7 +230,7 @@ class adminClass {
     console.log(productName, productPrice);
     const productImg = document.querySelector(".product-img-box img");
     let datat;
-    endpoint.getProductById(targetId).then((data) => {
+    FIREBASE.getProductById(targetId).then((data) => {
       datat = data;
       productImg.src = data.images[0];
       productPrice.textContent = data.price;
@@ -180,94 +247,16 @@ class adminClass {
       ".input-update-description"
     );
     const productPrice = document.querySelector(".input-update-price");
-    endpoint.getProductById(targetId).then((data) => {
+    FIREBASE.getProductById(targetId).then((data) => {
       productName.value = data.name;
       productCategory.value = data.category;
       productDescription.value = data.description;
       productPrice.value = data.price;
     });
   }
-  async _updateProductById(e) {
-    e.preventDefault();
-    const productName = document.querySelector(".input-update-name").value;
-    const productCategory = document.querySelector(
-      ".input-update-category"
-    ).value;
-    const productDescription = document.querySelector(
-      ".input-update-description"
-    ).value;
-    const productPrice = document.querySelector(".input-update-price").value;
-
-    const data = {
-      name: productName,
-      description: productDescription,
-      price: productPrice,
-      category: productCategory,
-    };
-    console.log(data, this.targetId);
-
-    await endpoint.updateProduct(this.currentProductId, data);
-    await endpoint.getProducts().then((pt) => {
-      this._renderAdminProduct(pt);
-    });
-    this.newProductFormContainer.classList.add("hidden");
-  }
-  _renderAdminProduct(list) {
-    const producList = document.querySelector(".admin-grid");
-    if (!producList) return;
-    producList.innerHTML = "";
-    list.forEach((item) => {
-      console.log(item.data);
-      const html = `
-    <div class="product-box-admin" data-id="${item.id}">
-    <img src="${item.data.images[0]}" alt="">
-    <div class="product-admin-content">
-        <span class="product-admin-name">${item.data.name}</span>
-        <span class="product-admin-price">${item.data.price}</span>
-    </div>
-    <div class="admin-product-action">
-        <button class="edit-product"><ion-icon name="create-outline"></ion-icon></button>
-        <button class="copy-product"><ion-icon name="copy-outline"></ion-icon></button>
-        <button class="see-product"><ion-icon name="eye-outline"></ion-icon></i></button>
-        <button class="delete-product"><ion-icon name="trash-outline"></ion-icon></button>
-    </div>
-    </div>
-    `;
-      producList.insertAdjacentHTML("afterbegin", html);
-    });
-  }
 }
+const adminController = new AdminController();
+export { adminController };
 
-const admin = new adminClass();
-export { admin };
-
-const next = document.querySelector(".btn-next-product-img");
-const previous = document.querySelector(".btn-prev-product-img");
-const imgsSlide = document.querySelectorAll(".admin-slide-img");
-let currSlide = 0;
-
-// imgsSlide.forEach((img, i) => {
-//   img.style.transform = `translateX(${i * 100}%)`;
-// });
-
-const goToSlide = function (slide) {
-  imgsSlide.forEach(
-    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
-  );
-};
-goToSlide(0);
-const maxSlide = imgsSlide.length - 1;
-
-const nextSlide = function () {
-  currSlide === maxSlide ? (currSlide = 0) : currSlide++;
-  goToSlide(currSlide);
-};
-
-const prevSlide = function () {
-  currSlide === 0 ? (currSlide = maxSlide) : currSlide--;
-  goToSlide(currSlide);
-  //   alert("");
-};
-
-next?.addEventListener("click", nextSlide);
-previous?.addEventListener("click", prevSlide);
+const CRUD = new PRODUCT_CRUD();
+export { CRUD };

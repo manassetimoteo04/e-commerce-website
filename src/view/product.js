@@ -1,13 +1,7 @@
-import { endpoint } from "./data/endpoints.js";
 class ProductApp {
   constructor() {
     this.mostSelledProducts = document.querySelector(".all-most-selled");
     this.allProductsContainer = document.querySelector(".product-grid-3-cl");
-    endpoint.getProducts().then((data) => {
-      this._renderMostSelledProducts(data);
-      this._renderAllProducts(data);
-      console.log(data);
-    });
   }
   _renderAllProducts(list) {
     if (!this.allProductsContainer) return;

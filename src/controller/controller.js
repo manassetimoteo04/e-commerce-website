@@ -1,12 +1,12 @@
-import { admin } from "./admin.js";
-import { endpoint } from "./data/endpoints.js";
-import { newOrder } from "./features/order.js";
-import { detail } from "./detail.js";
-import { addToCart } from "./features/addToCart.js";
-import { product } from "./product.js";
 feather.replace();
-
-class mainApp {
+import { FIREBASE } from "../model/firebase.js";
+import { view } from "../view/view.js";
+import { addToCart } from "./features/addToCart.js";
+import { admin } from "../view/admin.js";
+import { CRUD } from "./admin/productCRUD.JS";
+import { newOrder } from "./features/order.js";
+import { product } from "../view/product.js";
+class Controller {
   currentQty = 1;
 
   constructor() {
@@ -16,7 +16,7 @@ class mainApp {
     this.btnToggleMenu = document.querySelector(".btn-toggle-menu");
     this.btnToggleMenu?.addEventListener("click", this._toggleMenu.bind(this));
     this.header = document.querySelector(".logo-heading");
-    this.recentPRoductGrid = document.querySelector(".grid-4-columns");
+
     this.cartList = document.querySelector(".cart-list");
     this.cartList?.addEventListener("click", this._updateQuantity.bind(this));
     this.btnShowCart?.addEventListener(
@@ -28,12 +28,6 @@ class mainApp {
       this._hideCartForm.bind(this)
     );
     this._obserserAddSticky();
-    endpoint.getProducts().then((pt) => {
-      this._renderRecentProduct(pt);
-    });
-    endpoint.getProducts().then((pt) => {
-      this._renderMostSelledProduct(pt);
-    });
 
     this.allProductsContainer?.addEventListener(
       "click",
@@ -70,74 +64,6 @@ class mainApp {
     } else {
       body.classList.remove("sticky");
     }
-  }
-  _renderRecentProduct(list) {
-    console.log(list);
-    if (!this.recentPRoductGrid) return;
-    this.recentPRoductGrid.innerHTML = "";
-    list.forEach((item) => {
-      const html = `
-      <div class="new-product-box" data-id="${item.id}">
-      <div class="img-box">
-      <img src="${item.data.images[0]}" alt="">
-  </div>
-      <div class="new-product-content home-recent-product">
-          <span class="category-name">${item.data.category}</span>
-          <span class="product-name">${item.data.name}</span>
-          <div class="product-price-div">
-              <span class="current-product-price">${item.data.price}</span>
-              <span class="last-product-price">$1290</span>
-          </div>
-
-          <div class="product-stars-div">
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-          </div>
-          <div class="see-product-details">
-              <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}"> <i data-feather="eye"></i></a>
-
-          </div>
-
-      </div>
-      <div class="add-product-to-cart-div">
-      <div class="increase-quantity-box">
-      <span class="decrease-quantity"><i data-feather="minus"></i></span>
-      <span class="quantity-label">1</span>
-      <span class="increase-quantity"><i data-feather="plus"></i></span>
-  </div>
-          <button class="add-to-cart">Adicionar<i data-feather="shopping-cart"></i></button>
-      </div>
-  </div>
-        `;
-      this.recentPRoductGrid.insertAdjacentHTML("afterbegin", html);
-    });
-  }
-
-  _renderMostSelledProduct(list) {
-    const topSellingGri = document.querySelector(".top-selling-products-grid");
-    if (!topSellingGri) return;
-    topSellingGri.innerHTML = "";
-    list.forEach((item) => {
-      const html = `
-      <div class="top-sell-product-box ">
-      <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}" class="most-selled-link"></a>
-      <img src="${item.data.images[0]}" alt="" >
-      <div class="top-sell-product-content">
-          <span class="product-category">${item.data.category}</span>
-          <span class="product-name">${item.data.name}</span>
-
-          <div class="top-selling-price">
-              <span class="top-selling-curr-price">${item.data.price}</span>
-              <span class="top-selling-last-price">$4098,00</span>
-          </div>
-      </div>
-  </div>
-        `;
-      topSellingGri.insertAdjacentHTML("afterbegin", html);
-    });
   }
 
   _selectProductCart(e) {
@@ -212,4 +138,38 @@ class mainApp {
     addToCart._addProduct(id, this.currentQty);
   }
 }
-const app = new mainApp();
+
+class LinkView {
+  constructor() {
+    FIREBASE.getProducts().then((pt) => {
+      this._gettingRecentProducts(pt);
+      this._gettingMostSelledProducts(pt);
+      this._gettingAllProducts(pt);
+      console.log(pt);
+    });
+  }
+  _gettingRecentProducts(list) {
+    const sorted = list.sort((a, b) => b.data.date - a.data.date);
+    const returned = sorted.splice(-3);
+    view._renderRecentProduct(returned);
+    console.log(returned);
+  }
+  _gettingMostSelledProducts(list) {
+    const sort = list.sort((a, b) => a.sales - b.sales);
+    const returned = sort.splice(-8);
+    view._renderMostSelledProduct();
+    console.log(returned);
+  }
+  _gettingAllProducts(list) {
+    FIREBASE.getProducts().then((data) => {
+      product._renderAllProducts(returned);
+      console.log(data);
+    });
+    const sorted = list.sort((a, b) => b.data.date - a.data.date);
+    const returned = sorted.splice(-3);
+    console.log(returned);
+  }
+}
+
+const linkView = new LinkView();
+const controller = new Controller();

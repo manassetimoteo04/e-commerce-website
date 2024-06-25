@@ -1,17 +1,13 @@
-import { endpoint } from "./data/endpoints.js";
 class DetailApp {
   constructor() {
     this.detailsImgs = document.querySelectorAll(".product-slide-img");
     this.next = document.querySelector(".prev");
     this.prev = document.querySelector(".next");
     this.currSlide = 0;
-
     this._goSLide(0);
     this.maxSlide = this.detailsImgs.length - 1;
-
     this.next?.addEventListener("click", this.nextSlide.bind(this));
     this.prev?.addEventListener("click", this.prevSlide.bind(this));
-    this._gettingCurrentProductID();
   }
   _goSLide(slide) {
     this.detailsImgs.forEach((d, i) => {
@@ -29,16 +25,16 @@ class DetailApp {
 
     //   alert("");
   }
-  _gettingCurrentProductID() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    if (!id) return;
-    endpoint.getProductById(id).then((data) => {
-      document.title = `${data.name} - Derby commercy`;
-      console.log(data);
-      this._settingCurrentProductDetail(data);
-    });
-  }
+  // _gettingCurrentProductID() {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const id = urlParams.get("id");
+  //   if (!id) return;
+  //   endpoint.getProductById(id).then((data) => {
+  //     document.title = `${data.name} - Derby commercy`;
+  //     console.log(data);
+  //     this._settingCurrentProductDetail(data);
+  //   });
+  // }
   _settingCurrentProductDetail(data) {
     const allImages = document.querySelectorAll(".product-slide-img");
     const productName = document.querySelector(".product-name-detail");
