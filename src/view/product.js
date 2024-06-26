@@ -1,3 +1,4 @@
+import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
 class ProductApp {
   constructor() {
     this.mostSelledProducts = document.querySelector(".all-most-selled");
@@ -14,10 +15,16 @@ class ProductApp {
   </div>
       <div class="new-product-content home-recent-product">
           <span class="category-name">${item.data.category}</span>
-          <span class="product-name">${item.data.name}</span>
+          <span class="product-name">${FORMAT_NUMBERS.formatDates(
+            new Date(item.data.date)
+          )}</span>
           <div class="product-price-div">
-              <span class="current-product-price">${item.data.price}</span>
-              <span class="last-product-price">$1290</span>
+              <span class="current-product-price">${FORMAT_NUMBERS.formatCurrency(
+                item.data.price
+              )}</span>
+              <span class="last-product-price">${FORMAT_NUMBERS.formatCurrency(
+                45690
+              )}</span>
           </div>
 
           <div class="product-stars-div">
@@ -28,7 +35,9 @@ class ProductApp {
               <i data-feather="star"></i>
           </div>
           <div class="see-product-details">
-              <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}"> <i data-feather="eye"></i></a>
+              <a href="detail.html?id=${item.id}&category=${
+        item.data.category
+      }&name=${item.data.name}"> <i data-feather="eye"></i></a>
 
           </div>
 
@@ -44,6 +53,7 @@ class ProductApp {
   </div>
         `;
       this.allProductsContainer.insertAdjacentHTML("afterbegin", html);
+      feather.replace();
     });
   }
   _renderMostSelledProducts(list) {

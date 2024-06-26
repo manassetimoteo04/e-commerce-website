@@ -5,7 +5,9 @@ import {
   addDoc,
   getDocs,
   updateDoc,
+  FieldValue,
   deleteDoc,
+  arrayUnion,
   runTransaction,
   doc,
   getDoc,
@@ -64,6 +66,8 @@ class endpointsApp {
         images: imageUrls,
         date: new Date().toISOString(),
         rating: 0,
+        sales: Math.trunc(Math.random() * 20) + 1,
+        comments: [],
       });
       document.querySelector("#spinner").classList.add("hidden");
     } catch (error) {
@@ -153,6 +157,19 @@ class endpointsApp {
       });
     } catch (error) {
       console.error("Erro ao excluir produto e imagens:", error);
+    }
+  }
+  async _addProductComment(data, productId) {
+    try {
+      const productRef = doc(this.db, "productos", productId);
+      // Atualizar o documento usando arrayUnion
+      await updateDoc(productRef, {
+        comments: arrayUnion(data),
+      });
+
+      console.log("Comentário adicionado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao adicionar comentário:", error);
     }
   }
   async newOrder(data) {

@@ -1,5 +1,6 @@
 import { FIREBASE } from "../../model/firebase.js";
 import { admin } from "../../view/admin.js";
+import { FORMAT_NUMBERS } from "../features/formatting.js";
 class PRODUCT_CRUD {
   constructor() {
     this.btnConfirmAddNewProduct = document.querySelector(
@@ -222,18 +223,23 @@ class AdminController extends PRODUCT_CRUD {
   }
   _adminProductDetail(target) {
     const targetId = target.closest(".product-box-admin").dataset.id;
-    const productName = document.querySelector(".product-admin-name");
-    const productPrice = document.querySelector(".product-admin-price");
+    const productName = document.querySelector(".product-detail-name-admin");
+    const productPrice = document.querySelector(".product-price-admin-detail");
     const productDescription = document.querySelector(
       ".product-description-admin"
     );
+    const productLast = document.querySelector(".product-admin-last");
     console.log(productName, productPrice);
-    const productImg = document.querySelector(".product-img-box img");
+    const productImg = document.querySelectorAll(".admin-slide-img");
     let datat;
     FIREBASE.getProductById(targetId).then((data) => {
       datat = data;
-      productImg.src = data.images[0];
-      productPrice.textContent = data.price;
+      productImg.forEach((img, i) => {
+        img.src = data.images[i];
+        console.log(img);
+      });
+      productLast.textContent = FORMAT_NUMBERS.formatCurrency(56756);
+      productPrice.textContent = FORMAT_NUMBERS.formatCurrency(data.price);
       productName.textContent = data.name;
       productDescription.textContent = data.description;
     });

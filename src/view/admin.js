@@ -1,3 +1,5 @@
+import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
+
 class adminClass {
   constructor() {
     this.next = document.querySelector(".btn-next-product-img");
@@ -38,7 +40,9 @@ class adminClass {
     <img src="${item.data.images[0]}" alt="">
     <div class="product-admin-content">
         <span class="product-admin-name">${item.data.name}</span>
-        <span class="product-admin-price">${item.data.price}</span>
+        <span class="product-admin-price">${FORMAT_NUMBERS.formatCurrency(
+          item.data.price
+        )}</span>
     </div>
     <div class="admin-product-action">
         <button class="edit-product"><ion-icon name="create-outline"></ion-icon></button>

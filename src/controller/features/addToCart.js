@@ -1,5 +1,6 @@
 import { FIREBASE } from "../../model/firebase.js";
 import { view } from "../../view/view.js";
+import { FORMAT_NUMBERS } from "./formatting.js";
 feather.replace();
 
 class Cart {
@@ -12,6 +13,7 @@ class Cart {
     // this._getToLocalStorage();
     this._getCartFromFireBase();
     this._settingTotalProduct();
+    this._detailAddToCart();
   }
   _settingTotalProduct() {
     if (!this.totalCartItem) return;
@@ -47,6 +49,28 @@ class Cart {
         view._renderCartList(data, element.id, element.quantity);
       });
     });
+  }
+  _detailAddToCart() {
+    this.inputQty = document.querySelector(".add-product-to-cart input");
+    this.totalLabelAm = document.querySelector(".total-amount");
+    const btnAddToCart = document.querySelector(".add-product-to-cart-btn");
+    this.inputQty?.addEventListener("input", this._totalAmount.bind(this));
+    btnAddToCart?.addEventListener("click", this._confirmAddCart.bind(this));
+  }
+  _totalAmount() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    FIREBASE.getProductById(id).then((data) => {
+      this.totalLabelAm.textContent = FORMAT_NUMBERS.formatCurrency(
+        this.inputQty.value * data.price
+      );
+    });
+  }
+  _confirmAddCart() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    this._addProduct(id, this.inputQty.value);
+    alert();
   }
 }
 

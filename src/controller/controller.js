@@ -6,6 +6,9 @@ import { admin } from "../view/admin.js";
 import { CRUD } from "./admin/productCRUD.JS";
 import { newOrder } from "./features/order.js";
 import { product } from "../view/product.js";
+import { detail } from "../view/detail.js";
+import { GET_URL_ID } from "./getUrlParamID.js";
+import { rating } from "./features/rating.js";
 class Controller {
   currentQty = 1;
 
@@ -143,33 +146,40 @@ class LinkView {
   constructor() {
     FIREBASE.getProducts().then((pt) => {
       this._gettingRecentProducts(pt);
-      this._gettingMostSelledProducts(pt);
       this._gettingAllProducts(pt);
       console.log(pt);
+      this._gettingMostSelledProducts(pt);
     });
   }
   _gettingRecentProducts(list) {
     const sorted = list.sort((a, b) => b.data.date - a.data.date);
-    const returned = sorted.splice(-3);
+    const returned = sorted.splice(-6);
     view._renderRecentProduct(returned);
     console.log(returned);
   }
   _gettingMostSelledProducts(list) {
-    const sort = list.sort((a, b) => a.sales - b.sales);
-    const returned = sort.splice(-8);
-    view._renderMostSelledProduct();
-    console.log(returned);
+    FIREBASE.getProducts().then((data) => {
+      console.log(data);
+      const sort = data.sort((a, b) => a.data.sales - b.data.sales);
+      const returned = data.splice(-8);
+      view._renderMostSelledProduct(returned);
+      product._renderMostSelledProducts(returned);
+    });
   }
   _gettingAllProducts(list) {
     FIREBASE.getProducts().then((data) => {
-      product._renderAllProducts(returned);
       console.log(data);
+      const sort = data.sort((a, b) => a.data.sales - b.data.sales);
+      const returned = data.splice(-8);
+      product._renderAllProducts(returned);
     });
-    const sorted = list.sort((a, b) => b.data.date - a.data.date);
-    const returned = sorted.splice(-3);
-    console.log(returned);
   }
 }
 
 const linkView = new LinkView();
 const controller = new Controller();
+const events = [
+  { id: 1, name: "Event 1", date: "2023-06-25T14:30:00Z" },
+  { id: 2, name: "Event 2", date: "2023-06-24T09:00:00Z" },
+  { id: 3, name: "Event 3", date: "2023-06-25T16:00:00Z" },
+];

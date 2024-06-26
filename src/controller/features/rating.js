@@ -1,10 +1,12 @@
 const c = console.log.bind(document);
 import { FORMAT_NUMBERS as format } from "./formatting.js";
+import { detail } from "../../view/detail.js";
+import { FIREBASE } from "../../model/firebase.js";
 class Rating {
   #COMMENTS = [];
   constructor() {
     this.btnSendComment = document.querySelector(".btn-send-comment");
-    this.commentContainer = document.querySelector(".product-comment-list");
+
     this.ratingBtn = document.querySelector(".select-rating");
     this.btnSendComment?.addEventListener(
       "click",
@@ -12,19 +14,20 @@ class Rating {
     );
 
     this.ratingBtn?.addEventListener("click", this._ratingSystem.bind(this));
-    this._renderProductComments(this.#COMMENTS);
+    this._renderProductRating();
   }
   _ratingSystem(e) {
-    e?.preventDefault();
-    const target = e?.target?.closest("button");
+    e.preventDefault();
+    const target = e?.target?.closest("svg");
+    c();
     if (!target) return;
-    const buttons = document.querySelectorAll(".select-rating button");
+    const buttons = document.querySelectorAll(".select-rating svg");
     const arr = [...target.parentNode.children];
     const index = arr.indexOf(target);
-    c(index);
-    arr.forEach((s) => (s.style.background = "none"));
+    c(arr);
+    arr.forEach((s) => (s.style.fill = "none"));
     for (let i = 0; i <= index; i++) {
-      arr[i].style.background = "yellow";
+      arr[i].style.fill = "#000";
     }
     this.currentRate = index + 1;
   }
@@ -42,35 +45,21 @@ class Rating {
     };
     this.#COMMENTS.push(userComment);
     c(this.#COMMENTS);
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    FIREBASE._addProductComment(userComment, id);
     this._renderProductComments(this.#COMMENTS);
+    this._renderProductRating();
   }
   _sendingProductComment() {}
-  _renderProductComments(list) {
-    if (!this.commentContainer) return;
-    this.commentContainer.innerHTML = "";
-    list.forEach((element) => {
-      const html = `
-      <div class="comment-box">
-      <div>
-          <span class="user-name">${element.name?.split(" ")[0]}</span>
-          <span class="commented-date">${format.formatDates(
-            new Date(element.date)
-          )}</span>
-          <div class="user-rate">
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-          </div>
-      </div>
-      <p class="comment-text">${element.description}</p>
-      </div>
-        `;
-      this.commentContainer.insertAdjacentHTML("afterbegin", html);
+
+  _renderProductRating() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    FIREBASE.getProductById(id).then((product) => {
+      detail._renderProductComments(product.comments);
     });
   }
-  _renderProductRating() {}
 }
 
 const rating = new Rating();

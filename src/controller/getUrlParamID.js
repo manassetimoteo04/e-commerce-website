@@ -16,3 +16,4 @@ class GET_PRODUCT_BY_URL {
 }
 
 const GET_URL_ID = new GET_PRODUCT_BY_URL();
+export { GET_URL_ID };
