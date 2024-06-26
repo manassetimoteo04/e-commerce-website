@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/css/style.controller.css">
+    <link rel="stylesheet" href="src/public/css/style.controller.css">
     <script defer src="https://unpkg.com/feather-icons"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script defer type="module" src="src/controller/controller.js"></script>
@@ -360,11 +360,26 @@
     <div class="product-pagination">
         <button class="btn-prev-page"> <i data-feather="chevron-left"></i></button>
         <span class="current-page">1</span>
-        <button class="btn-prev-page"> <i data-feather="chevron-right"></i></button>
+        <button class="btn-next-page"> <i data-feather="chevron-right"></i></button>
     </div>
 
     </div>
+    <div class="container-entry-admin hidden">
+        <div class="overlay-entry"></div>
+        <form class="form-entry-admin">
+            <span class="form-entry-heading">Área Restrita <span class="close-login-form"><i
+                        data-feather="x"></i></span></span>
+            <span class="tag-span-entry">Inserir para acessar</span>
+            <div class="form-group">
+                <label for="">Inserir E-mail</label>
+                <input type="email" placeholder="Email" class="admin-email-input">
 
+                <label for="">Inserir Senha</label>
+                <input type="email" placeholder="Senha" class="admin-email-input">
+            </div>
+            <button class="btn-login-admin">Verificar</button>
+        </form>
+    </div>
     <footer>
         <div class="main-container">
             <div class="footer-grid">

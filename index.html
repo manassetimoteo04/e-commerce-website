@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/css/style.controller.css">
+    <link rel="stylesheet" href="src/public/css/style.controller.css">
     <script defer src="https://unpkg.com/feather-icons"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script defer type="module" src="src/controller/controller.js"></script>
@@ -25,7 +25,7 @@
                     <span><i data-feather="map-pin"></i> Angola, Luanda</span>
                 </div>
                 <div>
-                    <span><i data-feather="lock"></i>Área restrita</span>
+                    <span class="btn-show-admin-login"><i data-feather="lock"></i>Área restrita</span>
                 </div>
             </div>
 
@@ -105,7 +105,7 @@
         <div class="grid-3-columns">
             <div class="collection-box">
 
-                <img src="src/img/shop01.png" alt="">
+                <img src="src/public/img/product02.png" alt="">
                 <div class="content-collection-box">
                     <span class="heading-box"> Laptops</span>
                     <a href="products.html" class="btn-shopp-now">ver todos <i data-feather="arrow-right"></i> </a>
@@ -114,22 +114,22 @@
 
             <div class="collection-box">
 
-                <img src="src/img/shop02.png"" alt="">
+                <img src="src/public/img/product02.png" alt="">
                 <div class=" content-collection-box">
-                <span class="heading-box">Câmeras</span>
-                <a href="products.html" class="btn-shopp-now">ver todos <i data-feather="arrow-right"></i> </a>
+                    <span class="heading-box">Câmeras</span>
+                    <a href="products.html" class="btn-shopp-now">ver todos <i data-feather="arrow-right"></i> </a>
+                </div>
+            </div>
+
+            <div class="collection-box">
+
+                <img src="src/public/img/product02.png" alt="">
+                <div class="content-collection-box">
+                    <span class="heading-box">Acessórios</span>
+                    <a href="products.html" class="btn-shopp-now">ver todos <i data-feather="arrow-right"></i> </a>
+                </div>
             </div>
         </div>
-
-        <div class="collection-box">
-
-            <img src="src/img/shop03.png" alt="">
-            <div class="content-collection-box">
-                <span class="heading-box">Acessórios</span>
-                <a href="products.html" class="btn-shopp-now">ver todos <i data-feather="arrow-right"></i> </a>
-            </div>
-        </div>
-    </div>
     </div>
 
     <div class="main-container">
@@ -181,7 +181,7 @@
     <div class="week">
         <div class="week-deal main-container">
             <div class="deal-1">
-                <img class="deal-img" src="src/img/product08.png" alt="">
+                <img class="deal-img" src="src/public/img/product05.png" alt="">
             </div>
             <div class="deal-2">
                 <div class="time-box">
@@ -213,7 +213,7 @@
                 </div>
             </div>
             <div class="deal-3">
-                <img src="src/img/product02.png" alt="" class="deal-img">
+                <img src="src/public/img/product07.png" alt="" class="deal-img">
             </div>
         </div>
 
@@ -331,6 +331,23 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="container-entry-admin hidden">
+        <div class="overlay-entry"></div>
+        <form class="form-entry-admin">
+            <span class="form-entry-heading">Área Restrita <span class="close-login-form"><i
+                        data-feather="x"></i></span></span>
+            <span class="tag-span-entry">Inserir para acessar</span>
+            <div class="form-group">
+                <label for="">Inserir E-mail</label>
+                <input type="email" placeholder="Email" class="admin-email-input">
+
+                <label for="">Inserir Senha</label>
+                <input type="text" placeholder="Senha" class="admin-password-input">
+            </div>
+            <button class="btn-login-admin">Verificar</button>
+        </form>
     </div>
     <footer>
         <div class="main-container">

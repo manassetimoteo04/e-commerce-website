@@ -56,6 +56,7 @@ class Rating {
     this._gettingProductComment();
   }
   _settingTotalRating() {
+    if (!this._gettURLProductID()) return;
     FIREBASE.getProductById(this._gettURLProductID()).then((data) => {
       const star_5 = data.comments
         .filter((rate) => rate.rating === 5)
@@ -126,6 +127,7 @@ class Rating {
   }
 
   _gettingProductComment() {
+    if (!this._gettURLProductID()) return;
     FIREBASE.getProductById(this._gettURLProductID()).then((product) => {
       detail._paginationComments(product.comments);
     });

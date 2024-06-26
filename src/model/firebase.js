@@ -20,6 +20,17 @@ import {
   deleteObject,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+import { authT } from "../controller/admin/auth/isAuth.js";
 class endpointsApp {
   #firebaseConfig = {
     apiKey: "AIzaSyA39Lu3_WJYF3iEif-sSY_o0ZShP81OdI4",
@@ -37,6 +48,7 @@ class endpointsApp {
     // Inicializa o Firestore
     this.db = getFirestore(this.app);
     this.storage = getStorage(this.app);
+    this.auth = getAuth(this.app);
     // this.addProduct("Produto 1", "Descrição do Produto 1", 100.0);
     this.getProductById("pYrvCxSeOfVqyrnZ7QSj");
     // this.getProducts();
@@ -181,6 +193,18 @@ class endpointsApp {
     } catch (error) {
       console.error("Erro ao adicionar produto: ", error);
     }
+  }
+
+  async adminLogin(email, password) {
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        console.log("User logged in:", userCredential.user);
+        localStorage.setItem("userToken", userCredential.user.accessToken);
+        authT._authentication();
+      })
+      .catch((error) => {
+        alert("Credenciais errada, tente novamente");
+      });
   }
 }
 

@@ -13,6 +13,11 @@ class Controller {
   currentQty = 1;
 
   constructor() {
+    this.loginAdminFormContainer = document.querySelector(
+      ".container-entry-admin"
+    );
+    this.btnShowAdminLogin = document.querySelector(".btn-show-admin-login");
+    this.btnLoginAdmin = document.querySelector(".btn-login-admin");
     this.allProductsContainer = document.querySelector(".main-product-list");
     this.cartContainer = document.querySelector(".cart-container");
     this.btnShowCart = document.querySelector(".cart-btn");
@@ -36,6 +41,15 @@ class Controller {
       "click",
       this._selectProductCart.bind(this)
     );
+    this.btnShowAdminLogin?.addEventListener(
+      "click",
+      this._showLoginAdminForm.bind(this)
+    );
+    this.loginAdminFormContainer?.addEventListener(
+      "click",
+      this._closeLoginAdminForm.bind(this)
+    );
+    this.btnLoginAdmin?.addEventListener("click", this._loginAdmin.bind(this));
   }
 
   _showCartContainer() {
@@ -140,6 +154,23 @@ class Controller {
     total.textContent = this.currentQty * +price.textContent;
     addToCart._addProduct(id, this.currentQty);
   }
+
+  _showLoginAdminForm() {
+    this.loginAdminFormContainer.classList.remove("hidden");
+  }
+  _closeLoginAdminForm(e) {
+    const target = e.target;
+    if (target.closest(".overlay-entry"))
+      this.loginAdminFormContainer.classList.add("hidden");
+    if (target.closest(".close-login-form"))
+      this.loginAdminFormContainer.classList.add("hidden");
+  }
+  _loginAdmin(e) {
+    e.preventDefault();
+    const email = document.querySelector(".admin-email-input");
+    const password = document.querySelector(".admin-password-input");
+    FIREBASE.adminLogin(email.value, password.value);
+  }
 }
 
 class LinkView {
@@ -172,7 +203,7 @@ class LinkView {
       console.log(data);
       const sort = data.sort((a, b) => a.data.sales - b.data.sales);
       const returned = data.splice(-8);
-      product._renderAllProducts(returned);
+      product._paginationAllProducts(returned);
     });
   }
   _gettingRelatedProduct() {
