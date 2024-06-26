@@ -68,6 +68,8 @@ class MainView {
     if (!topSellingGri) return;
     topSellingGri.innerHTML = "";
     list.forEach((item) => {
+      let star = "";
+
       const html = `
           <div class="top-sell-product-box ">
           <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}" class="most-selled-link"></a>
@@ -100,7 +102,9 @@ class MainView {
         <div class="cart-flex"><span class="product-cart-name">${
           item.name
         }</span>
-            <span class="product-cart-price">${item.price}</span>
+            <span class="product-cart-price">${FORMAT_NUMBERS.formatCurrency(
+              item.price
+            )}</span>
         </div>
         <div class="cart-flex">
             <div class="increase-quantity-box">
@@ -108,7 +112,9 @@ class MainView {
                 <span class="quantity-label">${qty}</span>
                 <span class="increase-quantity">+</span>
             </div>
-            <span class="total-amount-product">${qty * item.price}</span>
+            <span class="total-amount-product">${FORMAT_NUMBERS.formatCurrency(
+              qty * item.price
+            )}</span>
         </div>
     </div>
 </div>

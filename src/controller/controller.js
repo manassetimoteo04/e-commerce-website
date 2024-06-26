@@ -150,6 +150,7 @@ class LinkView {
       console.log(pt);
       this._gettingMostSelledProducts(pt);
     });
+    this._gettingRelatedProduct();
   }
   _gettingRecentProducts(list) {
     const sorted = list.sort((a, b) => b.data.date - a.data.date);
@@ -172,6 +173,20 @@ class LinkView {
       const sort = data.sort((a, b) => a.data.sales - b.data.sales);
       const returned = data.splice(-8);
       product._renderAllProducts(returned);
+    });
+  }
+  _gettingRelatedProduct() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get("category");
+    FIREBASE.getProducts().then((data) => {
+      console.log(data);
+      const sort = data.filter((data) => {
+        console.log(data, category);
+        return data.data.category === category;
+      });
+      console.log(sort);
+      const returned = data.splice(-8);
+      detail._renderRelatedProduct(sort);
     });
   }
 }

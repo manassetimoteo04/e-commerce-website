@@ -2,6 +2,9 @@ import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
 class DetailApp {
   constructor() {
     this.commentContainer = document.querySelector(".product-comment-list");
+    this.relatedProductContainer = document.querySelector(
+      ".related-product-grid"
+    );
     this.detailsImgs = document.querySelectorAll(".product-slide-img");
     this.next = document.querySelector(".prev");
     this.prev = document.querySelector(".next");
@@ -10,6 +13,14 @@ class DetailApp {
     this.maxSlide = this.detailsImgs.length - 1;
     this.next?.addEventListener("click", this.nextSlide.bind(this));
     this.prev?.addEventListener("click", this.prevSlide.bind(this));
+
+    //paginação
+    this.nextCom = document.querySelector(".btn-next-comm");
+    this.prevCom = document.querySelector(".btn-prev-comm");
+    this.currentCommPagesL = document.querySelector(".current-comment-page");
+
+    this.nextCom?.addEventListener("click", this.goToNextPage.bind(this));
+    this.prevCom?.addEventListener("click", this.goToPreviousPage.bind(this));
   }
   _goSLide(slide) {
     this.detailsImgs.forEach((d, i) => {
@@ -72,10 +83,17 @@ class DetailApp {
       feather.replace();
     });
   }
-  _renderRelatedProduct() {
-    const html = `
-    <div class="new-product-box" data-id="${item.id}">
-    <div class="img-box">
+  _renderRelatedProduct(list) {
+    if (!this.relatedProductContainer) return;
+    this.relatedProductContainer.innerHTML = "";
+    list.forEach((item) => {
+      let star;
+      for (let i = 1; i <= item.data.rating; i++) {
+        star += '<i data-feather="star"></i> ';
+      }
+      const html = `
+      <div class="new-product-box" data-id="${item.id}">
+      <div class="img-box">
     <img src="${item.data.images[0]}" alt="">
 </div>
     <div class="new-product-content home-recent-product">
@@ -93,30 +111,71 @@ class DetailApp {
         </div>
 
         <div class="product-stars-div">
-            <i data-feather="star"></i>
-            <i data-feather="star"></i>
-            <i data-feather="star"></i>
-            <i data-feather="star"></i>
-            <i data-feather="star"></i>
-        </div>
-        <div class="see-product-details">
+           ${star}
+            </div>
+            <div class="see-product-details">
             <a href="detail.html?id=${item.id}&category=${
-      item.data.category
-    }&name=${item.data.name}"> <i data-feather="eye"></i></a>
+        item.data.category
+      }&name=${item.data.name}"> <i data-feather="eye"></i></a>
+            
+            </div>
+            
+            </div>
+            <div class="add-product-to-cart-div">
+            <div class="increase-quantity-box">
+            <span class="decrease-quantity"><i data-feather="minus"></i></span>
+            <span class="quantity-label">1</span>
+            <span class="increase-quantity"><i data-feather="plus"></i></span>
+            </div>
+            <button class="add-to-cart">Adicionar<i data-feather="shopping-cart"></i></button>
+            </div>
+            </div>
+            `;
+      this.relatedProductContainer.insertAdjacentHTML("beforeend", html);
+    });
+  }
 
-        </div>
+  // PAGINAÇÃO DA LISTA DE PRODUCTOS
+  _paginationComments(productList) {
+    this.productList = productList;
+    this.productsPerPage = 3;
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(productList.length / this.productsPerPage);
+    this.renderCurrentPage(this.currentPage, productList);
+    this.currentCommPagesL.textContent = this.currentPage;
+  }
 
-    </div>
-    <div class="add-product-to-cart-div">
-    <div class="increase-quantity-box">
-    <span class="decrease-quantity"><i data-feather="minus"></i></span>
-    <span class="quantity-label">1</span>
-    <span class="increase-quantity"><i data-feather="plus"></i></span>
-</div>
-        <button class="add-to-cart">Adicionar<i data-feather="shopping-cart"></i></button>
-    </div>
-</div>
-      `;
+  // CONFIGURARA  PÁGINA A SER RENDERIZADA
+  renderPage(page, list) {
+    this.startIndex = (page - 1) * this.productsPerPage;
+    this.endIndex = this.startIndex + this.productsPerPage;
+
+    //LISTA  A SER RENDERIZADO
+    this.commentToRender = list.slice(this.startIndex, this.endIndex);
+    this._renderProductComments(this.commentToRender);
+    // this._renderProductList(this.productsToRender);
+  }
+  renderCurrentPage(currentPage, list) {
+    this.renderPage(currentPage, list);
+  }
+
+  // FUNÇÃO PARA IR NA PÁGINA ANTERIOR
+  goToPreviousPage = function () {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.renderCurrentPage(this.currentPage, this.productList);
+      console.log(this.productsToRender);
+    }
+    this.currentCommPagesL.textContent = this.currentPage;
+  };
+
+  // FUNÇÃO PARA IR NA PÁGINA POSTERIOR
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.renderCurrentPage(this.currentPage, this.productList);
+    }
+    this.currentCommPagesL.textContent = this.currentPage;
   }
 }
 

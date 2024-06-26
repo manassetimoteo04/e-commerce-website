@@ -183,6 +183,37 @@
 
 }
 
+/* RATING */
+.rating-box {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    margin-top: 2rem;
+    align-items: center;
+}
+
+.rating-box span {
+    font-weight: 600;
+}
+
+.rating {
+    position: relative;
+    height: 1.5rem;
+    width: 100%;
+    background-color: var(--Grey-4);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.rating-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 1.5rem;
+    background-color: var(--Primary-color);
+    border-radius: 1rem;
+
+}
+
 .rating-header {
     display: flex;
     align-items: center;
@@ -199,6 +230,8 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    min-height: 30rem !important;
+    position: relative;
 }
 
 .comment-grid .product-star-rating {
@@ -215,6 +248,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 .user-name {
@@ -241,7 +275,10 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    margin-top: 6rem;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .comment-pagination button {
