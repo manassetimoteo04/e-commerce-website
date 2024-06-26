@@ -359,25 +359,24 @@
     }
 
     .main-menu-list {
-        position: absolute;
-        top: 4rem;
+        position: absolute !important;
+        top: 6.9rem;
         left: 0;
-        background-color: rgba(255, 255, 255, 0.863);
-        backdrop-filter: blur(5rem);
+        background-color: rgba(255, 255, 255, 0.942);
+        backdrop-filter: blur(500px);
         padding: 0rem 2rem;
 
         flex-direction: column;
         z-index: 999;
         width: 100%;
         align-items: flex-start !important;
-        max-height: 0rem;
+        max-height: 30rem;
         overflow: hidden;
-        display: none;
         transition: all 0.3s ease-in;
     }
 
     .show-menu .main-menu-list {
-        max-height: 30rem;
+        max-height: 0rem;
     }
 
     .main-menu-list li:first-child {

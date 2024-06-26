@@ -120,7 +120,7 @@ header {
 
 .sticky .cart-btn {
     position: fixed;
-    top: 1.5rem;
+    top: 2rem;
     right: 4rem;
     color: var(--Dark-2);
     z-index: 999999;
@@ -313,6 +313,7 @@ header {
 
 .sticky .main-menu {
     position: fixed;
+    height: 7rem;
     width: 100%;
     top: 0;
     left: 0;
@@ -821,6 +822,7 @@ header {
     width: 100%;
     height: 100vh;
     z-index: 999999999;
+    padding: 1rem;
 }
 
 .overlay-entry {

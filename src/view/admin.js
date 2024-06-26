@@ -1,7 +1,11 @@
 import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
+import { FIREBASE } from "../model/firebase.js";
+import { order } from "./orderView.js";
 
 class adminClass {
   constructor() {
+    this.orderList = document.querySelector(".order-list");
+
     this.next = document.querySelector(".btn-next-product-img");
     this.previous = document.querySelector(".btn-prev-product-img");
     this.imgsSlide = document.querySelectorAll(".admin-slide-img");
@@ -10,6 +14,18 @@ class adminClass {
     this._goToSlide(0);
     this.next?.addEventListener("click", this._nextSlide.bind(this));
     this.previous?.addEventListener("click", this._prevSlide.bind(this));
+    this.orderList?.addEventListener("click", this._getOrderID.bind(this));
+    //PAGINAÇÃO
+    this.btnPrevAdmin = document.querySelector(".btn-prev-admin");
+    this.btnNextAdmin = document.querySelector(".btn-next-admin");
+    this.adminCurrPage = document.querySelector(".current-page");
+
+    this.btnPrevAdmin?.addEventListener(
+      "click",
+      this.goToPreviousPage.bind(this)
+    );
+    this.btnNextAdmin?.addEventListener("click", this.goToNextPage.bind(this));
+    this._gettingOrder();
   }
   _goToSlide = function (slide) {
     this.imgsSlide.forEach(
@@ -46,13 +62,70 @@ class adminClass {
     </div>
     <div class="admin-product-action">
         <button class="edit-product"><ion-icon name="create-outline"></ion-icon></button>
-        <button class="copy-product"><ion-icon name="copy-outline"></ion-icon></button>
+        <button class="copy-link"><ion-icon name="copy-outline"></ion-icon></button>
         <button class="see-product"><ion-icon name="eye-outline"></ion-icon></i></button>
         <button class="delete-product"><ion-icon name="trash-outline"></ion-icon></button>
     </div>
     </div>
     `;
       producList.insertAdjacentHTML("afterbegin", html);
+    });
+  }
+
+  // PAGINAÇÃO DA LISTA DE PRODUCTOS
+  _paginationAdmin(productList) {
+    this.productList = productList;
+    this.productsPerPage = 8;
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(productList.length / this.productsPerPage);
+    this.renderCurrentPage(this.currentPage, productList);
+    if (!this.adminCurrPage) return;
+    this.adminCurrPage.textContent = this.currentPage;
+  }
+
+  // CONFIGURARA  PÁGINA A SER RENDERIZADA
+  renderPage(page, list) {
+    this.startIndex = (page - 1) * this.productsPerPage;
+    this.endIndex = this.startIndex + this.productsPerPage;
+
+    //LISTA  A SER RENDERIZADO
+    this.productsToRender = list.slice(this.startIndex, this.endIndex);
+    this._renderAdminProduct(this.productsToRender);
+  }
+  renderCurrentPage(currentPage, list) {
+    this.renderPage(currentPage, list);
+  }
+
+  // FUNÇÃO PARA IR NA PÁGINA ANTERIOR
+  goToPreviousPage = function () {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.renderCurrentPage(this.currentPage, this.productList);
+      console.log(this.productsToRender);
+    }
+    this.adminCurrPage.textContent = this.currentPage;
+  };
+
+  // FUNÇÃO PARA IR NA PÁGINA POSTERIOR
+  goToNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.renderCurrentPage(this.currentPage, this.productList);
+    }
+    this.adminCurrPage.textContent = this.currentPage;
+  }
+
+  _gettingOrder() {
+    FIREBASE.getOrders().then((list) => {
+      order._renderOrderList(list);
+    });
+  }
+  _getOrderID(e) {
+    const target = e.target.closest(".order-box");
+    if (!target) return;
+    const id = target.dataset.id;
+    FIREBASE.getOrderById(id).then((data) => {
+      order._settingOrderDetail(data);
     });
   }
 }

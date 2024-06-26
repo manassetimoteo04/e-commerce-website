@@ -83,7 +83,7 @@ class Order {
       products: this.cart,
     };
     console.log(order);
-    endpoint.newOrder(order);
+    FIREBASE.newOrder(order);
   }
   _sendingOrderToWhatsapp() {
     const whatsappUrl = `https://api.whatsapp.com/send?phone=+244940407979&text=${this._buildingString()}`;

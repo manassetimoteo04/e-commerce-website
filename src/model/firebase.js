@@ -195,6 +195,45 @@ class endpointsApp {
     }
   }
 
+  // Função para obter todos os produtos
+  async getOrders() {
+    try {
+      document.querySelector("#spinner").classList.remove("hidden");
+      const querySnapshot = await getDocs(collection(this.db, "orders"));
+      document.querySelector("#spinner").classList.add("hidden");
+      let list = [];
+      querySnapshot.forEach((doc) => {
+        const value = {
+          id: doc.id,
+          data: doc.data(),
+        };
+        list.push(value);
+      });
+      feather.replace();
+
+      //   console.log(`${doc.id} =>`, doc.data());
+      return list;
+    } catch (e) {
+      console.error("Erro ao obter order: ", e);
+    }
+  }
+
+  // Função para pegar o producto pelo ID
+  async getOrderById(productId) {
+    try {
+      document.querySelector("#spinner").classList.remove("hidden");
+      const productRef = doc(this.db, "orders", productId);
+      const productDoc = await getDoc(productRef);
+      document.querySelector("#spinner").classList.add("hidden");
+      if (productDoc.exists()) {
+        return productDoc.data();
+      } else {
+        return null;
+      }
+    } catch (e) {
+      console.error("Erro ao obter produtos: ", e);
+    }
+  }
   async adminLogin(email, password) {
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {

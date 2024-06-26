@@ -64,7 +64,21 @@ class PRODUCT_CRUD {
       admin._renderAdminProduct(pt);
     });
   }
+  _copyToClipBoard(e) {
+    const element = e.closest(".product-box-admin");
+    const id = element.dataset.id;
+    const textToCopy = `http://127.0.0.1:8080/detail.html?id=${id}`;
 
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then((text) => {
+        console.log("Texto copiado para o clipboard!", text);
+        alert("link copiado");
+      })
+      .catch(function (error) {
+        console.error("Erro ao copiar o texto: ", error);
+      });
+  }
   // MANIPULANDO O INPUT PARA UPLOAD DE IMAGENS
   uploadProductImgPreview() {
     const inputFile = document.querySelectorAll(".upload-img input");
@@ -118,6 +132,9 @@ class AdminController extends PRODUCT_CRUD {
   currentProductId;
   constructor() {
     super();
+    this.btnShowOrders = document.querySelector(".all-orders");
+    this.adminOrderContainer = document.querySelector(".orders-container");
+    this.orderList = document.querySelector(".order-list-box");
     this.btnShowNewProductForm = document.querySelector(
       ".register-new-product"
     );
@@ -130,11 +147,14 @@ class AdminController extends PRODUCT_CRUD {
     this.newProductForm = document.querySelector(".add-new-product-form");
     this.updateProductForm = document.querySelector(".update-product-form");
     this.btnUpdateProduct = document.querySelector(".btn-update-product");
-
+    this.btnShowOrders?.addEventListener(
+      "click",
+      this._shorOrdersContainer.bind(this)
+    );
     FIREBASE.getProducts().then((pt) => {
       //   this._gettingRecentProducts(pt);
       //   this._gettingMostSelledProducts(pt);
-      admin._renderAdminProduct(pt);
+      admin._paginationAdmin(pt);
     });
     this.uploadProductImgPreview();
     this._bindEventListeners();
@@ -158,6 +178,9 @@ class AdminController extends PRODUCT_CRUD {
       this._closeProductDetail.bind(this)
     );
   }
+  _shorOrdersContainer() {
+    this.adminOrderContainer.classList.remove("hidden");
+  }
   //MOSTRANDO O FORMULÁRIO PARA ADICIONAR NOVO PRODUCTO
   _showNewProductForm() {
     this.newProductFormContainer.classList.remove("hidden");
@@ -176,6 +199,9 @@ class AdminController extends PRODUCT_CRUD {
   }
   _seeProductDetail(e) {
     const target = e.target;
+    if (target.closest(".copy-link")) {
+      this._copyToClipBoard(target);
+    }
     if (target.closest(".see-product")) {
       this.productDetailContainer.classList.remove("hidden");
       this._adminProductDetail(target);
