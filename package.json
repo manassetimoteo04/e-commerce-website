@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "'Manasse Timóteo'",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "render-js": "^1.29.0"
+  }
 }
