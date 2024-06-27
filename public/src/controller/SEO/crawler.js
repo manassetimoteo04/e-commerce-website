@@ -1,5 +1,11 @@
 class Crawler {
-  constructor() {}
+  constructor() {
+    // Verifica se a página deve ser pré-renderizada
+    if (this.isBot(navigator.userAgent)) {
+      this.preRenderPage();
+    }
+    this.preRenderPage();
+  }
   // Função para atualizar meta tags com base nos dados do produto
   atualizarMetaTags(produto) {
     document
@@ -34,7 +40,38 @@ class Crawler {
       .catch((error) => console.error("Erro ao carregar produto:", error));
   }
 
-  // Chama a função para carregar o produto específico (exemplo: produto com ID 123)
+  // Verifica se é um bot de mecanismo de busca
+  isBot(userAgent) {
+    const bots = [
+      "googlebot",
+      "bingbot",
+      "yandexbot",
+      // Adicione outros bots se necessário
+    ];
+
+    return bots.some((bot) => userAgent.toLowerCase().includes(bot));
+  }
+
+  // Função para pré-renderizar página usando Prerender.io
+  preRenderPage() {
+    const pageUrl = window.location.href;
+    const prerenderToken = "wjh34LyrZapzzwChDRpS"; // Substitua pelo seu token de acesso Prerender.io
+    fetch(
+      `https://service.prerender.io/${encodeURIComponent(
+        pageUrl
+      )}&token=${prerenderToken}`
+    )
+      .then((response) => {
+        if (response.ok) {
+          console.log("Página pré-renderizada com sucesso.");
+        } else {
+          console.error("Erro ao pré-renderizar página:", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Erro na solicitação de pré-renderização:", error);
+      });
+  }
 }
 
 const crawler = new Crawler();
