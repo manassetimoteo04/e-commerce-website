@@ -59,14 +59,13 @@ class Crawler {
     fetch(
       `https://service.prerender.io/${encodeURIComponent(
         pageUrl
-      )}&token=${prerenderToken}`
+      )}?token=${prerenderToken}`,
+      {
+        mode: "no-cors", // Configura o modo 'no-cors'
+      }
     )
       .then((response) => {
-        if (response.ok) {
-          console.log("Página pré-renderizada com sucesso.");
-        } else {
-          console.error("Erro ao pré-renderizar página:", response.status);
-        }
+        console.log("Solicitação de pré-renderização enviada.");
       })
       .catch((error) => {
         console.error("Erro na solicitação de pré-renderização:", error);
