@@ -55,17 +55,19 @@ class Crawler {
   // Função para pré-renderizar página usando Prerender.io
   preRenderPage() {
     const pageUrl = window.location.href;
-    const prerenderToken = "wjh34LyrZapzzwChDRpS"; // Substitua pelo seu token de acesso Prerender.io
+    const headlessRenderApiToken =
+      "dXMtd2VzdC0yOjNiYmIxZDA3LTEzMjAtYzU4OC05NGFkLTI4NTY1NDA1ZmRkZg.LBGc7zVfWLa07NgtRlwAIWMooblmmw6yUDGXDoewr_g"; // Substitua pelo seu token de acesso Prerender.io
     fetch(
-      `https://service.prerender.io/${encodeURIComponent(
+      `https://api.headless-render.com/render?url=${encodeURIComponent(
         pageUrl
-      )}?token=${prerenderToken}`,
-      {
-        mode: "no-cors", // Configura o modo 'no-cors'
-      }
+      )}&token=${headlessRenderApiToken}`
     )
       .then((response) => {
-        console.log("Solicitação de pré-renderização enviada.");
+        if (response.ok) {
+          console.log("Página pré-renderizada com sucesso.");
+        } else {
+          console.error("Erro ao pré-renderizar página:", response.status);
+        }
       })
       .catch((error) => {
         console.error("Erro na solicitação de pré-renderização:", error);
