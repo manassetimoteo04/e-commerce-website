@@ -4,7 +4,7 @@ class NotAuth {
   }
   _authentication() {
     const token = localStorage.getItem("userToken");
-    if (!token) window.location.href = "../../index.html";
+    if (!token) window.location.href = "./index.html";
   }
 }
 const authNot = new NotAuth();

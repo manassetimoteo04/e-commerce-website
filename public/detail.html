@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/public/css/style.controller.css">
+    <!-- <link rel="stylesheet" href="src/public/css/style.controller.css"> -->
+    <link rel="stylesheet" href="./src/public/css/style.controller.css">
+
     <script defer src="https://unpkg.com/feather-icons"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script defer type="module" src="src/controller/controller.js"></script>
-    <title>Productos - Derby Commercy</title>
+    <script defer type="module" src="./src/controller/controller.js"></script>
+    <title>Detalhes - Derby Commercy</title>
 </head>
 
 <body>
@@ -104,77 +106,156 @@
     <div class="section-heading">
         <div class="main-container">
 
-            <span class="heading-sec-tag">Todos Productos</span>
+            <span class="heading-sec-tag">Detalhes do producto</span>
         </div>
     </div>
     <div class="main-container">
+        <div class="detail-grid">
+            <div class="product-images-div">
 
-        <div class="product-categories">
-            <div>
-
-                <span class="sub-heading">Categorias</span>
-                <ul class="category-list">
-
-                    <li><i data-feather="square"></i> <span class="category-name">Laptops <span
-                                class="total-products">(234)</span></span></li>
-                    <li><i data-feather="square"></i> <span class="category-name">Smartphones <span
-                                class="total-products">(704)</span></span></li>
-
-                    <li><i data-feather="square"></i> <span class="category-name">Câmeras <span
-                                class="total-products">(534)</span></span></li>
-
-                    <li><i data-feather="square"></i> <span class="category-name">Laptops <span
-                                class="total-products">(234)</span></span></li>
-                </ul>
+                <div class="product-slide-detail">
+                    <button class="product-slide-btn prev">
+                        <i data-feather="chevron-right"></i>
+                    </button>
+                    <button class="product-slide-btn next">
+                        <i data-feather="chevron-left"></i>
+                    </button>
+                    <img src="img/product06.png" alt="" class="product-slide-img">
+                    <img src="img/product07.png" alt="" class="product-slide-img">
+                    <img src="img/product08.png" alt="" class="product-slide-img">
+                </div>
 
             </div>
+            <div class="product-detail-information">
+                <span class="product-name-detail">Macbook Pro 2020 Core I5</span>
 
-            <div class="products-most-selled">
-                <span class=" sub-heading">Mais vendidos</span>
-                <div class="most-selled-product-list all-most-selled">
-                    <div class=" top-sell-product-box">
-                        <img src="img/product09.png" alt="">
-                        <div class="top-sell-product-content">
-                            <span class="product-category">Laptop</span>
-                            <span class="product-name">Macbook Pro Core I5</span>
+                <div class="product-star-rating">
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                </div>
+                <div class="product-price-box">
+                    <span class="product-curr-price">$5095</span>
+                    <span class="product-last-price">$5095</span>
+                </div>
 
-                            <div class="top-selling-price">
-                                <span class="top-selling-curr-price">$3495,00</span>
-                                <span class="top-selling-last-price">$4098,00</span>
-                            </div>
+                <p class="product-description-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt
+                    accusantium deserunt non! Esse laboriosam est vel fuga sunt eveniet, itaque nihil assumenda minus
+                    natus! Illo eos beatae tempore repellendus ab.</p>
+
+                <div class="product-category">
+                    <span>Categoria</span> <span class="product-category-detail">Laptops</span>
+                </div>
+                <div class="add-product-to-cart">
+                    <div>
+
+                        <input type="number" placeholder="Quantidade" min="0">
+                        <span class="total-amount">$0</span>
+                    </div>
+                    <button class="add-product-to-cart-btn">Comprar <i data-feather="shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-comments-container">
+        <div class="main-container comment-grid">
+            <div class="rating-summary">
+                <div class="rating-header">
+                    <span class="total-rate">5.0</span>
+                    <div class="product-star-rating">
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                </div>
+                <div class="rating-container">
+                    <div class="rating-box">
+                        <span>5</span>
+                        <div class="rating">
+                            <div class="rating-progress progress_5 "></div>
                         </div>
                     </div>
-
-                    <div class="top-sell-product-box">
-                        <img src="img/product02.png" alt="">
-                        <div class="top-sell-product-content">
-                            <span class="product-category">Laptop</span>
-                            <span class="product-name">Macbook Pro Core I5</span>
-
-                            <div class="top-selling-price">
-                                <span class="top-selling-curr-price">$3495,00</span>
-                                <span class="top-selling-last-price">$4098,00</span>
-                            </div>
+                    <div class="rating-box">
+                        <span>4</span>
+                        <div class="rating">
+                            <div class="rating-progress  progress_4 "></div>
                         </div>
                     </div>
-
-                    <div class="top-sell-product-box">
-                        <img src="img/product04.png" alt="">
-                        <div class="top-sell-product-content">
-                            <span class="product-category">Laptop</span>
-                            <span class="product-name">Macbook Pro Core I5</span>
-
-                            <div class="top-selling-price">
-                                <span class="top-selling-curr-price">$3495,00</span>
-                                <span class="top-selling-last-price">$4098,00</span>
-                            </div>
+                    <div class="rating-box">
+                        <span>3</span>
+                        <div class="rating">
+                            <div class="rating-progress progress_3 "></div>
+                        </div>
+                    </div>
+                    <div class="rating-box">
+                        <span>2</span>
+                        <div class="rating">
+                            <div class="rating-progress progress_2 "></div>
+                        </div>
+                    </div>
+                    <div class="rating-box">
+                        <span>1</span>
+                        <div class="rating">
+                            <div class="rating-progress progress_1 "></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="product-comment">
+                <div class="product-comment-list">
+                    <div class="comment-box">
+                        <div>
+                            <span class="user-name">Timóteo</span>
+                            <span class="commented-date">08 ABR 2024</span>
+                            <div class="user-rate">
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                                <i data-feather="star"></i>
+                            </div>
+                        </div>
+                        <p class="comment-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae
+                            porro
+                            voluptates quia, in quidem fugit corrupti esse vel voluptate</p>
+                    </div>
+                </div>
 
-        <div class="product-grid-3-cl main-product-list">
+                <div class="comment-pagination">
+                    <button class="btn-prev-comm"><i data-feather="chevron-left"></i></button>
+                    <span class="current-comment-page">1</span>
+                    <button class="btn-next-comm"><i data-feather="chevron-right"></i></button>
+                </div>
+            </div>
+            <form action="" class="new-comment-form">
+                <input type="text" class="input-comment-name" placeholder="Seu nome">
+                <input type="email" class="input-comment-email" placeholder="Seu nome">
+                <textarea name="" id="" cols="30" rows="3" placeholder="Teu comentário"
+                    class="input-comment"></textarea>
+
+                <div class="your-rate">
+                    <span>Sua classificação</span>
+                    <div class="select-rating">
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+                        <i data-feather="star"></i>
+
+                    </div>
+                </div>
+                <button class="btn-send-comment">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="related-product-container main-container">
+        <h2 class="heading-h2">Productos relacionados</h2>
+        <div class="related-product-grid">
             <div class="new-product-box">
                 <img src="img/product01.png" alt="">
                 <div class="new-product-content">
@@ -204,37 +285,9 @@
                     <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
                 </div>
             </div>
+
             <div class="new-product-box">
-                <img src="img/product08.png" alt="">
-                <div class="new-product-content">
-                    <span class="category-name">Laptop</span>
-                    <span class="product-name">Macbook Pro 2017 Core I5</span>
-                    <div class="product-price-div">
-                        <span class="current-product-price">$ 967.00</span>
-                        <span class="last-product-price">$1290</span>
-                    </div>
-
-                    <div class="product-stars-div">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
-                    <div class="see-product-details">
-                        <button> <i data-feather="star"></i></button>
-                        <button> <i data-feather="eye"></i></button>
-
-                    </div>
-
-                </div>
-                <div class="add-product-to-cart-div">
-
-                    <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
-                </div>
-            </div>
-            <div class="new-product-box">
-                <img src="img/product02.png" alt="">
+                <img src="img/product01.png" alt="">
                 <div class="new-product-content">
                     <span class="category-name">Laptop</span>
                     <span class="product-name">Macbook Pro 2017 Core I5</span>
@@ -264,7 +317,7 @@
             </div>
 
             <div class="new-product-box">
-                <img src="img/product03.png" alt="">
+                <img src="img/product01.png" alt="">
                 <div class="new-product-content">
                     <span class="category-name">Laptop</span>
                     <span class="product-name">Macbook Pro 2017 Core I5</span>
@@ -292,77 +345,7 @@
                     <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
                 </div>
             </div>
-
-            <div class="new-product-box">
-                <img src="img/product04.png" alt="">
-                <div class="new-product-content">
-                    <span class="category-name">Laptop</span>
-                    <span class="product-name">Macbook Pro 2017 Core I5</span>
-                    <div class="product-price-div">
-                        <span class="current-product-price">$ 967.00</span>
-                        <span class="last-product-price">$1290</span>
-                    </div>
-
-                    <div class="product-stars-div">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
-                    <div class="see-product-details">
-                        <button> <i data-feather="star"></i></button>
-                        <button> <i data-feather="eye"></i></button>
-
-                    </div>
-
-                </div>
-                <div class="add-product-to-cart-div">
-
-                    <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
-                </div>
-            </div>
-
-            <div class="new-product-box">
-                <img src="img/product05.png" alt="">
-                <div class="new-product-content">
-                    <span class="category-name">Laptop</span>
-                    <span class="product-name">Macbook Pro 2017 Core I5</span>
-                    <div class="product-price-div">
-                        <span class="current-product-price">$ 967.00</span>
-                        <span class="last-product-price">$1290</span>
-                    </div>
-
-                    <div class="product-stars-div">
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
-                    <div class="see-product-details">
-                        <button> <i data-feather="star"></i></button>
-                        <button> <i data-feather="eye"></i></button>
-
-                    </div>
-
-                </div>
-                <div class="add-product-to-cart-div">
-
-                    <button class="add-to-cart">Comprar<i data-feather="shopping-cart"></i></button>
-                </div>
-            </div>
-
-
         </div>
-    </div>
-
-    <div class="product-pagination">
-        <button class="btn-prev-page"> <i data-feather="chevron-left"></i></button>
-        <span class="current-page">1</span>
-        <button class="btn-next-page"> <i data-feather="chevron-right"></i></button>
-    </div>
-
     </div>
     <div class="container-entry-admin hidden">
         <div class="overlay-entry"></div>

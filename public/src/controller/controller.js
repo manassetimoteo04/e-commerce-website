@@ -24,12 +24,16 @@ class Controller {
     this.btnToggleMenu = document.querySelector(".btn-toggle-menu");
     this.btnToggleMenu?.addEventListener("click", this._toggleMenu.bind(this));
     this.header = document.querySelector(".logo-heading");
-
+    this.btnFinilizeOrder = document.querySelector(".btn-finilize-order");
     this.cartList = document.querySelector(".cart-list");
     this.cartList?.addEventListener("click", this._updateQuantity.bind(this));
     this.btnShowCart?.addEventListener(
       "click",
       this._showCartContainer.bind(this)
+    );
+    this.btnFinilizeOrder?.addEventListener(
+      "click",
+      this._redirectToCheckout.bind(this)
     );
     this.cartContainer?.addEventListener(
       "click",
@@ -51,7 +55,9 @@ class Controller {
     );
     this.btnLoginAdmin?.addEventListener("click", this._loginAdmin.bind(this));
   }
-
+  _redirectToCheckout() {
+    window.location.href = "./order.html";
+  }
   _showCartContainer() {
     this.cartContainer.classList.remove("hidden");
     this.currentQty = 1;

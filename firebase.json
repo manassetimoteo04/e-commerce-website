@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "public",
+    "site": "derbycommercy",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "prerender"
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions"
+  }
+}
