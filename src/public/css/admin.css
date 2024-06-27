@@ -422,7 +422,7 @@ body {
     height: 100vh;
     width: 100%;
     background-color: #000000a2;
-    z-index: 9999999999;
+    z-index: 9999;
     overflow-y: scroll;
     padding: 2rem;
 }
@@ -453,6 +453,24 @@ body {
     max-height: 50rem;
     overflow: hidden;
     color: var(--Dark-2);
+    position: relative;
+}
+
+.btn-close-order {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.order-detail-box {
+    position: relative;
+}
+
+.back-to-list-order {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: none;
 }
 
 .order-heading {
@@ -619,16 +637,23 @@ body {
 
 .detail-order-action {
     display: grid;
-    grid-template-columns: 6fr 1fr;
+    grid-template-columns: 6fr 0.5fr;
     gap: 1rem;
 }
 
-.detail-order-action button {
+.detail-order-action button:not(:last-child) {
     padding: 1rem;
     font-size: inherit;
     color: var(--Grey-2);
     border-radius: 5rem;
     background-color: var(--Primary-color);
+    cursor: pointer;
+}
+
+.detail-order-action button:nth-child(2) {
+    background: none;
+    color: var(--Primary-color);
+    width: 2rem;
     cursor: pointer;
 }
 

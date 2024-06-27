@@ -313,7 +313,7 @@ header {
 
 .sticky .main-menu {
     position: fixed;
-    height: 7rem;
+    height: 6rem;
     width: 100%;
     top: 0;
     left: 0;
@@ -978,7 +978,7 @@ footer {
     height: 100%;
     background: rgb(255, 255, 255);
     z-index: 1000;
-    z-index: 99999999999;
+    z-index: 99999999999999999999999;
 }
 
 .spinner {

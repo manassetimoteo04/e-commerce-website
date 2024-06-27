@@ -134,8 +134,6 @@ class MainView {
   }
 
   _renderCartList(item, id, qty) {
-    console.log(item);
-
     if (!item) return;
     const html = `
     <div class="product-cart" data-id="${id}"><img src="${

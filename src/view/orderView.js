@@ -1,10 +1,12 @@
+import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
+import { FIREBASE } from "../model/firebase.js";
 class OrderView {
   constructor() {
     this.orderList = document.querySelector(".order-list");
-    this.orderList?.addEventListener(
-      "click",
-      this._settingOrderDetail.bind(this)
-    );
+    // this.orderList?.addEventListener(
+    //   "click",
+    //   this._settingOrderDetail.bind(this)
+    // );
   }
   _renderOrderList(list) {
     if (!this.orderList) return;
@@ -34,7 +36,7 @@ class OrderView {
     const email = document.querySelector(".cliente-email");
     const phone = document.querySelector(".cliente-phone");
     const address = document.querySelector(".cliente-address");
-    const totalProducts = document.querySelector("total-product");
+    const totalProducts = document.querySelector(".total-product");
     name.textContent = data.name;
     email.textContent = data.email;
     phone.textContent = data.phone;
@@ -44,7 +46,31 @@ class OrderView {
   }
   _renderOrdeProducts(list) {
     const productsContainer = document.querySelector(".order-products-list");
-    list.forEach((data) => {});
+    productsContainer.innerHTML = "";
+    list.forEach((data) => {
+      FIREBASE.getProductById(data.id).then((d) => {
+        const html = `
+        <div class="order-product">
+        <img src="${d.images[0]}" alt="${d.name}" class="order-product-img">
+        <div class="order-product-content">
+            <div><span class="product-name">${d.name}</span> <span
+                    class="product-price">${FORMAT_NUMBERS.formatCurrency(
+                      d.price
+                    )}</span></div>
+            <div>
+                <span class="product-qty">Quantidade <span>(${
+                  data.quantity
+                })</span></span>
+                <span class="total-amount-product">${FORMAT_NUMBERS.formatCurrency(
+                  d.price * data.quantity
+                )}</span>
+            </div>
+        </div>
+     </div>
+        `;
+        productsContainer.insertAdjacentHTML("afterbegin", html);
+      });
+    });
   }
 }
 const order = new OrderView();

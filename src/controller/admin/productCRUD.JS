@@ -177,9 +177,22 @@ class AdminController extends PRODUCT_CRUD {
       "click",
       this._closeProductDetail.bind(this)
     );
+    this.adminOrderContainer?.addEventListener(
+      "click",
+      this._closeOrderContainer.bind(this)
+    );
   }
   _shorOrdersContainer() {
     this.adminOrderContainer.classList.remove("hidden");
+  }
+  _closeOrderContainer(e) {
+    const target = e.target;
+    if (target.closest(".order-overlay"))
+      this.adminOrderContainer.classList.add("hidden");
+    if (target.closest(".btn-close-order")) {
+      alert();
+      this.adminOrderContainer.classList.add("hidden");
+    }
   }
   //MOSTRANDO O FORMULÁRIO PARA ADICIONAR NOVO PRODUCTO
   _showNewProductForm() {

@@ -26,6 +26,7 @@ class adminClass {
     );
     this.btnNextAdmin?.addEventListener("click", this.goToNextPage.bind(this));
     this._gettingOrder();
+    this._backToOrderList();
   }
   _goToSlide = function (slide) {
     this.imgsSlide.forEach(
@@ -121,11 +122,24 @@ class adminClass {
     });
   }
   _getOrderID(e) {
+    const orderDetail = document.querySelector(".order-detail-box");
+    const orderBox = document.querySelector(".order-list-box");
     const target = e.target.closest(".order-box");
     if (!target) return;
+    orderBox.classList.toggle("mobile-hidden");
+    orderDetail.classList.toggle("mobile-hidden");
     const id = target.dataset.id;
     FIREBASE.getOrderById(id).then((data) => {
       order._settingOrderDetail(data);
+    });
+  }
+  _backToOrderList() {
+    const orderDetail = document.querySelector(".order-detail-box");
+    const orderBox = document.querySelector(".order-list-box");
+    const btnBack = document.querySelector(".back-to-list-order");
+    btnBack?.addEventListener("click", () => {
+      orderBox.classList.toggle("mobile-hidden");
+      orderDetail.classList.toggle("mobile-hidden");
     });
   }
 }

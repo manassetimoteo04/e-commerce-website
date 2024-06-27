@@ -327,6 +327,7 @@
     <div class="orders-container hidden">
         <div class="order-overlay"></div>
         <div class="order-grid">
+            <span class="btn-close-order"> <i data-feather="x"></i></span>
             <div class="order-list-box">
                 <span class="order-heading">Todos os Pedidos</span>
                 <div class="order-filter">
@@ -362,7 +363,8 @@
 
                 </div>
             </div>
-            <div class="order-detail-box">
+            <div class="order-detail-box mobile-hidden">
+                <span class="back-to-list-order"><i data-feather="arrow-left"></i></span>
                 <span class="order-heading">Detalhes do Producto</span>
                 <div class="detail-container">
                     <div class="detail-group">
@@ -392,11 +394,11 @@
                     </div>
                     <div class="order-total-box">
                         <span>Productos <span class="total-product">(234)</span></span>
-                        <span>Total a Pagar <span class="total-product-amount">$2340</span></span>
+                        <!-- <span>Total a Pagar <span class="total-product-amount">$2340</span></span> -->
                     </div>
                     <div class="detail-order-action">
                         <button>Concluir</button>
-                        <button>Eliminar</button>
+                        <button> <i data-feather="trash-2"></i></button>
                     </div>
 
                 </div>

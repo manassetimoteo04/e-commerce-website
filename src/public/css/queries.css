@@ -200,8 +200,20 @@
 
 /* MAX-WIDTH 572PX */
 @media (max-width: 35.75em) {
-    .contact-header-box div div:nth-child(1) {
+
+    /* .contact-header-box div div:nth-child(1) {
         display: none !important;
+    } */
+    .back-to-list-order {
+        display: block !important;
+    }
+
+    .order-detail-box .order-heading {
+        margin-top: 2rem !important;
+    }
+
+    .order-detail-box {
+        padding: 2rem !important;
     }
 
     .contact-header-box .main-container {
@@ -228,6 +240,10 @@
 
     .admin-grid {
         grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .mobile-hidden {
+        display: none !important;
     }
 
 }
@@ -347,7 +363,7 @@
     .main-menu {
         justify-content: left !important;
         position: relative;
-        height: 4rem;
+        height: 8rem;
 
     }
 
