@@ -257,9 +257,7 @@
     }
 
     .search-input-div {
-
         width: 20rem !important;
-
     }
 
     .top-selling-products-grid {
@@ -308,6 +306,18 @@
         position: absolute;
         top: 2rem;
         right: 2rem;
+    }
+
+    .cart-btn {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+    }
+
+    .cart-btn svg {
+        position: absolute;
+        right: 0;
+        top: 0;
     }
 }
 
@@ -376,23 +386,22 @@
 
     .main-menu-list {
         position: absolute !important;
-        top: 6.9rem;
+        top: 5rem;
         left: 0;
-        background-color: rgba(255, 255, 255, 0.942);
+        background-color: rgb(255, 255, 255);
         backdrop-filter: blur(500px);
         padding: 0rem 2rem;
-
         flex-direction: column;
         z-index: 999;
         width: 100%;
         align-items: flex-start !important;
-        max-height: 30rem;
         overflow: hidden;
         transition: all 0.3s ease-in;
+        max-height: 0rem;
     }
 
     .show-menu .main-menu-list {
-        max-height: 0rem;
+        max-height: 30rem;
     }
 
     .main-menu-list li:first-child {

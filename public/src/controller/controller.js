@@ -4,7 +4,7 @@ import { view } from "../view/view.js";
 import { addToCart } from "./features/addToCart.js";
 import { admin } from "../view/admin.js";
 import { CRUD } from "./admin/productCRUD.JS";
-import { newOrder } from "./features/order.js";
+// import { newOrder } from "./features/order.js";
 import { product } from "../view/product.js";
 import { detail } from "../view/detail.js";
 import { GET_URL_ID } from "./getUrlParamID.js";
@@ -175,6 +175,7 @@ class Controller {
     e.preventDefault();
     const email = document.querySelector(".admin-email-input");
     const password = document.querySelector(".admin-password-input");
+    console.log(email, password);
     FIREBASE.adminLogin(email.value, password.value);
   }
 }

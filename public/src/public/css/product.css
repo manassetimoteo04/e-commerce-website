@@ -52,21 +52,31 @@
 .category-list {
     list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .category-list li {
     display: flex;
     align-items: center;
     color: var(--Grey-3);
-    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    background-color: var(--Grey-4);
+    border-radius: 5rem;
+    cursor: pointer;
+    color: var(--Dark-color);
 }
 
-.category-list .category-name {
-    color: var(--Dark-color);
-    font-weight: 600;
+.active-filter {
+    background-color: var(--Primary-color) !important;
+    color: #fff !important;
 }
+
+.category-list li:hover {
+    background-color: var(--Grey);
+}
+
+
 
 .total-products {
     color: var(--Grey-3);

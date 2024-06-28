@@ -318,7 +318,7 @@ header {
     top: 0;
     left: 0;
     z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.863);
+    background-color: rgb(255, 255, 255);
     backdrop-filter: blur(5rem);
 }
 
@@ -979,6 +979,7 @@ footer {
     background: rgb(255, 255, 255);
     z-index: 1000;
     z-index: 99999999999999999999999;
+    display: none;
 }
 
 .spinner {

@@ -1,9 +1,14 @@
 import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
 class ProductApp {
   constructor() {
+    this.categoryListContainer = document.querySelector(".category-list");
     this.mostSelledProducts = document.querySelector(".all-most-selled");
     this.allProductsContainer = document.querySelector(".product-grid-3-cl");
 
+    this.categoryListContainer?.addEventListener(
+      "click",
+      this._toggleCategoryFilter.bind(this)
+    );
     //paginação
     this.btnPrevProduct = document.querySelector(".btn-prev-page");
     this.btnNextProduct = document.querySelector(".btn-next-page");
@@ -17,6 +22,11 @@ class ProductApp {
       "click",
       this.goToPreviousPage.bind(this)
     );
+  }
+  _toggleCategoryFilter(e) {
+    const target = e.target.closest("li");
+    if (!target) return;
+    target.classList.toggle("active-filter");
   }
   _gettingProductStars(data) {
     const star_5 = data.data.comments
