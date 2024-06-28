@@ -1,6 +1,7 @@
 import { detail } from "../view/detail.js";
 import { FIREBASE } from "../model/firebase.js";
 import { crawler } from "./SEO/crawler.js";
+import { linkView } from "./controller.js";
 class GET_PRODUCT_BY_URL {
   constructor() {
     this._gettingCurrentProductID();
@@ -13,6 +14,7 @@ class GET_PRODUCT_BY_URL {
       document.title = `${data.name} - Derby commercy`;
       detail._settingCurrentProductDetail(data);
       crawler.atualizarMetaTags(data);
+      linkView._gettingRelatedProduct(data.category);
     });
   }
 }

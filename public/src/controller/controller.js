@@ -194,7 +194,7 @@ class LinkView {
       console.log(pt);
       this._gettingMostSelledProducts(pt);
     });
-    this._gettingRelatedProduct();
+    // this._gettingRelatedProduct();
     FIREBASE.getCategories().then((data) => {
       product._renderAllCategories(data);
     });
@@ -222,9 +222,7 @@ class LinkView {
       product._paginationAllProducts(returned);
     });
   }
-  _gettingRelatedProduct() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get("category");
+  _gettingRelatedProduct(category) {
     FIREBASE.getProducts().then((data) => {
       console.log(data);
       const sort = data.filter((data) => {
@@ -262,8 +260,4 @@ class LinkView {
 
 const linkView = new LinkView();
 const controller = new Controller();
-const events = [
-  { id: 1, name: "Event 1", date: "2023-06-25T14:30:00Z" },
-  { id: 2, name: "Event 2", date: "2023-06-24T09:00:00Z" },
-  { id: 3, name: "Event 3", date: "2023-06-25T16:00:00Z" },
-];
+export { linkView };

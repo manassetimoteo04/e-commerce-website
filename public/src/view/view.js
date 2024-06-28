@@ -85,9 +85,9 @@ class MainView {
                  ${stars}
               </div>
               <div class="see-product-details">
-                  <a href="detail.html?id=${item.id}&category=${
-        item.data.category
-      }&name=${item.data.name}"> <i data-feather="eye"></i></a>
+                  <a href="detail.html?id=${
+                    item.id
+                  }"> <i data-feather="eye"></i></a>
     
               </div>
     

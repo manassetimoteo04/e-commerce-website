@@ -78,7 +78,7 @@ class PRODUCT_CRUD {
   _copyToClipBoard(e) {
     const element = e.closest(".product-box-admin");
     const id = element.dataset.id;
-    const textToCopy = `http://127.0.0.1:8080/detail.html?id=${id}`;
+    const textToCopy = `https://derbycommerce.netlify.app/detail.html?id=${id}`;
 
     navigator.clipboard
       .writeText(textToCopy)
