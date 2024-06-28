@@ -9,6 +9,8 @@ import { product } from "../view/product.js";
 import { detail } from "../view/detail.js";
 import { GET_URL_ID } from "./getUrlParamID.js";
 import { rating } from "./features/rating.js";
+import { newOrder } from "./features/order.js";
+import { FORMAT_NUMBERS } from "./features/formatting.js";
 class Controller {
   currentQty = 1;
 
@@ -148,8 +150,10 @@ class Controller {
     this.currentQty = +previousElement.textContent;
     this.currentQty++;
     previousElement.textContent = this.currentQty;
-
-    total.textContent = this.currentQty * +price.textContent;
+    let str = price.textContent;
+    str = str.replace("Kz", "");
+    str = str.replace(/\s/g, "").replace(",", ".");
+    total.textContent = FORMAT_NUMBERS.formatCurrency(this.currentQty * +str);
     addToCart._addProduct(id, this.currentQty);
   }
   _downQuantity(e, id, total, price) {
@@ -157,7 +161,10 @@ class Controller {
     this.currentQty = +nextElement.textContent;
     this.currentQty > 1 ? this.currentQty-- : (this.currentQty = 1);
     nextElement.textContent = this.currentQty;
-    total.textContent = this.currentQty * +price.textContent;
+    let str = price.textContent;
+    str = str.replace("Kz", "");
+    str = str.replace(/\s/g, "").replace(",", ".");
+    total.textContent = FORMAT_NUMBERS.formatCurrency(this.currentQty * +str);
     addToCart._addProduct(id, this.currentQty);
   }
 
@@ -175,7 +182,6 @@ class Controller {
     e.preventDefault();
     const email = document.querySelector(".admin-email-input");
     const password = document.querySelector(".admin-password-input");
-    console.log(email, password);
     FIREBASE.adminLogin(email.value, password.value);
   }
 }
@@ -191,7 +197,6 @@ class LinkView {
     FIREBASE.getProducts().then((pt) => {
       this._gettingRecentProducts(pt);
       this._gettingAllProducts(pt);
-      console.log(pt);
       this._gettingMostSelledProducts(pt);
     });
     // this._gettingRelatedProduct();
@@ -203,11 +208,9 @@ class LinkView {
     const sorted = list.sort((a, b) => b.data.date - a.data.date);
     const returned = sorted.splice(-6);
     view._renderRecentProduct(returned);
-    console.log(returned);
   }
   _gettingMostSelledProducts(list) {
     FIREBASE.getProducts().then((data) => {
-      console.log(data);
       const sort = data.sort((a, b) => a.data.sales - b.data.sales);
       const returned = data.splice(-6);
       view._renderMostSelledProduct(returned);
@@ -216,7 +219,6 @@ class LinkView {
   }
   _gettingAllProducts(list) {
     FIREBASE.getProducts().then((data) => {
-      console.log(data);
       const sort = data.sort((a, b) => a.data.sales - b.data.sales);
       const returned = data.splice(-8);
       product._paginationAllProducts(returned);
@@ -224,9 +226,7 @@ class LinkView {
   }
   _gettingRelatedProduct(category) {
     FIREBASE.getProducts().then((data) => {
-      console.log(data);
       const sort = data.filter((data) => {
-        console.log(data, category);
         return data.data.category === category;
       });
       console.log(sort);
@@ -240,7 +240,6 @@ class LinkView {
     if (!target) return;
     target.classList.toggle("active-filter");
     const name = target.dataset.id;
-    console.log(target.classList.contains("active-filter"));
     this._filterProductsByCategory(name, target);
   }
   _filterProductsByCategory(ctgr, trgt) {

@@ -5,8 +5,10 @@ class Order {
   cart = JSON.parse(localStorage.getItem("cartList"))
     ? JSON.parse(localStorage.getItem("cartList"))
     : [];
+  total = 0;
   ARR = [2, 234, 34, 56, 56, 56, 5];
   constructor() {
+    this.totalCartAmount = document.querySelector(".order-total-amount");
     this.orderProductList = document.querySelector(".order-product-list");
     this.btnFinalizeOrder = document.querySelector(".confirm-order");
     this.btnFinalizeOrder?.addEventListener(
@@ -16,10 +18,13 @@ class Order {
     this.cart.forEach((product) => {
       if (!this.orderProductList) return;
       this.orderProductList.innerHTML = "";
-      console.log(product.id, product.quantity);
       FIREBASE.getProductById(product.id).then((data) => {
         if (!data) return;
         this._renderCartProducts(data, product.quantity);
+        this.total += +data.price * product.quantity;
+        this.totalCartAmount.textContent = FORMAT_NUMBERS.formatCurrency(
+          this.total
+        );
       });
     });
     this._loadingAllCart();
