@@ -59,5 +59,5 @@ class Crawler {
 }
 
 // // Instanciar e usar a classe Crawler
-// const crawler = new Crawler();
-// export { crawler };
+const crawler = new Crawler();
+export { crawler };
