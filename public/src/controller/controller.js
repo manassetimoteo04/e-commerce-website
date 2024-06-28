@@ -181,7 +181,13 @@ class Controller {
 }
 
 class LinkView {
+  arrHelper = [];
   constructor() {
+    this.categoryListContainer = document.querySelector(".category-list");
+    this.categoryListContainer?.addEventListener(
+      "click",
+      this._toggleCategoryFilter.bind(this)
+    );
     FIREBASE.getProducts().then((pt) => {
       this._gettingRecentProducts(pt);
       this._gettingAllProducts(pt);
@@ -189,6 +195,9 @@ class LinkView {
       this._gettingMostSelledProducts(pt);
     });
     this._gettingRelatedProduct();
+    FIREBASE.getCategories().then((data) => {
+      product._renderAllCategories(data);
+    });
   }
   _gettingRecentProducts(list) {
     const sorted = list.sort((a, b) => b.data.date - a.data.date);
@@ -200,7 +209,7 @@ class LinkView {
     FIREBASE.getProducts().then((data) => {
       console.log(data);
       const sort = data.sort((a, b) => a.data.sales - b.data.sales);
-      const returned = data.splice(-8);
+      const returned = data.splice(-6);
       view._renderMostSelledProduct(returned);
       product._renderMostSelledProducts(returned);
     });
@@ -225,6 +234,28 @@ class LinkView {
       console.log(sort);
       const returned = data.splice(-8);
       detail._renderRelatedProduct(sort);
+    });
+  }
+
+  _toggleCategoryFilter(e) {
+    const target = e.target.closest("li");
+    if (!target) return;
+    target.classList.toggle("active-filter");
+    const name = target.dataset.id;
+    console.log(target.classList.contains("active-filter"));
+    this._filterProductsByCategory(name, target);
+  }
+  _filterProductsByCategory(ctgr, trgt) {
+    FIREBASE.getProducts().then((data) => {
+      const filter = data.filter((i) => i.data.category === ctgr);
+      if (trgt.classList.contains("active-filter"))
+        this.arrHelper.push(...filter);
+      if (!trgt.classList.contains("active-filter")) {
+        filter.forEach((item, i) => {
+          this.arrHelper.splice(i, 1);
+        });
+      }
+      product._paginationAllProducts(this.arrHelper);
     });
   }
 }

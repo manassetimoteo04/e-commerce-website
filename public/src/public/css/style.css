@@ -979,7 +979,6 @@ footer {
     background: rgb(255, 255, 255);
     z-index: 1000;
     z-index: 99999999999999999999999;
-    display: none;
 }
 
 .spinner {

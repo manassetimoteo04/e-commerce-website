@@ -65,7 +65,9 @@ class MainView {
       const html = `
           <div class="new-product-box" data-id="${item.id}">
           <div class="img-box">
-          <img src="${item.data.images[0]}" alt="">
+          <img src="${item.data.images[0]}" alt="${item.data.name} ${
+        item.data.category
+      }">
       </div>
           <div class="new-product-content home-recent-product">
               <span class="category-name">${item.data.category}</span>
@@ -115,15 +117,23 @@ class MainView {
 
       const html = `
           <div class="top-sell-product-box ">
-          <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}" class="most-selled-link"></a>
-          <img src="${item.data.images[0]}" alt="" >
+          <a href="detail.html?id=${item.id}&category=${
+        item.data.category
+      }&name=${item.data.name}" class="most-selled-link"></a>
+          <img src="${item.data.images[0]}" alt="${item.data.name} ${
+        item.data.category
+      }">
           <div class="top-sell-product-content">
               <span class="product-category">${item.data.category}</span>
               <span class="product-name">${item.data.name}</span>
     
               <div class="top-selling-price">
-                  <span class="top-selling-curr-price">${item.data.price}</span>
-                  <span class="top-selling-last-price">$4098,00</span>
+                  <span class="top-selling-curr-price">${FORMAT_NUMBERS.formatCurrency(
+                    item.data.price
+                  )}</span>
+                  <span class="top-selling-last-price">${FORMAT_NUMBERS.formatCurrency(
+                    item.data.price
+                  )}</span>
               </div>
           </div>
       </div>

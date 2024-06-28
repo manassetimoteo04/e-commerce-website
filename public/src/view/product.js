@@ -1,3 +1,4 @@
+import { CRUD } from "../controller/admin/productCRUD.JS";
 import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
 class ProductApp {
   constructor() {
@@ -5,10 +6,10 @@ class ProductApp {
     this.mostSelledProducts = document.querySelector(".all-most-selled");
     this.allProductsContainer = document.querySelector(".product-grid-3-cl");
 
-    this.categoryListContainer?.addEventListener(
-      "click",
-      this._toggleCategoryFilter.bind(this)
-    );
+    // this.categoryListContainer?.addEventListener(
+    //   "click",
+    //   this._toggleCategoryFilter.bind(this)
+    // );
     //paginação
     this.btnPrevProduct = document.querySelector(".btn-prev-page");
     this.btnNextProduct = document.querySelector(".btn-next-page");
@@ -23,11 +24,7 @@ class ProductApp {
       this.goToPreviousPage.bind(this)
     );
   }
-  _toggleCategoryFilter(e) {
-    const target = e.target.closest("li");
-    if (!target) return;
-    target.classList.toggle("active-filter");
-  }
+
   _gettingProductStars(data) {
     const star_5 = data.data.comments
       .filter((rate) => rate.rating === 5)
@@ -82,7 +79,9 @@ class ProductApp {
       const html = `
       <div class="new-product-box" data-id="${item.id}">
       <div class="img-box">
-      <img src="${item.data.images[0]}" alt="">
+      <img src="${item.data.images[0]}" alt="${item.data.name} ${
+        item.data.category
+      }">
     </div>
       <div class="new-product-content home-recent-product">
           <span class="category-name">${item.data.category}</span>
@@ -126,21 +125,38 @@ class ProductApp {
     list.forEach((item) => {
       const html = `
       <div class="top-sell-product-box">
-      <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${item.data.name}" class="most-selled-link"></a>
-      <img src="${item.data.images[0]}" alt="" >
+      <a href="detail.html?id=${item.id}&category=${item.data.category}&name=${
+        item.data.name
+      }" class="most-selled-link"></a>
+      <img src="${item.data.images[0]}" alt="${item.data.name} ${
+        item.data.category
+      }">
       <div class="top-sell-product-content">
           <span class="product-category">${item.data.category}</span>
           <span class="product-name">${item.data.name}</span>
 
           <div class="top-selling-price">
-              <span class="top-selling-curr-price">${item.data.price}</span>
-              <span class="top-selling-last-price">$4098,00</span>
+              <span class="top-selling-curr-price">${FORMAT_NUMBERS.formatCurrency(
+                item.data.price
+              )}</span>
+              <span class="top-selling-last-price">${FORMAT_NUMBERS.formatCurrency(
+                item.data.price
+              )}</span>
           </div>
       </div>
   </div>
       
           `;
       this.mostSelledProducts.insertAdjacentHTML("afterbegin", html);
+    });
+  }
+  _renderAllCategories(data) {
+    const categoryContainer = document.querySelector(".category-list");
+    if (!categoryContainer) return;
+    categoryContainer.innerHTML = "";
+    data.forEach((item) => {
+      const html = `<li class="a" data-id="${item.name}"><span class="category-name-filter">${item.name}</span></li>`;
+      categoryContainer.insertAdjacentHTML("afterbegin", html);
     });
   }
 

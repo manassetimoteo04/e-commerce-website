@@ -192,6 +192,21 @@
         <button class="btn-next-admin"> <i data-feather="chevron-right"></i></button>
     </div>
 
+    <div class="create-category-container hidden">
+        <div class="overlay-category"></div>
+        <form action="" class="create-category-form">
+            <div class="f-header">
+                <span class="btn-close-category-form"><i data-feather="x"></i></span>
+                <span class="form-category-header">Criar Categoria</span>
+                <span>A categoria deve ser única</span>
+            </div>
+            <div class="form-group">
+                <label for="">Nome da Categoria</label>
+                <input type="text" class="category-input-create">
+            </div>
+            <button class="btn-create-category">Criar</button>
+        </form>
+    </div>
     <div class="add-new-product-container hidden ">
         <div class="new-product-form-overlay"></div>
         <form action="" class="add-new-product-form">
@@ -200,7 +215,10 @@
 
                 <span class="form-tag">Informações do Producto</span>
                 <input type="text" class="input-product-name" placeholder="Nome do Producto">
-                <input type="text" class="input-product-category" placeholder="Selecionar Categoria">
+                <!-- <input type="text" class="input-product-category" placeholder="Selecionar Categoria"> -->
+                <select name="" id="" class="select-category">
+                    <option value="">Selecionar Categoria</option>
+                </select>
                 <input type="number" class="input-product-price" placeholder="Preço de venda">
                 <textarea name="" id="" cols="1" rows="3" placeholder="Descrição"
                     class="input-product-description"></textarea>
@@ -242,7 +260,9 @@
 
                 <span class="form-tag">Informações do Producto</span>
                 <input type="text" class="input-update-name" placeholder="Nome do Producto">
-                <input type="text" class="input-update-category" placeholder="Selecionar Categoria">
+                <select name="" id="" class="update-category">
+                    <option value="">Selecionar Categoria</option>
+                </select>
                 <input type="number" class="input-update-price" placeholder="Preço de venda">
                 <textarea name="" id="" cols="1" rows="3" placeholder="Descrição"
                     class="input-update-description"></textarea>
@@ -279,6 +299,7 @@
 
         </form>
     </div>
+
     <div class="product-detail-admin-container hidden">
         <div class="overlay-product-detail"></div>
         <div class="product-admin-detail">

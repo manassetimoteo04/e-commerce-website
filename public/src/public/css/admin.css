@@ -157,8 +157,74 @@ body {
     transform: scale(90%);
 }
 
+/* criar categoria */
+.create-category-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.603);
+    z-index: 99999999999;
+    color: var(--Dark-2) !important;
+    padding: 2rem;
+}
 
-/*  */
+.overlay-category {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.create-category-form {
+    background: var(--Grey-2);
+    padding: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.f-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-close-category-form {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    cursor: pointer;
+}
+
+.form-category-header {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--Headers-color);
+}
+
+.btn-create-category {
+    padding: 1.4rem;
+    font-size: inherit;
+    background-color: var(--Primary-color);
+    color: #fff;
+    border-radius: 5rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-create-category:active {
+    transform: scale(95%);
+}
+
+/* ADICIONAR PRODUCTO */
 .add-new-product-container {
     position: fixed;
     top: 0;
@@ -210,18 +276,21 @@ body {
 
 .add-new-product-form input,
 .add-new-product-form textarea,
+.add-new-product-container select,
 .update-product-form input,
 .update-product-form textarea {
     padding: 1rem;
     border: 1px solid var(--Grey);
     font-size: inherit;
     font-family: inherit;
+    background: none;
 }
 
 .add-new-product-form input:focus,
 .add-new-product-form textarea:focus,
 .update-product-form input:focus,
-.update-product-form textarea:focus {
+.update-product-form textarea:focus,
+.add-new-product-container select:focus {
     outline: none;
 }
 

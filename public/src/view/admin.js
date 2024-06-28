@@ -4,8 +4,24 @@ import { order } from "./orderView.js";
 
 class adminClass {
   constructor() {
+    this.btnShowCategoryForm = document.querySelector(".create-category");
+    this.categoryFormContainer = document.querySelector(
+      ".create-category-container "
+    );
+    this.btnCreateCategory = document.querySelector(".btn-create-category");
     this.orderList = document.querySelector(".order-list");
-
+    this.btnShowCategoryForm?.addEventListener(
+      "click",
+      this._showCategoryForm.bind(this)
+    );
+    this.categoryFormContainer?.addEventListener(
+      "click",
+      this._closeCategoryForm.bind(this)
+    );
+    this.btnCreateCategory?.addEventListener(
+      "click",
+      this._sendCategoryToDatabase.bind(this)
+    );
     this.next = document.querySelector(".btn-next-product-img");
     this.previous = document.querySelector(".btn-prev-product-img");
     this.imgsSlide = document.querySelectorAll(".admin-slide-img");
@@ -27,6 +43,32 @@ class adminClass {
     this.btnNextAdmin?.addEventListener("click", this.goToNextPage.bind(this));
     this._gettingOrder();
     this._backToOrderList();
+  }
+  _showCategoryForm() {
+    this.categoryFormContainer.classList.remove("hidden");
+  }
+  _closeCategoryForm(e) {
+    const target = e.target;
+    const input = document.querySelector(".category-input-create");
+    if (target.closest(".overlay-category")) {
+      this.categoryFormContainer.classList.add("hidden");
+      input.value = "";
+    }
+    if (target.closest(".btn-close-category-form")) {
+      this.categoryFormContainer.classList.add("hidden");
+      input.value = "";
+    }
+  }
+  _sendCategoryToDatabase(e) {
+    e.preventDefault();
+    const input = document.querySelector(".category-input-create");
+    if (input.value) {
+      FIREBASE.newCategory(input.value);
+      this.categoryFormContainer.classList.add("hidden");
+      FIREBASE.getCategories().then((data) => {
+        console.log(data);
+      });
+    } else alert("Preencha o campo");
   }
   _goToSlide = function (slide) {
     this.imgsSlide.forEach(

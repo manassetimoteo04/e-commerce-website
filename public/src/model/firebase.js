@@ -53,6 +53,38 @@ class endpointsApp {
     this.getProductById("pYrvCxSeOfVqyrnZ7QSj");
     // this.getProducts();
   }
+  // Função para criar categoria
+  async newCategory(name) {
+    try {
+      document.querySelector("#spinner").classList.remove("hidden");
+      const docRef = await addDoc(collection(this.db, "categories"), {
+        name: name,
+      });
+      document.querySelector("#spinner").classList.add("hidden");
+    } catch (error) {
+      console.error("Erro ao adicionar Categoria: ", error);
+    }
+  }
+  // Função para obter todos os categoriass
+  async getCategories() {
+    try {
+      document.querySelector("#spinner").classList.remove("hidden");
+      const querySnapshot = await getDocs(collection(this.db, "categories"));
+      document.querySelector("#spinner").classList.add("hidden");
+      let list = [];
+      querySnapshot.forEach((doc) => {
+        const value = {
+          id: doc.id,
+          name: doc.data().name,
+        };
+        list.push(value);
+      });
+
+      return list;
+    } catch (e) {
+      console.error("Erro ao obter produtos: ", e);
+    }
+  }
 
   // upload de imagens
   async uploadImages(files) {
@@ -65,6 +97,7 @@ class endpointsApp {
 
     return Promise.all(promises);
   }
+
   // Função para adicionar um novo produto
   async addProduct(name, description, price, category, files) {
     try {
@@ -129,6 +162,7 @@ class endpointsApp {
   // Função para atualizar um produto
   async updateProduct(productId, updatedData) {
     try {
+      console.log(productId, updatedData);
       document.querySelector("#spinner").classList.remove("hidden");
       const productRef = doc(this.db, "productos", productId);
       await updateDoc(productRef, updatedData);

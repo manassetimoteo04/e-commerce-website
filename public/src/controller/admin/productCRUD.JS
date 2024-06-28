@@ -11,7 +11,7 @@ class PRODUCT_CRUD {
     );
     this.newProductForm = document.querySelector(".add-new-product-form");
     this.updateProductForm = document.querySelector(".update-product-form");
-    this.btnUpdateProduct = document.querySelector(".btn-update-product");
+
     this._bindEventListeners();
   }
   _bindEventListeners() {
@@ -19,10 +19,21 @@ class PRODUCT_CRUD {
       "click",
       this._addNewProduct.bind(this)
     );
-    this.btnUpdateProduct?.addEventListener(
-      "click",
-      this._updateProductById.bind(this)
-    );
+    FIREBASE.getCategories().then((data) => {
+      this._renderCategoriesAdminForm(data);
+      console.log(data);
+    });
+  }
+  //ADMIN CATEGORIES LIST
+  _renderCategoriesAdminForm(data) {
+    const listContainer = document.querySelector(".select-category");
+    if (!listContainer) return;
+    data.forEach((item) => {
+      const html = `
+      <option value="${item.name}">${item.name}</option>
+      `;
+      listContainer.insertAdjacentHTML("beforeend", html);
+    });
   }
   //ADICIONAR NOVO PRODUCTO
   _addNewProduct(e) {
@@ -100,32 +111,6 @@ class PRODUCT_CRUD {
       })
     );
   }
-
-  _updateProductById(e) {
-    e.preventDefault();
-
-    const productName = document.querySelector(".input-update-name").value;
-    const productCategory = document.querySelector(
-      ".input-update-category"
-    ).value;
-    const productDescription = document.querySelector(
-      ".input-update-description"
-    ).value;
-    const productPrice = document.querySelector(".input-update-price").value;
-
-    const data = {
-      name: productName,
-      description: productDescription,
-      price: productPrice,
-      category: productCategory,
-    };
-
-    FIREBASE.updateProduct(this.currentProductId, data);
-    FIREBASE.getProducts().then((data) => {
-      admin._renderAdminProduct(data);
-    });
-    this.newProductFormContainer.classList.add("hidden");
-  }
 }
 
 class AdminController extends PRODUCT_CRUD {
@@ -147,10 +132,7 @@ class AdminController extends PRODUCT_CRUD {
     this.newProductForm = document.querySelector(".add-new-product-form");
     this.updateProductForm = document.querySelector(".update-product-form");
     this.btnUpdateProduct = document.querySelector(".btn-update-product");
-    this.btnShowOrders?.addEventListener(
-      "click",
-      this._shorOrdersContainer.bind(this)
-    );
+
     FIREBASE.getProducts().then((pt) => {
       //   this._gettingRecentProducts(pt);
       //   this._gettingMostSelledProducts(pt);
@@ -158,9 +140,20 @@ class AdminController extends PRODUCT_CRUD {
     });
     this.uploadProductImgPreview();
     this._bindEventListeners();
+    FIREBASE.getCategories().then((data) => {
+      this._renderUpdateCategory(data);
+    });
   }
   _bindEventListeners() {
     //EVENT LISTENERS
+    this.btnUpdateProduct?.addEventListener(
+      "click",
+      this._updateProductById.bind(this)
+    );
+    this.btnShowOrders?.addEventListener(
+      "click",
+      this._shorOrdersContainer.bind(this)
+    );
     this.btnShowNewProductForm?.addEventListener(
       "click",
       this._showNewProductForm.bind(this)
@@ -283,21 +276,55 @@ class AdminController extends PRODUCT_CRUD {
       productDescription.textContent = data.description;
     });
   }
+  _renderUpdateCategory(data) {
+    const listContainer = document.querySelector(".update-category");
+    if (!listContainer) return;
+    data.forEach((item) => {
+      const html = `
+      <option value="${item.name}">${item.name}</option>
+      `;
+      listContainer.insertAdjacentHTML("beforeend", html);
+    });
+  }
   _updateProduct(target) {
     const targetId = target.closest(".product-box-admin").dataset.id;
     this.currentProductId = targetId;
     const productName = document.querySelector(".input-update-name");
-    const productCategory = document.querySelector(".input-update-category");
+    const productCategory = document.querySelector(".update-category");
     const productDescription = document.querySelector(
       ".input-update-description"
     );
     const productPrice = document.querySelector(".input-update-price");
     FIREBASE.getProductById(targetId).then((data) => {
       productName.value = data.name;
-      productCategory.value = data.category;
+      // productCategory.value = "Manasse";
       productDescription.value = data.description;
       productPrice.value = data.price;
     });
+  }
+  _updateProductById(e) {
+    e.preventDefault();
+    const productName = document.querySelector(".input-update-name").value;
+    const productCategory = document.querySelector(".update-category").value;
+    const productDescription = document.querySelector(
+      ".input-update-description"
+    ).value;
+    const productPrice = document.querySelector(".input-update-price").value;
+    if (productName && productCategory && productDescription && productPrice) {
+      const data = {
+        name: productName,
+        description: productDescription,
+        price: productPrice,
+        category: productCategory,
+      };
+
+      FIREBASE.updateProduct(this.currentProductId, data);
+      FIREBASE.getProducts().then((data) => {
+        admin._renderAdminProduct(data);
+      });
+      this.newProductFormContainer.classList.add("hidden");
+      console.log(this.currentProductId, data);
+    } else alert("Preencha todos campos para actualizar");
   }
 }
 const adminController = new AdminController();
