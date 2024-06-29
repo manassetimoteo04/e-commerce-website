@@ -144,16 +144,21 @@ class Controller {
         price
       );
   }
-
+  _formatCurrString(value) {
+    const returned = value.includes("Kz")
+      ? value.replace("Kz", "")
+      : value.replace("AOA", "");
+    return +returned.replace(/\s/g, "").replace(",", ".");
+  }
   _upQuantity(e, id, total, price) {
     const previousElement = e.previousElementSibling;
     this.currentQty = +previousElement.textContent;
     this.currentQty++;
     previousElement.textContent = this.currentQty;
-    let str = price.textContent;
-    str = str.replace("Kz", "");
-    str = str.replace(/\s/g, "").replace(",", ".");
-    total.textContent = FORMAT_NUMBERS.formatCurrency(this.currentQty * +str);
+
+    total.textContent = FORMAT_NUMBERS.formatCurrency(
+      this.currentQty * this._formatCurrString(price.textContent)
+    );
     addToCart._addProduct(id, this.currentQty);
   }
   _downQuantity(e, id, total, price) {
@@ -161,10 +166,10 @@ class Controller {
     this.currentQty = +nextElement.textContent;
     this.currentQty > 1 ? this.currentQty-- : (this.currentQty = 1);
     nextElement.textContent = this.currentQty;
-    let str = price.textContent;
-    str = str.replace("Kz", "");
-    str = str.replace(/\s/g, "").replace(",", ".");
-    total.textContent = FORMAT_NUMBERS.formatCurrency(this.currentQty * +str);
+
+    total.textContent = FORMAT_NUMBERS.formatCurrency(
+      this.currentQty * this._formatCurrString(price.textContent)
+    );
     addToCart._addProduct(id, this.currentQty);
   }
 
