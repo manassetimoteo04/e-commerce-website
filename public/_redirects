@@ -1,3 +1,5 @@
-# Redirecionamento para o domínio principal sem www
+# Redirecionamento para o domínio principal sem www (para HTTPS)
 https://www.derbycommerce.netlify.app/* https://derbycommerce.netlify.app/:splat 301
+
+# Redirecionamento para o domínio principal sem www (para HTTP)
 http://www.derbycommerce.netlify.app/* https://derbycommerce.netlify.app/:splat 301
