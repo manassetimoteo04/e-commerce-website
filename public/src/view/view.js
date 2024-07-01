@@ -2,6 +2,7 @@
 // import { detail } from "./detail.js";
 // import { product } from "./product.js";
 import { FORMAT_NUMBERS } from "../controller/features/formatting.js";
+import { RENDER_STAR } from "./renderStars.js";
 feather.replace();
 
 class MainView {
@@ -10,58 +11,15 @@ class MainView {
     this.cartlistContainer = document.querySelector(".cart-list");
     document.addEventListener("DOMContentLoaded", () => feather.replace());
   }
-  _gettingProductStars(data) {
-    const star_5 = data.data.comments
-      .filter((rate) => rate.rating === 5)
-      .reduce((acc, arr) => acc + 1, 0);
-    const star_4 = data.data.comments
-      .filter((rate) => rate.rating === 4)
-      .reduce((acc, arr) => acc + 1, 0);
-    const star_3 = data.data.comments
-      .filter((rate) => rate.rating === 3)
-      .reduce((acc, arr) => acc + 1, 0);
-    const star_2 = data.data.comments
-      .filter((rate) => rate.rating === 2)
-      .reduce((acc, arr) => acc + 1, 0);
 
-    const star_1 = data.data.comments
-      .filter((rate) => rate.rating === 1)
-      .reduce((acc, arr) => acc + 1, 0);
-    const totalRating = star_1 + star_2 + star_3 + star_4 + star_5;
-    console.log(totalRating);
-    const returned = {
-      star_1: { rate: star_1, stars: 1 },
-      star_2: { rate: star_2, stars: 2 },
-      star_3: { rate: star_3, stars: 3 },
-      star_4: { rate: star_4, stars: 4 },
-      star_5: { rate: star_5, stars: 5 },
-      totalRating: totalRating,
-    };
-
-    let maxRate = -Infinity;
-    let acc = 0;
-    for (const key in returned) {
-      if (key !== "totalRating" && returned[key].rate > maxRate) {
-        maxRate = returned[key].rate;
-        acc = returned[key].stars;
-      }
-    }
-
-    return acc;
-  }
-  _renderStars(s) {
-    let star = "";
-    for (let i = 1; i <= s; i++) {
-      star += '<i data-feather="star"></i> ';
-    }
-    return star;
-  }
   _renderRecentProduct(list) {
     if (!this.recentPRoductGrid) return;
     this.recentPRoductGrid.innerHTML = "";
 
     list.forEach((item) => {
-      const stars = this._renderStars(this._gettingProductStars(item));
+      const stars = RENDER_STAR._renderStars(
+        RENDER_STAR._gettingProductStars(item)
+      );
       const html = `
           <div class="new-product-box" data-id="${item.id}">
           <div class="img-box">
@@ -171,6 +129,35 @@ class MainView {
 </div>
     `;
     this.cartlistContainer.insertAdjacentHTML("afterbegin", html);
+  }
+  _renderSearchResults(list, value) {
+    const container = document.querySelector(".search-result-ontainer");
+
+    container.innerHTML = "";
+    if (!container) return;
+    if (list.length < 1) {
+      container.insertAdjacentHTML(
+        "afterbegin",
+        `<span class="no-result ">Sem resultado para "${value}"</span>`
+      );
+    }
+    list.forEach((data) => {
+      const stars = RENDER_STAR._renderStars(
+        RENDER_STAR._gettingProductStars(data)
+      );
+      const html = ` <div class="product-search-box">
+      <a href="detail.html?id=${data.id}"></a>
+      <img src="${data.data.images[0]}" alt="" class="product-img">
+      <div class="search-product-content">
+          <div class="product-stars-search">${stars}</div>
+          <span class="product-sr-name">${data.data.name}</span>
+          <span class="product-sr-category">${data.data.category}</span>
+      </div>
+      <span class="see-detail"><i data-feather="chevron-right"></i></span>
+      </div>`;
+      container.insertAdjacentHTML("beforeend", html);
+    });
+    feather.replace();
   }
 }
 const view = new MainView();

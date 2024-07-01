@@ -115,7 +115,7 @@
 .add-product-to-cart div {
     display: flex;
     gap: 2rem;
-    align-items: center;
+    flex-direction: column;
     margin-bottom: 3rem;
 }
 
@@ -123,6 +123,7 @@
     padding: 1rem;
     font-family: inherit;
     font-size: inherit;
+    width: 20rem;
     border: 1px solid var(--Grey-3);
 }
 

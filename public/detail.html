@@ -51,7 +51,7 @@
             <h1 class="main-logo">Derby<span>.</span></h1>
             <div class="search-input-div">
                 <i data-feather="search"></i>
-                <input type="text" placeholder="Procurar producto" class="search-input">
+                <input type="text" placeholder="Procurar producto" class="search-input" readonly>
             </div>
             <div class="cart-btn">
                 <span class="total-product-cart">2</span>
@@ -166,8 +166,8 @@
                 <div class="add-product-to-cart">
                     <div>
 
-                        <input type="number" placeholder="Quantidade" min="0">
                         <span class="total-amount">$0</span>
+                        <input type="number" placeholder="Quantidade" min="0">
                     </div>
                     <button class="add-product-to-cart-btn">Comprar <i data-feather="shopping-cart"></i></button>
                 </div>
@@ -377,6 +377,34 @@
             </div>
             <button class="btn-login-admin">Verificar</button>
         </form>
+    </div>
+    <div class="main-search-container hidden">
+        <div class="overlay-search"></div>
+        <div class="search-container">
+            <h2 class="heading-h2">Procurar producto <span class="btn-close-search"><i data-feather="x"></i></h2>
+            <form class="search-product-div">
+                <input type="text" class="search-product-input" placeholder="Procurar producto"> <button
+                    class="search-product-btn"><i data-feather="search"></i></button>
+            </form>
+            <div class="result-container">
+                <span class="search-tag">Resultados de <span class="searched"></span></span>
+                <div class="search-result-ontainer">
+                    <!-- <div class="product-search-box">
+                        <a href="detail.html">link</a>
+                        <img src="src/public/img/product02.png" alt="" class="product-img">
+                        <div class="search-product-content">
+                            <div class="product-stars-search"><i data-feather="star"></i></div>
+                            <span class="product-sr-name">Auricular</span>
+                            <span class="product-sr-category">Acessórios</span>
+                        </div>
+                        <span class="see-detail"><i data-feather="chevron-right"></i></span>
+                    </div> -->
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
     <footer>
         <div class="main-container">

@@ -87,13 +87,17 @@ class adminClass {
     //   alert("");
   }
 
-  _renderAdminProduct(list) {
+  _renderAdminProduct(list, value) {
     const producList = document.querySelector(".admin-grid");
     if (!producList) return;
-    console.log(list);
+    if (list.length < 1) {
+      producList.insertAdjacentHTML(
+        "beforeend",
+        `<span class="">Sem resultado para "${value}"</span>`
+      );
+    }
     producList.innerHTML = "";
     list.forEach((item) => {
-      console.log(item.data);
       const html = `
     <div class="product-box-admin" data-id="${item.id}">
     <img src="${item.data.images[0]}" alt="">

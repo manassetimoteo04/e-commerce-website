@@ -11,6 +11,7 @@ import { GET_URL_ID } from "./getUrlParamID.js";
 import { rating } from "./features/rating.js";
 import { newOrder } from "./features/order.js";
 import { FORMAT_NUMBERS } from "./features/formatting.js";
+import { SEARCH } from "./features/searchFilter.js";
 class Controller {
   currentQty = 1;
 
@@ -20,6 +21,8 @@ class Controller {
     );
     this.btnShowAdminLogin = document.querySelector(".btn-show-admin-login");
     this.btnLoginAdmin = document.querySelector(".btn-login-admin");
+    this.btnShowSearchContainer = document.querySelector(".search-input");
+    this.containerSeacrh = document.querySelector(".main-search-container");
     this.allProductsContainer = document.querySelector(".main-product-list");
     this.cartContainer = document.querySelector(".cart-container");
     this.btnShowCart = document.querySelector(".cart-btn");
@@ -28,6 +31,14 @@ class Controller {
     this.header = document.querySelector(".logo-heading");
     this.btnFinilizeOrder = document.querySelector(".btn-finilize-order");
     this.cartList = document.querySelector(".cart-list");
+    this.btnShowSearchContainer?.addEventListener(
+      "click",
+      this._showSearchContainer.bind(this)
+    );
+    this.containerSeacrh?.addEventListener(
+      "click",
+      this._closeSearchContaine.bind(this)
+    );
     this.cartList?.addEventListener("click", this._updateQuantity.bind(this));
     this.btnShowCart?.addEventListener(
       "click",
@@ -56,6 +67,16 @@ class Controller {
       this._closeLoginAdminForm.bind(this)
     );
     this.btnLoginAdmin?.addEventListener("click", this._loginAdmin.bind(this));
+  }
+  _showSearchContainer() {
+    this.containerSeacrh.classList.remove("hidden");
+  }
+  _closeSearchContaine(e) {
+    const target = e.target;
+    if (target.closest(".overlay-search"))
+      this.containerSeacrh.classList.add("hidden");
+    if (target.closest(".btn-close-search"))
+      this.containerSeacrh.classList.add("hidden");
   }
   _redirectToCheckout() {
     window.location.href = "./order.html";
