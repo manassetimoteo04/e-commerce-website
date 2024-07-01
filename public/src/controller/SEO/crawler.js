@@ -38,6 +38,8 @@ class Crawler {
 
   // Método para atualizar meta tags dinamicamente
   atualizarMetaTags(produto) {
+    const meta = document.querySelector('meta[property="og:title"]');
+    if (!meta) return;
     if (produto) {
       document
         .querySelector('meta[property="og:title"]')

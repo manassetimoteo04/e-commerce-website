@@ -39,9 +39,7 @@ class PRODUCT_CRUD {
   _addNewProduct(e) {
     e.preventDefault();
     const productName = document.querySelector(".input-product-name").value;
-    const productCategory = document.querySelector(
-      ".input-product-category"
-    ).value;
+    const productCategory = document.querySelector(".select-category").value;
     const productPrice = document.querySelector(".input-product-price").value;
     const productDescription = document.querySelector(
       ".input-product-description"
