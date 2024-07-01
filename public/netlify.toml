@@ -1,0 +1,20 @@
+# netlify.toml
+
+[[redirects]]
+  from = "https://www.derbycommerce.netlify.app/*"
+  to = "https://derbycommerce.netlify.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.derbycommerce.netlify.app/*"
+  to = "https://derbycommerce.netlify.app/:splat"
+  status = 301
+  force = true
+
+# Redirecionamento genérico de www para sem www
+[[redirects]]
+  from = "/www/*"
+  to = "/:splat"
+  status = 301
+  force = true
