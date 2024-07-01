@@ -94,23 +94,31 @@ class Rating {
     const bar3 = document.querySelector(".progress_3");
     const bar4 = document.querySelector(".progress_4");
     const bar5 = document.querySelector(".progress_5");
-    const totalRateLabel = document.querySelector(".total-rate");
     bar1.style.width = `${(rated.star_1.rate / rated.totalRating) * 100}%`;
     bar2.style.width = `${(rated.star_2.rate / rated.totalRating) * 100}%`;
     bar3.style.width = `${(rated.star_3.rate / rated.totalRating) * 100}%`;
     bar4.style.width = `${(rated.star_4.rate / rated.totalRating) * 100}%`;
     bar5.style.width = `${(rated.star_5.rate / rated.totalRating) * 100}%`;
 
-    let maxRate = -Infinity;
-    let acc = 0;
-    for (const key in rated) {
-      if (key !== "totalRating" && rated[key].rate > maxRate) {
-        maxRate = rated[key].rate;
-        acc = rated[key].stars;
-      }
+    this._calculateAverageRating(rated);
+  }
+  _calculateAverageRating(ratingsCount) {
+    let totalRatings = 0;
+    let totalCount = 0;
+    const totalRateLabel = document.querySelector(".total-rate");
+
+    for (let i = 1; i <= 5; i++) {
+      const ratingKey = `star_${i}`;
+      totalRatings +=
+        ratingsCount[ratingKey].rate * ratingsCount[ratingKey].stars;
+      totalCount += ratingsCount[ratingKey].rate;
     }
-    totalRateLabel.textContent = acc.toFixed(1);
-    this._settingStars(acc);
+    console.log("Object", ratingsCount);
+    let tot = (totalRatings / totalCount).toFixed(1);
+
+    totalRateLabel.textContent = tot > 0 ? tot : "0.0";
+    const avarage = Math.round((totalRatings / totalCount) * 2) / 2;
+    this._settingStars(avarage);
   }
   _settingStars(s) {
     let star = "";
@@ -124,6 +132,7 @@ class Rating {
       cont.innerHTML = "";
       cont.insertAdjacentHTML("afterbegin", star);
     });
+    return star;
   }
 
   _gettingProductComment() {

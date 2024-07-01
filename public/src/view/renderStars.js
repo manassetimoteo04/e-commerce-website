@@ -28,16 +28,19 @@ class RenderStar {
       totalRating: totalRating,
     };
 
-    let maxRate = -Infinity;
-    let acc = 0;
-    for (const key in returned) {
-      if (key !== "totalRating" && returned[key].rate > maxRate) {
-        maxRate = returned[key].rate;
-        acc = returned[key].stars;
-      }
+    return this._calculateAverageRating(returned);
+  }
+  _calculateAverageRating(ratingsCount) {
+    let totalRatings = 0;
+    let totalCount = 0;
+    for (let i = 1; i <= 5; i++) {
+      const ratingKey = `star_${i}`;
+      totalRatings +=
+        ratingsCount[ratingKey].rate * ratingsCount[ratingKey].stars;
+      totalCount += ratingsCount[ratingKey].rate;
     }
-
-    return acc;
+    const avarage = Math.round((totalRatings / totalCount) * 2) / 2;
+    return avarage;
   }
   _renderStars(s) {
     let star = "";
