@@ -52,6 +52,12 @@ class Order {
             `;
     this.orderProductList.insertAdjacentHTML("afterbegin", html);
   }
+  _updateProductSales() {
+    alert();
+    this.cart.forEach((data) => {
+      FIREBASE.incrementProductSell(data.id, data.quantity);
+    });
+  }
   _takingClientInformation() {
     const clientNameInput = document.querySelector(".full-name-order-input");
     const clientEmail = document.querySelector(".email-order-input");
@@ -101,6 +107,7 @@ class Order {
     const data = this._takingClientInformation();
     this._sendingOrderToWhatsapp();
     this._sendingOrderToFirebase();
+    this._updateProductSales();
     this._removingCartToLocalStorage();
   }
 }

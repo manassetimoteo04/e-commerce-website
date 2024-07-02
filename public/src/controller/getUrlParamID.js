@@ -21,7 +21,7 @@ class GET_PRODUCT_BY_URL {
       FIREBASE.getProducts().then((data) => {
         id = data[0].id;
         FIREBASE.getProductById(id).then((data) => {
-          document.title = `${data.name} - Derby commercy`;
+          // document.title = `${data.name} - Derby commercy`;
           detail._settingCurrentProductDetail(data);
           crawler.atualizarMetaTags(data);
           linkView._gettingRelatedProduct(data.category);

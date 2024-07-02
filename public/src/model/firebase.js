@@ -11,6 +11,7 @@ import {
   runTransaction,
   doc,
   getDoc,
+  increment,
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 import {
   getStorage,
@@ -111,7 +112,7 @@ class endpointsApp {
         images: imageUrls,
         date: new Date().toISOString(),
         rating: 0,
-        sales: Math.trunc(Math.random() * 20) + 1,
+        sales: 0,
         comments: [],
       });
       document.querySelector("#spinner").classList.add("hidden");
@@ -171,7 +172,18 @@ class endpointsApp {
       console.error("Erro ao atualizar produto: ", e);
     }
   }
-
+  async incrementProductSell(productId, incrementValue) {
+    const productRef = doc(this.db, "productos", productId);
+    try {
+      await updateDoc(productRef, {
+        sales: increment(incrementValue),
+      });
+      const productDoc = await getDoc(productRef);
+      console.log("Campo incrementado com sucesso!", productDoc.data());
+    } catch (error) {
+      console.error("Erro ao incrementar o campo: ", error);
+    }
+  }
   // Função para excluir um produto
   async deleteProduct(productId) {
     try {

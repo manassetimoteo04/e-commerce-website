@@ -43,7 +43,6 @@ class ProductApp {
       .filter((rate) => rate.rating === 1)
       .reduce((acc, arr) => acc + 1, 0);
     const totalRating = star_1 + star_2 + star_3 + star_4 + star_5;
-    console.log(totalRating);
     const returned = {
       star_1: { rate: star_1, stars: 1 },
       star_2: { rate: star_2, stars: 2 },

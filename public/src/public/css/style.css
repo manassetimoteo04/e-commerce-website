@@ -383,11 +383,12 @@ header {
     height: 24rem;
     position: relative;
     overflow: hidden;
+    border-radius: 1rem;
     background-color: var(--Grey);
 }
 
 .collection-box:hover::after {
-    width: 200%;
+    width: 300%;
     height: 200%;
     left: 0;
     top: 0;
@@ -486,7 +487,6 @@ header {
     background-color: var(--Grey-2);
     transition: all 0.5s;
     overflow: hidden;
-    width: 100%;
     border-radius: 1rem;
 }
 
@@ -497,8 +497,7 @@ header {
 }
 
 .new-product-box .img-box img {
-    height: 100%;
-    width: auto;
+    height: auto;
 }
 
 /* .new-product-box::after {
@@ -515,9 +514,7 @@ header {
 } */
 
 
-.new-product-box img {
-    width: 100%;
-}
+.new-product-box img {}
 
 .new-product-content {
     display: flex;

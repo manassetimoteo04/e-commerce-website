@@ -75,9 +75,7 @@ class MainView {
 
       const html = `
           <div class="top-sell-product-box ">
-          <a href="detail.html?id=${item.id}&category=${
-        item.data.category
-      }&name=${item.data.name}" class="most-selled-link"></a>
+          <a href="detail.html?id=${item.id}" class="most-selled-link"></a>
           <img src="${item.data.images[0]}" alt="${item.data.name} ${
         item.data.category
       }">
@@ -163,5 +161,3 @@ class MainView {
 const view = new MainView();
 
 export { view };
-
-

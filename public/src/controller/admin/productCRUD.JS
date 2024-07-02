@@ -21,7 +21,6 @@ class PRODUCT_CRUD {
     );
     FIREBASE.getCategories().then((data) => {
       this._renderCategoriesAdminForm(data);
-      console.log(data);
     });
   }
   //ADMIN CATEGORIES LIST
@@ -81,7 +80,6 @@ class PRODUCT_CRUD {
     navigator.clipboard
       .writeText(textToCopy)
       .then((text) => {
-        console.log("Texto copiado para o clipboard!", text);
         alert("link copiado");
       })
       .catch(function (error) {
@@ -259,7 +257,6 @@ class AdminController extends PRODUCT_CRUD {
       ".product-description-admin"
     );
     const productLast = document.querySelector(".product-admin-last");
-    console.log(productName, productPrice);
     const productImg = document.querySelectorAll(".admin-slide-img");
     let datat;
     FIREBASE.getProductById(targetId).then((data) => {
@@ -321,7 +318,6 @@ class AdminController extends PRODUCT_CRUD {
         admin._renderAdminProduct(data);
       });
       this.newProductFormContainer.classList.add("hidden");
-      console.log(this.currentProductId, data);
     } else alert("Preencha todos campos para actualizar");
   }
 }

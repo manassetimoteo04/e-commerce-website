@@ -12,6 +12,7 @@ import { rating } from "./features/rating.js";
 import { newOrder } from "./features/order.js";
 import { FORMAT_NUMBERS } from "./features/formatting.js";
 import { SEARCH } from "./features/searchFilter.js";
+import { mostSelled } from "./features/getMostSelled.js";
 class Controller {
   currentQty = 1;
 
@@ -149,7 +150,6 @@ class Controller {
     const id = parent.dataset.id;
     const totalLabel = parent.querySelector(".total-amount-product");
     const price = parent.querySelector(".product-cart-price");
-    console.log(totalLabel);
     if (target.closest(".decrease-quantity"))
       this._downQuantity(
         target.closest(".decrease-quantity"),
@@ -237,8 +237,7 @@ class LinkView {
   }
   _gettingMostSelledProducts(list) {
     FIREBASE.getProducts().then((data) => {
-      const sort = data.sort((a, b) => a.data.sales - b.data.sales);
-      const returned = data.splice(-6);
+      const returned = mostSelled._sortBySell(data);
       view._renderMostSelledProduct(returned);
       product._renderMostSelledProducts(returned);
     });
@@ -255,7 +254,6 @@ class LinkView {
       const sort = data.filter((data) => {
         return data.data.category === category;
       });
-      console.log(sort);
       const returned = data.splice(-8);
       detail._renderRelatedProduct(sort);
     });
@@ -279,6 +277,7 @@ class LinkView {
         });
       }
       product._paginationAllProducts(this.arrHelper);
+      product._renderMostSelledProducts(mostSelled._sortBySell(this.arrHelper));
     });
   }
 }
