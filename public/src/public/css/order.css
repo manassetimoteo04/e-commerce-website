@@ -84,6 +84,11 @@
     margin-bottom: 4rem;
 }
 
+.order-product-list p {
+    width: 100%;
+    text-align: center;
+}
+
 .product,
 .shipp-div {
     display: flex;
@@ -121,4 +126,59 @@
 
 .obs-text {
     line-height: 1.6;
+}
+
+.order-send-success-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.651);
+    z-index: 9999999999999999999999999999;
+    backdrop-filter: blur(1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-cart-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.651);
+    z-index: 9999999;
+    backdrop-filter: blur(1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-box {
+    background-color: #fff;
+    padding: 2rem;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    align-items: center;
+}
+
+.message-box svg {
+    color: rgb(96, 102, 39);
+}
+
+.back-to-home,
+.back-to-add {
+    background-color: var(--Grey-4);
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 1rem;
 }

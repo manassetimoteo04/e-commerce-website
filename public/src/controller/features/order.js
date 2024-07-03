@@ -15,8 +15,23 @@ class Order {
       "click",
       this._sendOrder.bind(this)
     );
+    if (!this.cart || this.cart.length < 1) {
+      this._emptyCartAlert();
+    }
+    this._loadingAllCart();
+    this._cartListLoop();
+  }
+  _cartListLoop() {
+    if (!this.orderProductList) return;
+    if (!this.cart || this.cart.length < 1) {
+      this.orderProductList.innerHTML = "";
+      this.orderProductList.insertAdjacentHTML(
+        "afterbegin",
+        " <p>O carrinho está vazio</p>"
+      );
+    }
     this.cart.forEach((product) => {
-      if (!this.orderProductList) return;
+      this.orderProductList.innerHTML = "";
       this.orderProductList.innerHTML = "";
       FIREBASE.getProductById(product.id).then((data) => {
         if (!data) return;
@@ -27,7 +42,6 @@ class Order {
         );
       });
     });
-    this._loadingAllCart();
   }
   _loadingAllCart() {
     this.loadedCart = [];
@@ -53,7 +67,6 @@ class Order {
     this.orderProductList.insertAdjacentHTML("afterbegin", html);
   }
   _updateProductSales() {
-    alert();
     this.cart.forEach((data) => {
       FIREBASE.incrementProductSell(data.id, data.quantity);
     });
@@ -92,8 +105,8 @@ class Order {
     const order = {
       ...this._takingClientInformation(),
       products: this.cart,
+      date: new Date().toISOString(),
     };
-    console.log(order);
     FIREBASE.newOrder(order);
   }
   _sendingOrderToWhatsapp() {
@@ -103,12 +116,37 @@ class Order {
   _removingCartToLocalStorage() {
     localStorage.removeItem("cartList");
   }
+  _sentSuccessMessage() {
+    const msgContainer = document.querySelector(
+      ".order-send-success-container"
+    );
+    setTimeout(() => msgContainer.classList.remove("hidden"), 2000);
+    const btn = document.querySelector(".back-to-home");
+    btn.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  }
   _sendOrder() {
+    if (!this.cart || this.cart.length < 1) {
+      this._emptyCartAlert();
+      return;
+    }
     const data = this._takingClientInformation();
     this._sendingOrderToWhatsapp();
     this._sendingOrderToFirebase();
     this._updateProductSales();
     this._removingCartToLocalStorage();
+    this._sentSuccessMessage();
+  }
+  _emptyCartAlert() {
+    const alertContainer = document.querySelector(".empty-cart-container");
+    if (!alertContainer) return;
+    alertContainer.classList.remove("hidden");
+    const btn = document.querySelector(".back-to-add");
+    btn.addEventListener(
+      "click",
+      () => (window.location.href = "products.html")
+    );
   }
 }
 const newOrder = new Order();

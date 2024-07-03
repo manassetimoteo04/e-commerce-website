@@ -44,7 +44,8 @@ class endpointsApp {
   };
   constructor() {
     // Inicializa o Firebase
-
+    this.btnTryAgain = document.querySelector(".try-again");
+    this.btnTryAgain?.addEventListener("click", this._tryAgain);
     this.app = initializeApp(this.#firebaseConfig);
     // Inicializa o Firestore
     this.db = getFirestore(this.app);
@@ -53,6 +54,15 @@ class endpointsApp {
     // this.addProduct("Produto 1", "Descrição do Produto 1", 100.0);
     this.getProductById("pYrvCxSeOfVqyrnZ7QSj");
     // this.getProducts();
+  }
+  _tryAgain() {
+    location.reload();
+  }
+  _renderError(message) {
+    const errorContainer = document.querySelector(".error-container");
+    const errorMessage = document.querySelector(".error-message");
+    errorContainer.classList.remove("hidden");
+    errorMessage.textContent = `${message} Verifique a conexão de internet e tente novamente`;
   }
   // Função para criar categoria
   async newCategory(name) {
@@ -63,7 +73,8 @@ class endpointsApp {
       });
       document.querySelector("#spinner").classList.add("hidden");
     } catch (error) {
-      console.error("Erro ao adicionar Categoria: ", error);
+      const msg = "Erro ao adicionar Categoria, ";
+      this._renderError(msg);
     }
   }
   // Função para obter todos os categoriass
@@ -83,7 +94,8 @@ class endpointsApp {
 
       return list;
     } catch (e) {
-      console.error("Erro ao obter produtos: ", e);
+      const msg = "Erro de conexão com banco de dados, ";
+      this._renderError(msg);
     }
   }
 
@@ -117,7 +129,8 @@ class endpointsApp {
       });
       document.querySelector("#spinner").classList.add("hidden");
     } catch (error) {
-      console.error("Erro ao adicionar produto: ", error);
+      const msg = "Erro de conexão com banco de dados, ";
+      this._renderError(msg);
     }
   }
 
@@ -140,7 +153,8 @@ class endpointsApp {
       //   console.log(`${doc.id} =>`, doc.data());
       return list;
     } catch (e) {
-      console.error("Erro ao obter produtos: ", e);
+      const msg = "Erro de conexão com banco de dados, ";
+      this._renderError(msg);
     }
   }
 
@@ -157,7 +171,8 @@ class endpointsApp {
         return null;
       }
     } catch (e) {
-      console.error("Erro ao obter produtos: ", e);
+      const msg = "Erro obter as informações, ";
+      this._renderError(msg);
     }
   }
   // Função para atualizar um produto
@@ -169,7 +184,8 @@ class endpointsApp {
       await updateDoc(productRef, updatedData);
       document.querySelector("#spinner").classList.add("hidden");
     } catch (e) {
-      console.error("Erro ao atualizar produto: ", e);
+      const msg = "Erro ao actualizar o producto, ";
+      this._renderError(msg);
     }
   }
   async incrementProductSell(productId, incrementValue) {
@@ -181,7 +197,8 @@ class endpointsApp {
       const productDoc = await getDoc(productRef);
       console.log("Campo incrementado com sucesso!", productDoc.data());
     } catch (error) {
-      console.error("Erro ao incrementar o campo: ", error);
+      const msg = "Erro de conexão com banco de dados, ";
+      this._renderError(msg);
     }
   }
   // Função para excluir um produto
@@ -214,7 +231,8 @@ class endpointsApp {
         // if (images.length === 0) return;
       });
     } catch (error) {
-      console.error("Erro ao excluir produto e imagens:", error);
+      const msg = "Erro ao excluir o producto, ";
+      this._renderError(msg);
     }
   }
   async _addProductComment(data, productId) {
@@ -227,7 +245,8 @@ class endpointsApp {
 
       console.log("Comentário adicionado com sucesso!");
     } catch (error) {
-      console.error("Erro ao adicionar comentário:", error);
+      const msg = "Erro de conexão com banco de dados, ";
+      this._renderError(msg);
     }
   }
   async newOrder(data) {
@@ -237,7 +256,8 @@ class endpointsApp {
       document.querySelector("#spinner").classList.add("hidden");
       console.log("Produto Enviado com ID:", docRef.id);
     } catch (error) {
-      console.error("Erro ao adicionar produto: ", error);
+      const msg = "Erro de enviar o pedido, ";
+      this._renderError(msg);
     }
   }
 
@@ -260,7 +280,8 @@ class endpointsApp {
       //   console.log(`${doc.id} =>`, doc.data());
       return list;
     } catch (e) {
-      console.error("Erro ao obter order: ", e);
+      const msg = "Erro ao processar os pedidos, ";
+      this._renderError(msg);
     }
   }
 
@@ -277,7 +298,8 @@ class endpointsApp {
         return null;
       }
     } catch (e) {
-      console.error("Erro ao obter produtos: ", e);
+      const msg = "Erro de conexão com banco de dados, ";
+      this._renderError(msg);
     }
   }
   async adminLogin(email, password) {

@@ -12,17 +12,20 @@ class OrderView {
     if (!this.orderList) return;
     this.orderList.innerHTML = "";
     list.forEach((element) => {
-      console.log(element);
       const html = `
       <div class="order-box" data-id="${element.id}">
      <span class="client-initial">${element.data.name[0]}</span>
      <div class="order-content-box">
          <div class="header-box">
              <span class="client-name">${element.data.name}</span>
-             <span class="order-date">10/07/2024</span>
+             <span class="order-date">${FORMAT_NUMBERS.formatDates(
+               new Date(element.data.date)
+             )}</span>
          </div>
          <div class="header-box">
-             <span class="total-articles">Artigos <span>(${element.data.products.length})</span></span>
+             <span class="total-articles">Artigos <span>(${
+               element.data.products.length
+             })</span></span>
 
          </div>
          </div>

@@ -21,6 +21,7 @@
     <meta property="product:category" content="Categoria do Produto">
     <meta property="product:brand" content="Marca do Produto"> -->
     <meta name="google-site-verification" content="UY0B8WeR5c160LMDKxViT98eZK46k3PWAQt6fSl_4fA" />
+
     <link rel="stylesheet" href="./src/public/css/style.controller.css">
     <script defer src="https://unpkg.com/feather-icons"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -237,7 +238,7 @@
     <div class="top-selling-products main-container">
         <h2 class="heading-h2">Productos mais vendidos</h2>
         <div class="top-selling-products-grid">
-            <div class="top-sell-product-box">
+            <!-- <div class="top-sell-product-box">
                 <img src="src/img/product01.png" alt="">
                 <div class="top-sell-product-content">
                     <span class="product-category">Laptop</span>
@@ -248,103 +249,8 @@
                         <span class="top-selling-last-price">$4098,00</span>
                     </div>
                 </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product02.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
+            </div> -->
 
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product03.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
-
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product04.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
-
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product05.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
-
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product06.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
-
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product07.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
-
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product08.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
-
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="top-sell-product-box">
-                <img src="src/img/product09.png" alt="">
-                <div class="top-sell-product-content">
-                    <span class="product-category">Laptop</span>
-                    <span class="product-name">Macbook Pro Core I5</span>
-
-                    <div class="top-selling-price">
-                        <span class="top-selling-curr-price">$3495,00</span>
-                        <span class="top-selling-last-price">$4098,00</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -393,6 +299,16 @@
 
         </div>
     </div>
+
+    <div class="error-container hidden">
+        <div class="error-message-box">
+            <i data-feather="wifi-off"></i>
+            <span class="error-header">Ups! Algo Correu mal</span>
+            <span class="error-message">Verifique a conexão de internet e tente novamente</span>
+
+            <span class="try-again">Tentar novamente</span>
+        </div>
+    </div>
     <footer>
         <div class="main-container">
             <div class="footer-grid">
@@ -439,6 +355,8 @@
             <span> Copyright &copy; <span class="copy-date">2024</span> todos os direitos reservados</span>
         </div>
     </footer>
+
+
 </body>
 
 </html>
