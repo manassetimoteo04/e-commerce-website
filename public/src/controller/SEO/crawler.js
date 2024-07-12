@@ -1,6 +1,8 @@
-// import Render from "render-js";
+import { FIREBASE } from "../../model/firebase.js";
 
+// import Render from "render-js";
 class Crawler {
+  words = [];
   constructor() {
     this.render = this.render.bind(this);
     this.preRenderPageIfNeeded = this.preRenderPageIfNeeded.bind(this);
@@ -9,6 +11,12 @@ class Crawler {
       const pageUrl = window.location.href;
       this.preRenderPageIfNeeded(pageUrl);
     };
+    FIREBASE.getProducts().then((d) => {
+      d.forEach((i) => {
+        this.words.push(i.data.name, i.data.category);
+      });
+      this._setMetaKeWoarsd(this.words.join(","));
+    });
   }
 
   // Método para renderizar uma URL usando Render.js
@@ -55,8 +63,13 @@ class Crawler {
         .setAttribute("content", produto.url);
       document
         .querySelector('meta[property="og:type"]')
-        .setAttribute("content", "product");
+        .setAttribute("content", produto.category);
     }
+  }
+  _setMetaKeWoarsd(con) {
+    document
+      .querySelector('meta[name="keywords"]')
+      .setAttribute("content", con);
   }
 }
 
